@@ -1,0 +1,358 @@
+Unit IX
+
+Intellectual Property
+
+
+1
+Dr Daniel Lun     June 2024
+https://www.clic.org.hk/en/topics/intellectualProperty/
+What is intellectual property?
+Property – something that can be owned
+Like real estate
+Can be sold or bought (transferred from one person to another)
+Sophisticated forms of transactions apply, as bound by local legislation
+Intellectual – Something out of the mind
+There must be a person or group of people who create(s) it
+
+
+2
+Dr Daniel Lun     June 2024
+Basic rules
+The very first basic rule is “ownership is automatic”
+When I create something, I own it
+The second basic rule is “transferability”
+I can sell mine or buy others’
+More rules (laws and ordinances)
+In developed countries, there are a lot of rules bound by law regarding how IPs are transferred, used, and protected. The spirit is to provide a level playing field for all and to encourage creativity
+
+
+
+3
+Dr Daniel Lun     June 2024
+Different kinds of intellectual properties
+IP is divided into two categories:
+Industrial property – patents, trademarks, industrial designs, etc.
+Copyright – literary, artistic works such as novels, poems, and plays, films, musical works, drawings, etc.
+In engineering research, research results often lead to patents (such as new industrial designs) and copyrights of papers, books, data sets, etc.
+
+
+4
+Dr Daniel Lun     June 2024
+Patent and copyright
+What is a Patent?
+A patent is a legal document usually issued by a government that provides protection for an invention in that country
+E.g., the US patents are issued by the Patent Office of the US federal government 
+A patent gives the inventor to stop others from making, using, selling, or even importing the patented invention
+However, a patent usually has regional limitations
+A US patent does not afford protection in another country such as China
+
+
+
+5
+Dr Daniel Lun     June 2024
+Where did the patent system come from?
+The first statutory patent system is generally regarded to be the Venetian Patent Statute of 1474 
+6
+Dr Daniel Lun     June 2024
+The Venetian Patent Statute
+https://en.wikipedia.org/wiki/Patent
+The Senate of Venice was concerned that the knowhow in glass making might be lost due to the emigration or death of artisans
+It asked its skilled glassmakers to share their knowledge by training apprentices, rather than taking their secrets abroad or to the grave
+The glassmakers were understandably reluctant because they feared competition from the younger generation
+The Senate offered them protection from competition for a limited period in exchange for the sharing of their knowledge
+This marked the birth of the patent system
+Inventors published their technical secrets in return for a short-lived exclusive right to their new technology
+Why do we need Patents?
+Patents obliterate competition
+Patents create a barrier to entry, which blocks others from copying the idea to sell a similar product in direct competition
+Compensate the risk and investment in developing new ideas
+Important for SMEs to compete against large corporations which have more resources
+Generate revenue
+By controlling the supply in the market
+By licensing or selling the patents to other companies. E.g.,
+Microsoft’s purchase of 800 patents from AOL for over $1 billion in 2012
+The sale of Nortel Networks’ patent for $4.5 billion in 2011
+Increase company valuation
+A strong patent portfolio attracts investors, particularly important for startups
+
+7
+Dr Daniel Lun     June 2024
+Patents increase technology startups’ valuation
+From a study [1] of Germany and the UK biotechnology industry, companies with good patent portfolios could more easily attract venture capital investment 
+
+8
+Dr Daniel Lun     June 2024
+[1] Carolin Haeussler, Dietmar Harhoff, Elisabeth Mueller, “How patenting informs VC investors – The case of biotechnology,” Research Policy, Volume 43, Issue 8, 2014, Pages 1286-1298
+What can be patented?
+Three criteria for an invention to be patented
+Novelty – Novelty refers to innovations in an invention and must not be based on any existing knowledge or prior art
+Non-obviousness – The invention should be non-obvious, that is someone familiar with the art should not be able to predict similar steps thereby making the invention completely unique
+Usefulness – The invention must be useful at least in some specific situations
+No need to implement the invention before applying for a patent. Thus, the feasibility of realizing the invention is not a criterion for patenting
+
+
+Dr Daniel Lun     June 2024
+9
+How to get a Patent?
+Need to prepare a patent document for examination by a related government office
+Such as the Patent Office of the US government
+Usually prepared by a patent attorney although the inventors can do it themselves
+Prepared in a way that someone could realize the invention using the patent as a guide
+No need to provide every technical detail as they may not be available anyway
+Need to explain the application of the invention and why the proposed idea is novel
+Should include a survey of existing similar ideas
+If a patent application is granted, the inventor will have the right to stop others from using the invention for 20 years in general
+Also have some short-term patents (less than 5 years) that are easier to apply
+10
+Dr Daniel Lun     June 2024
+How do we know if an idea was patented?
+Many countries have developed their own databases for people to search for issued patents. E.g., in the US,
+United States Patent and Trademark Office (USPTO) Patent Full-Text Databases
+Full-image patents from 1790 to present
+Google patent
+Content is provided by USPTO. The entire collection is full-text searchable 
+Free Patents Online
+Includes U.S. patents and applications as well as European patents (EP) and World Intellectual Property Organization (WIPO) documents
+11
+Dr Daniel Lun     June 2024
+Interesting patents 
+What can be more annoying than receiving an urgent phone call while halfway through a shower?
+Patented in 2006, inventor Giuseppe Righini was thinking particularly of those who live alone or are only at home for short amounts of time, for whom taking a shower while waiting for an “extremely urgent call” can be a “genuine problem”. 
+Dr Daniel Lun     June 2024
+12
+https://www.wipo.int/web/patents/2023-patent-picks
+Interesting patents 
+This combined pet umbrella and leash, patented by Irina Zhadan-Milligan and Yuri Zhadan in 2005, will “protect [your] pet from inclement weather conditions while also serving as a leash for the pet in both umbrella canopy opened and closed positions”.
+Dr Daniel Lun     June 2024
+13
+https://www.wipo.int/en/web/patents/2021_patent_picks
+Copyright
+What is Copyright?
+Copyright is the right given to the owner of an original work as soon as the author fixes the work in a tangible form of expression
+Original work – Independently created by a human author and has a minimal degree of creativity
+Thus, titles, names, short phrases, slogans, etc., do not have copyright
+Fixed work – Captured (either by or under the authority of an author) in a sufficiently permanent medium
+The work can be perceived, reproduced, or communicated for more than a short time
+ E.g., paintings, photographs, illustrations, musical compositions, sound recordings, computer programs, books, poems, blog posts, movies, plays, papers … 
+
+
+
+14
+Dr Daniel Lun     June 2024
+What is Copyright?
+Copyright only protects expressions, but not ideas, procedures, methods, systems, processes, concepts, principles, or discoveries if they have not been fixed as expressions
+Thus, two different expressions of the same idea can form two different copyrights
+A storyline about two families disallowing their children to be in love does not have a copyright
+Based on that storyline, the novels “Romeo and Juliet” and “West Side Story” have their own copyright 
+Because the idea is fixed in two different expressions – different eras, settings, etc., to allow substantial differences in creative contents
+
+
+
+Dr Daniel Lun     June 2024
+15
+What can be done with the copyright?
+Copyright law provides copyright owners with the following exclusive rights:
+Reproduce the work in copies or phonorecords
+Prepare derivative works based upon the work (such as translating a work to another language)
+Distribute copies or phonorecords of the work to the public by sale or other transfer of ownership or by rental, lease, or lending
+Perform the work publicly if it is a literary, musical, dramatic, or choreographic work; a pantomime; or a motion picture or other audiovisual work
+Display the work publicly if it is a literary, musical, dramatic, or choreographic work; a pantomime; or a pictorial, graphic, or sculptural work. This right also applies to the individual images of a motion picture or other audiovisual work
+Perform the work publicly by means of a digital audio transmission if the work is a sound recording
+
+
+
+Dr Daniel Lun     June 2024
+16
+Who own a copyright?
+The ownership of a copyright is automatic – once an author creates an original work and fixes it, he/she owns its copyright. No need to register a copyright
+There is no official registry in HK for registration of copyright works
+As an exception, the US has a registration office for copyright
+The duration of the ownership is usually 50 years after the death of the author
+Companies, organizations, and other people besides the work’s creator can also be copyright owners
+Copyright law allows ownership through “works made for hire,” which establishes that works created by an employee within the scope of employment are owned by the employer
+Like other IPRs, copyright can be transferred by assignment or licensing
+Licensing – Share the right for specific acts 
+Assignment – Transfer of ownership 
+17
+Dr Daniel Lun     June 2024
+
+How to find out who owns the copyright?
+
+
+
+
+Since most countries (including HK) do not have a registry for copyrights, there is no automatic method to check copyright ownership in general
+For published work, can check the provided copyright notice that gives details of copyright ownership
+Otherwise, can contact the author directly to ascertain the owner of the copyright
+
+
+Dr Daniel Lun     June 2024
+18
+https://www.diggypod.com/self-publishing/copyright/
+Example: Long version in books
+Example: Short version in books
+How to find out who owns the copyright?
+There are a few collecting societies in Hong Kong representing authors, publishers, composers, lyricists, and record producers
+The main function is to negotiate licensing terms, grant licenses, and collect license fees on behalf of the copyright owners for the use of their copyright works. 
+For example,
+Hong Kong Reprographic Rights Licensing Society (HKRRLS) – representing authors and publishers of printed works
+Hong Kong Copyright Licensing Association (HKCLA) – representing authors and publishers of 12 local newspapers and 19 local magazines
+Composers and Authors Society of Hong Kong Limited (CASH) – representing composers and lyricists of musical works
+Phonographic Performance (South East Asia) Limited (PPSEAL) – representing producers of musical sound/visual recordings
+
+19
+Dr Daniel Lun     June 2024
+Copyright exception
+Works in the public domain are not protected by the copyright law
+Public domain refers to works that the ownership is unknown or expired. Don’t mix it with publicly accessible. Works publicly accessible on the Web also have copyrights
+A work will be infringed only if a substantial part is taken
+A matter of quality rather than quantity
+A musician who copies a very catchy musical phrase from another musician’s song is likely to infringe its copyright even if that phrase is very short 
+Subject to conditions, fair dealing for research and private study; criticism, review, and news reporting, for use of works in library and school are permitted
+Be careful, photocopying an unreasonable amount of a book is not allowed
+20
+Dr Daniel Lun     June 2024
+Secondary infringement
+Students should also be careful to avoid secondary infringement
+To import into or export from Hong Kong, otherwise than for his private and domestic use, infringing copies of a work.
+To possess, sell, distribute, or otherwise deal with infringing copies of a work for the purpose of trade or business.
+To distribute (like put them in your papers), otherwise than for the purpose of trade or business, infringing copies of a work to such an extent as to affect prejudicially the copyright owner (e.g. loss of income or business opportunities, etc.)
+However, the person will only be liable if he knew or had reason to believe that he was dealing with infringing copies
+If such knowledge or guilty state of mind cannot be proved, that person will not be liable for secondary infringement
+
+
+21
+Dr Daniel Lun     June 2024
+Case study 1
+You are the editor of a journal. One day, you receive a letter from a Russian professor saying that a paper that your journal published recently has content 70% similar to his work published in the USSR 55 years ago. That work was written in Russian and published in a national journal in the USSR. The Russian professor has now translated his work in English and requests your journal to publish it so as to claim he is the owner of the idea. Besides, he also requests the journal to make an open apology since the journal has infringed his copyright. 
+
+
+
+22
+Dr Daniel Lun     June 2024
+What are you going to do in this case?
+Case study 2
+William is a research student on a research team. Recently William developed a new speech recognition technique and published it in an IEEE Transactions. He, on behalf of the team, signed a copyright form to allow IEEE to publish his work. He also posted his paper in his personal blog to allow people to freely download the paper. Since his work is so useful, he suggested to the research team later to organize a workshop to teach people the related techniques. He charges people $1,100 each for registration to the workshop. In return, a set of course notes that include a copy of that paper and a CD that includes all software programs related to that work are distributed to the registrants. The money of the workshop partly will go to the University, partly will go to the research team, including the student. 
+
+
+
+23
+Dr Daniel Lun     June 2024
+Anything(s) that can go wrong in this case?
+Copyright form example 
+IEEE requires the authors to submit the copyright form as on the right before their papers will be published 
+Dr Daniel Lun     June 2024
+24
+Copyright form example 
+Submitting a copyright form does not mean given up all the right of the Work to the publisher
+Authors retain the right of the Work
+Dr Daniel Lun     June 2024
+25
+
+Authors and/or their employers shall have the right to post the accepted version of IEEE-copyrighted articles on their own personal servers or the servers of their institutions or employers without permission from IEEE, provided that the posted version includes a prominently displayed IEEE copyright notice and, when published, a full citation to the original IEEE publication, including a link to the article abstract in IEEE Xplore. Authors shall not post the final, published versions of their papers.
+Who owns the IP at PolyU?
+As stated in the “Policy on Ownership of Intellectual Property (PIP)” of PolyU,
+“Intellectual Property and Materials made and created by students during their study at the University shall be owned by the University and shall vest in the University upon the making and creation of the Intellectual Property and Materials in the following circumstances:
+receives financial support from PolyU in the form of wages, salary, Postgraduate Scholarship, Teaching Postgraduate Studentship or other assistantship for undertaking his/her studies or research in PolyU;
+makes material use of PolyU’s resources for his/her research work;
+receives material guidance and intellectual input from PolyU’s staff for his/her research work; or
+if his/her research work is funded by a grant to PolyU or to him/her by virtue of his/her studies with PolyU.”
+
+
+
+26
+Dr Daniel Lun     June 2024
+Who owns the IP at PolyU?
+Also stated in PIP,
+“If an Intellectual Property created by a Staff Member or student of the University is commercialized upon the authorization of the University, a reasonable share of Net Revenue, if any, generated from such commercialization shall be given to the Inventor of such Intellectual Property and the department or operating unit the Inventor concerned belongs to. Methods and extent of sharing shall be determined by the Management of the University from time to time.”
+Students have the obligation to report to the University (through the department or Knowledge Transfer and Entrepreneurship Office (KTEO)) if they have created any IP in their work
+More details can be found in the “Policy on Ownership of Intellectual Property (PIP)” of PolyU
+
+
+
+27
+Dr Daniel Lun     June 2024
+Who owns the IP at PolyU?
+Although the University owns the IP, the University cannot claim itself as the creator or author of students’ work
+Still – the student is the creator or author
+Besides, the University usually will entrust the inventor (including students) to take care of normal activities related to the IP
+It is built on trust that the inventor will not do something that will infringe on the benefit of the University
+
+
+
+28
+Dr Daniel Lun     June 2024
+Ethical concern of IPR
+The IPR system allows monopolizing a new idea or invention, which often leads to heated debate if it is ethical
+Some criticisms include
+ Copyright laws introduce barriers to access to knowledge
+Thus, under-developed countries have great difficulty advancing their technology level to improve their poverty status
+E.g., many universities in under-developed countries did not have access to IEEE papers due to the huge cost of subscribing to IEEE databases
+Widen the disparity between the rich and the poor
+Patent system allows total control of an invention by individual
+If the invention is essential to the well-being of humans (such as new medicines, new biotechnologies, etc.), allowing monopoly of the invention does not benefit the society at large
+Allowing monopoly can also deter the interest of other people in the research topic and thus delay the advancement of the technology 
+
+29
+Dr Daniel Lun     June 2024
+Case Study 3 – The Turmeric patent case
+Besides, patenting traditional knowledge is questionable ethically since the ownership of traditional knowledge is often controversial
+In 1995, two Indian American scientists at the University of Mississippi were granted a Patent for the use of the healing capacities of Turmeric 
+Turmeric (姜黄) is used as a common condiment in most Indian households
+30
+Dr Daniel Lun     June 2024
+
+ Anusree Bhowmick, Smaranika Deb Roy and Mitu De, ”A Brief Review on the Turmeric Patent Case with Its Implications on the Documentation of Traditional Knowledge,” NDC E-BIOS, Volume 1, pp 83-88 (2021)
+A flavoring and coloring agent in curry powders, mustards, butter, cheese, etc.
+In the ancient Indian medical system, Ayurveda, a poultice of turmeric paste is used to treat common eye infections, dress wounds, treat bites, burns, acne, and various skin diseases
+Case Study 3 – The Turmeric patent case
+The news spread back to India and triggered the nerves of many people including Dr Raghunath Anant Mashelkar, the Director General of the Council of Scientific and Industrial Research (CSIR) 
+As an expert in patenting, he knew it was not right since an invention based on traditional knowledge cannot be novel and non-obvious
+The patent effectively stole a traditional art of Indian people and let two American scientists become the owners of the knowledge
+Dr Mashelkar decided to mount a legal challenge to the patent
+31
+Dr Daniel Lun     June 2024
+
+Anusree Bhowmick, Smaranika Deb Roy and Mitu De, ”A Brief Review on the Turmeric Patent Case with Its Implications on the Documentation of Traditional Knowledge,” NDC E-BIOS, Volume 1, pp 83-88 (2021)
+Dr Mashelkar in 2009
+https://en.wikipedia.org/wiki/Raghunath_Anant_Mashelkar
+Case Study 3 – The Turmeric patent case
+Together with his team in CSIR, he located 32 references in different languages namely Sanskrit, Urdu, and Hindi, and also a paper published in 1953 by the Indian Medical Association to substantiate his claim that using turmeric powder for wound healing purposes is a traditional knowledge in India
+After a year of lawsuit, the US Patent Office (USPTO) revoked the patent, stating that the claims made in the patent were obvious and anticipated, and agreeing that the use of turmeric was an old art of healing wounds
+It was the first time that a patent based on traditional knowledge of a developing country had been successfully challenged
+However, it was not the end of the story
+32
+Dr Daniel Lun     June 2024
+
+Anusree Bhowmick, Smaranika Deb Roy and Mitu De, ”A Brief Review on the Turmeric Patent Case with Its Implications on the Documentation of Traditional Knowledge,” NDC E-BIOS, Volume 1, pp 83-88 (2021)
+Case Study 3 – The Turmeric patent case
+After further investigation, Dr Mashelkar found that patenting traditional knowledge was a common practice in Western countries
+Some medicine companies, in particular, sent people to different countries to collect their traditional medical treatment methods and patent them – known as the biopirate
+Famous case includes the patenting of a treatment for Hodgkin's disease that had come from the periwinkle plant in Madagascar
+Later, Dr Mashelkar also chaired a Technical Committee, which successfully challenged the US patents on breeding Basmati Rice (another Indian’s traditional knowledge) by RiceTec Company, Texas
+To avoid more Indian traditional knowledge being patented in Western countries, Dr Mashelkar formed a team in CSIR to develop a huge digital library of Indian traditional knowledge to facilitate easy examination by the patent offices of Western countries 
+
+33
+Dr Daniel Lun     June 2024
+
+ Anusree Bhowmick, Smaranika Deb Roy and Mitu De, ”A Brief Review on the Turmeric Patent Case with Its Implications on the Documentation of Traditional Knowledge,” NDC E-BIOS, Volume 1, pp 83-88 (2021)
+Case Study 3 – Discussion
+Patenting traditional knowledge is ethically questionable as the “inventor” of the patent cannot be the owner of the knowledge
+Such knowledge is a heritage of the ancestor so it should not be owned by an individual or an organization  
+The approval of such patent applications is not intentional, just the examiners do not have the time and knowledge to identify the traditional knowledge of different countries
+Countries like India have the resources to build a digital library to protect their traditional knowledge. How about less developed countries such as Madagascar?
+Currently, it is up to the scientists’ goodwill (or ethical consideration) to avoid further patenting of traditional knowledge. Is it sufficient? 
+34
+Dr Daniel Lun     June 2024
+Summary
+Intellectual property (IP) is a kind of intangible asset and is owned automatically by its creator
+IP can be transferred and the process is bounded by law and regulations
+Patent is a kind of industrial IP to incentivize creativity and invention
+A patented invention allows the inventor to stop others from using the invention for 20 years
+Copyright is the right given to the owner of an original work as soon as the author fixes the work in a tangible form of expression
+Copyright only protects expressions, but not ideas
+The ownership of the copyright is automatic, no registration is required
+Ethical concerns about the IP system – barriers to access to knowledge, monopoly of the invention essential to the human being, patenting of traditional knowledge   
+
+35
+Dr Daniel Lun     June 2024

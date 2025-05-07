@@ -1,0 +1,2093 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 8: Course Review for Mid-term Exam
+
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2:30-4:30pm every Thursday
+
+The KDD process
+KNOWLEDGE DISCOVERY FROM DATA
+
+2
+
+Knowledge discovery in databases
+
+ KDD Steps
+
+Data 
+Mining
+
+1. Evaluation (based on 
+
+interestingness)
+
+2. Presentation (e.g., 
+
+Patterns
+
+visualization)
+
+Selection and 
+Transformation
+
+Data Cleaning 
+and Integration
+
+Task-relevant
+Data
+
+Data 
+Warehouse
+
+Databases
+
+Feedbacks
+
+3
+
+Data Objects
+
+ Databases/Datasets are made up of data objects.
+ A data object represents an entity.
+
+Sales DB: customers, store items, sales
+Medical DB: patients, treatments
+University DB: students, professors, courses
+
+ Database rows  data objects, described by attributes
+
+ Also called as samples, examples, instances, data points, tuples
+
+ Database columns  attributes
+
+ Also called as data field, characteristic, dimension, feature, variable
+
+4
+
+Classify Attribute Types
+
+ To describe a qualitative feature of an object that does not 
+provide actual size or quantity – nominal, binary, ordinal
+ Values are typically words representing categories.
+ Integers are used to embed categories as codes.
+ 0 for small drink size, 1 for medium, and 2 for large.
+
+ To provide quantitative measurements of an object – numeric
+
+ Interval-scaled: No true zero.
+ Radio-scaled: True zero, enabling meaningful ratios.
+
+5
+
+Basic Statistical Descriptions of Data (I)
+
+ Motivation: To better understand the data, identify properties of 
+the data, and highlight what values shall be treated as noise
+ Central tendency: to measure the middle or center of the data
+ Mean: The average of the data (sensitive to extremes/outliers)
+ Median: The middle value when data is ordered (a more robust measure 
+
+when data is skewed)
+
+ Mode: The most frequently occurring value
+
+example: a strong 
+middle class and fewer 
+low-income households, 
+e.g., Sweden, Finland, 
+Denmark.
+
+example: a small group 
+of extremely high-income 
+earners and a large 
+population of low- to 
+middle-income workers, 
+e.g., New York, HK
+
+6
+
+Symmetric vs. Skewed Data
+
+ Compare the central tendency (i.e., median, mean and mode) 
+of symmetric, positively-skewed and negatively-skewed data
+
+*the long tail is on 
+the positive side 
+(higher values)
+
+7
+
+Basic Statistical Descriptions of Data (II)
+
+ Motivation: To better understand the data, identify properties of 
+the data, and highlight what values shall be treated as noise
+ Data dispersion: how are the data spread out?
+ Range: difference between max and min values
+ Interquartile Range (IQR): Measures spread around the median
+ Variance / Standard Deviation: Indicate deviation from the mean
+
+8
+
+Measures of Data Dispersion
+
+
+
+-Quantiles: 
+
+Q1
+data points where the data distribution is split 
+equal-size consecutive sets, e.g., 2-quantile (i.e., median), 
+
+into 
+𝒒𝒒
+4-quantiles (called quartile), 100-quantiles (called percentiles)
+
+𝑞𝑞 − 1
+
+Q3
+
+𝑞𝑞
+
+Interquartile Range (IQR)
+•
+
+to identify the spread of the central 
+portion of a dataset
+
+• calculated as the difference between: 
+
+• Upper quartile, Q3
+• Lower quartile, Q1
+• IQR = Q3 – Q1 = 63 – 47 = 16
+
+9
+
+Graphic Displays: Boxplot
+
+ Quartiles (i.e., 4-quantiles)
+
+ Five-number summary: min, Q1, 
+
+median (Q2), Q3, max
+
+ Boxplot: data is represented by a box
+ IQR:  the two ends of the box are at Q1 
+and Q3, i.e., the height of the box is IQR
+ Median: marked by a line within the box 
+ Whiskers: two lines outside the box 
+
+extended to min and max
+
+IQR
+50%
+
+10
+
+Graphic Displays: Boxplot’s Application
+
+ Outliers
+
+ data points beyond a 
+specified threshold
+ Usually, outside values are 
+higher than Q3 or 
+
+lower than Q1
+1.5 × 𝐼𝐼𝐼𝐼𝐼𝐼
+ Plotted individually
+
+ The whiskers shall stop at 
+the most extreme low/high 
+observations within 
+of the quartile.
+
+ Then, outliers show up.
+
+1.5 ×
+
+𝐼𝐼𝐼𝐼𝐼𝐼
+
+11
+
+Why Preprocess the Data? Data Quality!
+
+ Data quality depends on the intended use of data.
+ Multidimensional views of data quality:
+
+ Accuracy: data must correctly reflect the real-world 
+
+scenario without errors or noise.
+
+ Completeness: all required data fields should be 
+
+present and valid.
+
+ Consistency： data should follow the same rules 
+
+and format across all records. 
+
+ Timeliness: data should be up-to-date.
+ Believability: data should be credible and from 
+
+trusted sources.
+
+ Interpretability: data should be clear and 
+
+understandable.
+
+12
+
+Major Tasks of Data Preprocessing
+
+ Data Cleaning
+
+messy
+
+clean
+
+ To fill in missing data, smooth noisy data, identify or remove 
+
+outliers, and resolve inconsistencies
+
+ Data Integration (e.g., Bill Gates, William Gates, B. Gates, …)
+
+ To merge multiple databases into a coherent data store
+
+ Data Reduction (efficiency of mining process)
+
+ To obtain a reduced representation of the data with similar results
+
+ Data Transformation
+
+ To normalize data for similarity-based 
+
+mining (e.g., age vs salary)
+
+13
+
+data cube
+DATA WAREHOUSE AND OLAP
+
+14
+
+Why a Separate Data Warehouse?
+
+ High performance for both systems:
+
+• DBMS – tuned for OLTP: access methods, indexing, hashing, concurrency control, recovery
+
+• Warehouse – tuned for OLAP: complex OLAP queries, consolidation, multi-dimensional view
+
+ Different data and functions:
+
+ Data warehouses are structured for analysis, with standardized 
+schemas and consolidated information from diverse sources.
+ Data warehouses support complex analytics on historical data. 
+
+Operational databases handle frequent transactions and updates. 
+ Some systems perform OLAP directly on DBs, but performance 
+
+and scalability may be limited.
+
+15
+
+From Tables and Spreadsheets to Data Cubes
+
+ A data warehouse is based on a multi-dimensional data mode,  
+
+which views data in the form of a data cube, defined by:
+ Dimension tables: to describe a dimension, e.g., item (item_name, 
+
+brand, type), or time (day, week, month, quarter, year) 
+
+ Fact table: to store numeric measures (e.g., dollars_sold) and keys 
+
+linking to dimension tables – analyze relationships between dimensions 
+
+ Data cube is typically 
+
+-dimensional.
+
+ The 
+ The topmost 
+𝑛𝑛
+
+𝑛𝑛
+
+-dimensional base cube is called a base cuboid.
+
+-dimensional cuboid, which provides the highest-level 
+
+summarization, is called the apex cuboid.
+ All levels of cuboids form the entire data cube.
+
+0
+
+16
+
+Example: Structure of Data Cube
+
+17
+
+Schemas for Multi-dimensional Data Models
+
+ Entity-Relationship (ER) model and the schema
+
+ a set of entities and their relationships – appropriate for OLTP
+
+Stu_Id
+
+Stu_name
+
+Cou_Id
+
+Cou_name
+
+Student
+
+study
+
+Course
+
+ A multi-dimensional model for data warehouses: focus on 
+
+dimensions and measures, in the form of:
+ star schema, snowflake schema, fact constellation schema
+
+18
+
+(1) Star Schema
+
+A fact table in the center, surrounded 
+by a set of dimension tables 
+
+time
+
+time_key
+day
+day_of_the_week
+month
+quarter
+year
+
+branch
+
+branch_key
+branch_name
+branch_type
+
+Measures
+
+Sales (Fact Table)
+
+time_key
+
+item_key
+
+branch_key
+
+location_key
+
+units_sold
+
+dollars_sold
+
+avg_sales
+
+item
+
+item_key
+item_name
+brand
+type
+supplier_type
+
+location
+
+location_key
+street
+city
+state_or_province
+country
+
+19
+
+A Sample Data Cube
+
+TV
+
+PC
+
+VCR
+
+sum
+
+Quarter
+
+1Qtr
+
+2Qtr
+
+3Qtr
+
+4Qtr
+
+sum
+
+Total annual sales 
+of TVs in U.S.A.
+
+U.S.A
+
+Canada
+
+Mexico
+
+y
+r
+t
+n
+u
+o
+C
+
+sum
+
+Sales volume as a function of 
+product, quarter, and country
+
+Industry   Region         Year
+
+Category   Country Quarter
+
+Product
+
+City     Month    Week
+
+Office         Day
+
+20
+
+Typical OLAP Operations
+
+ Roll up (drill-up): summarize data by climbing up hierarchy or by 
+
+dimension reduction techniques
+
+ Drill down (roll-down): reverse of roll-up
+
+ from higher-level summary to lower-level summary or detailed data, or 
+
+introducing new dimensions
+
+ Slice and dice: project and select 
+ Pivot (rotate): reorient the cube, visualization, 3D to series of 2D planes
+ Other operations:
+
+ Drill-across: involving (across) more than one fact table
+ Drill-through: through the bottom level of the cube to its back-end 
+
+relational tables (using SQL)
+
+21
+
+Typical OLAP Operations
+
+ Roll up (drill-up)
+
+ summarize data by 
+
+climbing up hierarchy for 
+a dimension or by 
+dimension reduction
+
+ Dice
+
+ define a subcube by 
+
+performing a selection
+on two or more 
+dimensions
+
+Typical OLAP Operations
+
+ Roll-down (drill-down): 
+
+reverse of roll-up
+ from higher-level 
+
+summary to lower-level 
+summary or detailed 
+data, or introducing new 
+dimensions
+
+ Slice: define a subcube by 
+performing a selection on 
+one dimension
+
+ Pivot (rotate): reorient the 
+cube, visualization, 3D to 
+series of 2D planes
+
+A Star-Net Query Model
+
+Shipping Method
+
+Customer Orders
+
+Customer
+
+AIR-EXPRESS
+
+CONTRACTS
+
+TRUCK
+
+ORDER
+
+These represent the 
+granularities available for 
+use by OLAP operations. 
+
+Time
+
+YEAR
+
+QUARTER
+
+WEEK
+
+NAME
+
+BRAND
+
+TYPE
+
+Product
+
+CITY
+
+COUNTRY
+
+REGION
+
+Location
+
+SALESPERSON
+
+DISTRICT
+
+DIVISION
+
+Promotion
+
+Organization
+
+26
+
+Efficient Data Cube Computation
+
+ Data cube can be viewed as a lattice of cuboids  
+
+ The bottom-most cuboid is the base cuboid – the most specific
+ The top-most cuboid (apex) contains only one cell – the most 
+
+generalized (all)
+
+• Drilling down: start from apex cuboid and explore downward
+• Rolling up: start at the base cuboid and explore upward
+
+• 0-D op: i.e., no group-by SQL, like “compute 
+
+the sum of total sales”
+
+• 1-D op: one group-by, e.g., “compute the sum 
+
+of sales, group-by city”
+
+• …
+• The cube operator is the 
+
+-dimensional 
+
+generalization of the group-by operator.
+
+𝑛𝑛
+
+27
+
+Apriori algorithm, support, confidence, …
+FREQUENT ITEMSETS & ASSOCIATION 
+RULE MINING
+
+28
+
+Basic Concepts: Frequent Itemsets
+
+ Itemset: A set of one or more items
+
+
+
+-itemset: 
+ Support of an itemset
+
+𝒌𝒌
+
+𝑋𝑋 = 𝑥𝑥1, … , 𝑥𝑥𝑘𝑘
+
+𝑘𝑘
+
+with 
+
+items
+
+ Absolute Support (Count): the number of transactions 
+
+containing the given itemset 
+
+ Relative Support: the fraction of transactions containing 
+
+(i.e., 
+
+the probability that a transaction contains 
+
+𝑋𝑋
+
+)
+
+𝑋𝑋
+
+ Frequent Itemset: An itemset 
+
+𝑋𝑋
+
+is frequent if the support of 
+
+is no less than 
+
+– a minsup threshold.
+
+𝑋𝑋
+
+𝜎𝜎
+
+𝑋𝑋
+
+29
+
+The Apriori Algorithm: Framework
+
+ Outline of Apriori: level-wise, candidate generation and test 
+
+ Initially, scan DB once to get frequent 1-itemset
+ Repeat
+
+• Generate length-
+• Test the candidates against DB to find frequent 
+• Set 
+
+𝑘𝑘 + 1
+
+candidate itemsets based on frequent 
+
+-itemsets
+
+-itemsets
+𝑘𝑘
+
+𝑘𝑘 + 1
+
+ Until no frequent or candidate set can be generated
+ Return all the frequent itemsets derived
+
+𝑘𝑘 ≔ 𝑘𝑘 + 1
+
+30
+
+From Frequent Itemsets to Association Rules
+
+ Association Rules written as X  Y [support, confidence]
+
+ Both 
+are non-empty itemsets, and 
+ It describes an ‘if-then’ relationship between two sets of items.
+
+and 
+
+.
+
+𝑋𝑋
+
+𝑌𝑌
+
+𝑋𝑋 ∩ 𝑌𝑌 = ∅
+
+ Support: The percentage of transactions containing both X and Y
+
+
+
+: the percentage of transactions that contains every item in 
+
+, i.e., how frequently both 
+
+appear together in the dataset
+𝑋𝑋
+ Confidence: The conditional probability that a transaction having 
+𝑋𝑋
+
+and 
+𝑃𝑃(𝑋𝑋 ∪ 𝑌𝑌)
+𝑌𝑌
+
+𝑌𝑌
+
+sup(𝑋𝑋 → 𝑌𝑌) = P(𝑋𝑋 ∪ 𝑌𝑌)
+and 
+
+also contains 
+
+, that is,
+
+𝑋𝑋
+
+𝑌𝑌
+
+conf 𝑋𝑋 → 𝑌𝑌 = P 𝑌𝑌 𝑋𝑋 = sup(𝑋𝑋 → 𝑌𝑌)/sup(𝑋𝑋)
+
+31
+
+Final Step: Rule Generation via Frequent Itemsets
+
+ Support (min-sup): used to mine the frequent itemsets
+ Confidence (min-conf): used by the rule generation step to 
+
+qualify the strength of the derived association rules
+ For each frequent itemset 
+ For every non-empty subset 
+𝐹𝐹
+
+, generate a rule:
+𝐹𝐹
+
+, generate 
+
+’s all non-empty subsets
+
+satisfies the minimum confidence, i.e., 
+
+𝑠𝑠
+
+𝐼𝐼: 𝑠𝑠 → 𝐹𝐹 − 𝑠𝑠
+
+is a strong association rule and should be output.
+
+conf 𝑠𝑠 → 𝐹𝐹 − 𝑠𝑠 =
+
+sup 𝐹𝐹
+sup 𝑠𝑠 ≥ 𝑚𝑚𝑚𝑚𝑛𝑛 _𝑐𝑐𝑐𝑐𝑛𝑛𝑐𝑐
+
+ If the rule 
+
+𝐼𝐼
+
+then 
+
+𝐼𝐼
+
+32
+
+Limitation of the Support-Confidence Framework
+
+ Strong rules are not necessarily interesting: “
+ Example: Suppose a school may have the following statistics 
+
+” 
+
+on # students related to playing basketball and/or eating cereal:
+
+𝐴𝐴 → 𝐵𝐵
+
+𝑠𝑠, 𝑐𝑐
+
+Play basketball
+
+Not play basketball
+
+Eat cereal
+
+Not eat cereal
+
+sum
+
+400
+
+200
+
+600
+
+350
+
+50
+
+400
+
+sum
+
+750
+
+250
+
+1000 (TOTAL)
+
+ Association rule mining may generate a rule:
+
+play-basketball  eat-cereal [40%, 66.7%]
+
+ But this strong association rule is misleading  The overall % of 
+
+students eating cereal is 75% > 66.7%. 
+
+ A more telling rule: 
+
+not play-basketball  eat-cereal [35%, 87.5%] (high 
+
+& 
+
+)
+
+33
+
+𝑠𝑠
+
+𝑐𝑐
+
+Interestingness Measure: Lift
+
+ Measure of dependent / correlated events:
+
+ Tell how 
+𝒍𝒍𝒍𝒍𝒍𝒍𝒍𝒍 𝑩𝑩, 𝑪𝑪 =
+
+
+
+
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙 𝐵𝐵, 𝐶𝐶 = 1
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙 𝐵𝐵, 𝐶𝐶 > 1
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙 𝐵𝐵, 𝐶𝐶 < 1
+
+ Example:
+=CB
+)
+
+,
+
+lift
+
+(
+
+600
+/
+ Thus, 
+
+and 
+
+P 𝐵𝐵 ∪ 𝐶𝐶
+and 
+𝑃𝑃 𝐵𝐵 𝑃𝑃 𝐶𝐶
+: 
+: positively correlated
+: negatively correlated
+
+sup(𝐵𝐵 → 𝐶𝐶)
+=
+are correlated
+sup 𝐵𝐵 sup(𝐶𝐶)
+and 
+𝐶𝐶
+𝐵𝐵
+
+=
+are independent
+
+𝐵𝐵
+
+𝐶𝐶
+
+conf 𝐵𝐵 → 𝐶𝐶
+sup 𝐶𝐶
+C
+Not C
+
+400
+
+200
+
+sum
+
+600
+
+B
+
+Not B
+
+sum
+
+350
+
+50
+
+400
+
+750
+
+250
+
+1000
+
+is more telling than s & c
+
+400
+1000
+
+/
+1000
+×
+750
+and 
+
+=
+
+89.0
+
+lift
+
+(
+
+/
+
+1000
+
+=¬CB
+
+)
+
+,
+
+600
+
+/
+
+𝒍𝒍𝒍𝒍𝒍𝒍𝒍𝒍
+
+are negatively correlated since 
+
+200
+1000
+
+1000
+/
+×
+250
+.
+
+=
+
+33.1
+
+/
+
+1000
+
+are positively correlated since 
+
+𝐶𝐶
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙 𝐵𝐵, 𝐶𝐶 < 1
+
+.
+
+34
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙 𝐵𝐵, ¬𝐶𝐶 > 1
+
+𝐵𝐵
+¬𝐶𝐶
+
+𝐵𝐵
+
+Interestingness Measure: 
+
+ To test correlated events: 
+
+•
+•
+
+2
+
+: independent
+: correlated, either positive or 
+
+=
+
+𝜒𝜒
+
+2
+
+𝜒𝜒
+negative  needs additional test
+𝜒𝜒
+
+= 0
+> 0
+
+𝟐𝟐
+𝝌𝝌
+∑ 𝑂𝑂𝑂𝑂𝑠𝑠𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂 −𝐸𝐸𝐸𝐸𝐸𝐸𝑂𝑂𝐸𝐸𝐸𝐸𝑂𝑂𝑂𝑂
+B
+𝐸𝐸𝐸𝐸𝐸𝐸𝑂𝑂𝐸𝐸𝐸𝐸𝑂𝑂𝑂𝑂
+
+2
+
+2
+
+Not B
+
+C
+
+400 (450) 350 (300)
+
+Not C
+
+200 (150)
+
+50 (100)
+
+sum
+
+600
+
+400
+
+sum
+
+750
+
+250
+
+1000
+
+ Thus, 
+
+and 
+
+are negatively correlated since the expected
+
+Expected value
+
+Observed value
+
+value is 450 but the observed is only 400.
+
+𝐵𝐵
+
+𝐶𝐶
+
+is also more telling than the support-confidence framework
+
+35
+
+
+
+2
+
+𝜒𝜒
+
+Lift and 
+
+: Are They Always Good Measures?
+
+ Null transactions: Transactions that contain neither 
+
+2
+
+𝜒𝜒
+
+Examine the dataset:
+•
+
+is much rarer than 
+
+nor 
+
+𝑩𝑩
+
+𝑪𝑪
+
+and 
+𝐵𝐵𝐶𝐶 100, 0.1%
+& 
+
+• There are many 
+• Unlikely 
+
+¬𝐵𝐵𝐶𝐶 1000
+
+.
+will happen together!
+¬𝐵𝐵¬𝐶𝐶 100000, 98%
+
+𝐵𝐵¬𝐶𝐶 1000
+
+𝐵𝐵
+
+𝐶𝐶
+
+ However, B and C seem to be strongly positively 
+
+correlated based on:
+
+
+
+
+and Observed (100) >> 
+
+2
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙 𝐵𝐵, 𝐶𝐶 = 8.44 ≫ 1
+Expected (11.85)
+𝜒𝜒
+
+(𝐵𝐵, 𝐶𝐶) = 670
+
+null transactions
+
+Contingency table with 
+expected values added
+
+ Too many null transactions may “spoil the soup”!
+
+36
+
+Interestingness Measures: Null-Invariant
+
+ Null invariance: value does not change with # null-transactions
+
+
+
+and 
+
+are NOT null-invariant with the range of 
+
+.
+
+ Null-invariant Measures:
+𝑙𝑙𝑚𝑚𝑐𝑐𝑙𝑙
+
+𝜒𝜒
+
+2
+
+0, ∞
+
+ All Confidence: the minimum confidence of the two association rules 
+
+related to A and B, namely, “A  B” and “B  A”
+
+ Max Confidence: the maximum confidence of the two rules
+ Kulczynski (Kulc): an average of two confidence values
+ Cosine: a harmonized lift measure (unaffected by # total transactions)
+
+37
+
+Decision tree: ID3 algorithm driven by entropy and information gain
+CLASSIFICATION
+
+38
+
+Decision Tree Structure
+
+ A flow-chart-like structure used for classification
+
+ Internal node: a test on an attribute (e.g., age, exercise, weight, 
+
+smoking)
+
+ Branch: an outcome of the test
+ Leaf nodes: class labels (e.g., high-, moderate-, and low-risk)
+
+How it works:
+An object is classified 
+by traversing the tree
+from its root to a leaf.
+
+Age 
+
+=<20 
+
+>20 & =< 50 
+
+>50 
+
+Low 
+
+Obese 
+
+Weight 
+
+Smoking 
+
+Over 
+
+Normal 
+
+Under 
+
+No 
+
+Yes 
+
+Exercise 
+
+Moderate 
+
+Low 
+
+Low 
+
+Moderate 
+
+High 
+
+Never 
+
+Regular 
+
+Seldo m 
+
+High 
+
+High  Moderate 
+
+39
+
+ 
+Entropy
+
+ A measure of randomness, uncertainty, and disorder in a 
+
+system with probability distributions of outcome. 
+
+ Entropy is formulated as a function that measures disorder.
+
+ “The higher the entropy, the greater the disorder.”
+ For classification, it tells how diverse the classes are in a set.
+
+ Let 
+
+be a set of examples from 
+
+classes.
+
+𝑫𝑫
+
+𝑚𝑚
+
+𝒎𝒎
+
+• Input: Distribution of outcomes
+• Output : A value indicating how disordered the outcomes are
+•
+
+: The proportion of examples observed in 
+
+𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐 𝐷𝐷 = − �
+𝑖𝑖=1
+
+𝑝𝑝𝑖𝑖 � log2 𝑝𝑝𝑖𝑖
+
+that belong to i-th class within [0,1].
+
+𝑝𝑝𝑖𝑖
+
+𝐷𝐷
+
+40
+
+Example: Tossing Coins in Casino
+
+ Casino A with real coins (50/50 chances):
+
+𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐 𝐶𝐶𝑐𝑐𝑚𝑚𝑛𝑛 𝑇𝑇𝑐𝑐𝑠𝑠𝑠𝑠 = −𝑝𝑝 ℎ𝑒𝑒𝑒𝑒𝑒𝑒 log2 𝑝𝑝 ℎ𝑒𝑒𝑒𝑒𝑒𝑒 − 𝑝𝑝 𝑙𝑙𝑒𝑒𝑚𝑚𝑙𝑙 log2 𝑝𝑝 𝑙𝑙𝑒𝑒𝑚𝑚𝑙𝑙
+
+= −
+
+1
+2
+
+log2 1
+2
+
+−
+
+1
+2
+
+log2 1
+2
+
+= 1
+
+ Casino B with fake coins (75/25 chances):
+
+𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐 𝐶𝐶𝑐𝑐𝑚𝑚𝑛𝑛 𝑇𝑇𝑐𝑐𝑠𝑠𝑠𝑠 = −𝑝𝑝 ℎ𝑒𝑒𝑒𝑒𝑒𝑒 log2 𝑝𝑝 ℎ𝑒𝑒𝑒𝑒𝑒𝑒 − 𝑝𝑝 𝑙𝑙𝑒𝑒𝑚𝑚𝑙𝑙 log2 𝑝𝑝 𝑙𝑙𝑒𝑒𝑚𝑚𝑙𝑙
+1
+4
+Entropy is a measure of randomness and disorder. 
+Higher entropy means higher uncertainty.
+
+log2 1
+4
+
+log2 3
+4
+
+= 0.811
+
+= −
+
+3
+4
+
+−
+
+41
+
+Information Gain and Iterative Dichotomiser (ID3) 
+
+ Classification Goal: To split the dataset in a way that reduces 
+
+entropy the most.
+
+ Information Gain: To measure the reduction in entropy after 
+
+splitting the dataset on an attribute 
+
+ Weighted entropy after split: 
+
+
+
+: subsets of 
+
+𝐷𝐷𝑗𝑗
+
+𝐺𝐺𝑒𝑒𝑚𝑚𝑛𝑛 𝐷𝐷, 𝐴𝐴 = 𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐 𝐷𝐷 – 𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐𝐴𝐴 𝐷𝐷
+𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐𝐴𝐴 𝐷𝐷 = ∑𝑗𝑗=1
+𝐴𝐴
+
+created by splitting on 
+
+𝐷𝐷
+
+𝑛𝑛
+
+𝐴𝐴
+
+𝑝𝑝 𝐷𝐷𝑗𝑗 𝐴𝐴 𝐼𝐼𝑛𝑛𝑐𝑐𝑐𝑐 𝐷𝐷𝑗𝑗
+
+ID3 Algorithm: Repeatedly selects the attribute with the highest 
+information gain at each step to build the decision tree.
+
+42
+
+ID3 Example (Decision: buy computer or not)
+
+ Class P: buys_computer = ‘yes’  9
+ Class N: buys_computer = ‘no’  5
+
+•
+•
+•
+
+𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝐈 𝐷𝐷 = ∑ −𝑝𝑝𝑖𝑖 × log2𝑝𝑝𝑖𝑖
+𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝑨𝑨 𝐷𝐷 = ∑ 𝑝𝑝 𝐷𝐷𝑗𝑗 𝐴𝐴 × 𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝐈 𝐷𝐷𝑗𝑗
+𝐆𝐆𝐆𝐆𝐆𝐆𝐈𝐈 𝐷𝐷, 𝐴𝐴 = 𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝐈 𝐷𝐷 – 𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝐈𝑨𝑨 𝐷𝐷
+
+income student
+age
+high
+<=30
+<=30
+high
+31…40 high
+medium
+>40
+low
+>40
+>40
+low
+31…40 low
+<=30
+<=30
+>40
+<=30
+31…40 medium
+31…40 high
+>40
+
+no
+no
+no
+no
+yes
+yes
+yes
+no
+medium
+low
+yes
+medium yes
+medium yes
+no
+yes
+no
+
+medium
+
+credit_rating
+
+fair
+excellent
+fair
+fair
+fair
+excellent
+excellent
+fair
+fair
+fair
+excellent
+excellent
+fair
+excellent
+
+buys_computer
+no
+no
+yes
+yes
+yes
+no
+yes
+no
+yes
+yes
+yes
+yes
+yes
+no
+
+Info
+
+(
+
+= ID
+)
+
+)5,9(
+
+−=
+
+9
+14
+
+log
+
+(
+
+2
+
+9
+14
+
+)
+
+−
+
+5
+14
+
+log
+
+(
+
+2
+
+5
+14
+
+940.0)
+
+=
+
+age
+<=30
+31…40
+>40
+
+pi
+2
+4
+3
+5
+14
+
+I(pi, ni)
+
+ni
+3 0.971
+0 0
+2 0.971
+
+Infoage
+
+(
+
+D
+
+)
+
+=
+
+5
+14
+
+I
+
+)3,2(
+
++
+
+4
+14
+
+I
+
+)0,4(
+
++
+
+5
+14
+
+I
+
+.0)2,3(
+
+=
+
+694
+
+I
+
+)3,2(
+
+means ‘age <=30’ has 5 out of 14 
+
+samples, with 2 ‘yes’ and 3 ‘no’. 
+
+Hence,
+
+Gain
+
+(
+
+age
+
+)
+
+=
+
+Info
+
+(
+
+D
+
+)
+
+−
+
+Info
+
+age
+
+(
+
+D
+
+246.0)
+
+=
+
+Similarly,
+
+𝐺𝐺𝑒𝑒𝑚𝑚𝑛𝑛(𝑚𝑚𝑛𝑛𝑐𝑐𝑐𝑐𝑚𝑚𝑒𝑒) = 0.029
+𝐺𝐺𝑒𝑒𝑚𝑚𝑛𝑛(𝑠𝑠𝑙𝑙𝑠𝑠𝑒𝑒𝑒𝑒𝑛𝑛𝑙𝑙) = 0.151
+
+𝐺𝐺𝑒𝑒𝑚𝑚𝑛𝑛(𝑐𝑐𝑐𝑐𝑒𝑒𝑒𝑒𝑚𝑚𝑙𝑙_𝑐𝑐𝑒𝑒𝑙𝑙𝑚𝑚𝑛𝑛𝑟𝑟) = 0.048
+
+Bayesian Theorem
+
+
+
+: Posterior probability, the probability of 
+
+holds given 
+
+: Evidences (e.g., a data tuple) with attribute description
+: Hypothesis to be verified (e.g., a class label that 
+
+𝐻𝐻
+
+belongs to)
+
+𝐸𝐸
+
+
+𝑃𝑃 𝐻𝐻 𝐸𝐸
+
+𝐸𝐸
+𝐻𝐻
+
+𝐸𝐸
+
+
+
+
+
+
+
+: prior probability, i.e., the initial probability of hypothesis 
+
+𝑷𝑷 𝑬𝑬|𝑯𝑯 𝑷𝑷 𝑯𝑯
+𝑷𝑷 𝑬𝑬
+: marginal probability, i.e., the total probability of observing evidence 
+
+𝑷𝑷 𝑯𝑯 𝑬𝑬 =
+
+observing evidence 
+𝑃𝑃 𝐻𝐻
+
+before 
+
+𝐻𝐻
+
+under all possible hypotheses
+𝑃𝑃 𝐸𝐸
+
+𝐸𝐸
+
+: likelihood, i.e., the probability of observing evidence 
+
+given that the 
+
+𝐸𝐸
+
+hypothesis 
+𝑃𝑃 𝐸𝐸|𝐻𝐻
+
+𝐻𝐻 = 𝑙𝑙𝑐𝑐𝑠𝑠𝑒𝑒
+
+𝐸𝐸
+
+44
+
+Bayesian Classification
+
+ A data tuple: 
+ To classify 
+
+, we need to estimate 
+𝑋𝑋 = (𝐴𝐴1 = 𝑥𝑥1, 𝐴𝐴2 = 𝑥𝑥2, 𝐴𝐴3 = 𝑥𝑥3, … , 𝐴𝐴𝑛𝑛 = 𝑥𝑥𝑛𝑛)
+
+represents the hypothesis that 
+
+belongs to 
+
+.
+
+
+ We say 
+
+𝐶𝐶𝑖𝑖
+
+𝑋𝑋
+belongs to 
+
+iff: 
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋)
+𝑋𝑋
+
+𝐶𝐶𝑖𝑖
+
+ How to estimate 
+
+𝑋𝑋
+
+𝐶𝐶𝑖𝑖
+
+𝑃𝑃 𝐶𝐶𝑖𝑖|𝑋𝑋 > 𝑃𝑃 𝐶𝐶𝑗𝑗|𝑋𝑋 , 𝑐𝑐𝑐𝑐𝑐𝑐 𝑒𝑒𝑙𝑙𝑙𝑙 𝑗𝑗 ≠ 𝑚𝑚
+?
+
+for classifying 
+
+ Bayesian theorem: 
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋)
+
+𝑃𝑃 𝑋𝑋|𝐶𝐶𝑖𝑖 𝑃𝑃 𝐶𝐶𝑖𝑖
+ The problem becomes  estimating 
+𝑃𝑃 𝑋𝑋
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋 =
+
+𝑋𝑋
+
+and 
+
+𝑃𝑃 𝑋𝑋|𝐶𝐶𝑖𝑖
+
+𝑃𝑃 𝐶𝐶𝑖𝑖
+
+45
+
+Bayesian Classification
+
+ Estimate the priori probability of the i-th class 
+
+from the 
+
+training set 
+
+: 
+
+𝐷𝐷
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 =
+
+𝐶𝐶𝑖𝑖
+𝐷𝐷
+
+𝐶𝐶𝑖𝑖
+
+ Independence Assumption: For 
+
+, we assume that the 
+
+effect of each attribute 
+
+𝐴𝐴𝑗𝑗
+
+is independent to others:
+
+𝑃𝑃 𝑋𝑋 | 𝐶𝐶𝑖𝑖
+
+where 
+
+𝑃𝑃 𝑋𝑋 = (𝐴𝐴1 = 𝑥𝑥1, 𝐴𝐴2 = 𝑥𝑥2, … , 𝐴𝐴𝑛𝑛 = 𝑥𝑥𝑛𝑛) 𝐶𝐶𝑖𝑖)
+= 𝑃𝑃 𝐴𝐴1 = 𝑥𝑥1 𝐶𝐶𝑖𝑖 × 𝑃𝑃 𝐴𝐴2 = 𝑥𝑥2 𝐶𝐶𝑖𝑖 × ⋯
+× 𝑃𝑃 𝐴𝐴𝑛𝑛 = 𝑥𝑥𝑛𝑛 𝐶𝐶𝑖𝑖
+
+can also be estimated from the training set 
+
+.
+
+𝑃𝑃 𝐴𝐴𝑗𝑗 = 𝑥𝑥𝑗𝑗 𝐶𝐶𝑖𝑖)
+
+𝐷𝐷
+
+46
+
+Example
+
+Bayesian: 
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋 =
+
+𝑃𝑃 𝑋𝑋|𝐶𝐶𝑖𝑖 𝑃𝑃 𝐶𝐶𝑖𝑖
+𝑃𝑃 𝑋𝑋
+
+ Given a training set, predict if a person
+
+will buy a computer
+
+: {age = youth, income = medium, student = yes, credit_rating = fair}
+
+𝑋𝑋
+
+
+ Yes or No? 
+
+𝑿𝑿
+
+Priori Probability in training Data:
+•
+•
+
+𝑃𝑃 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 𝑋𝑋
+
+𝑃𝑃 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑏𝑏𝑒𝑒𝑠𝑠 = 9/14 = 0.643
+𝑃𝑃 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑛𝑛𝑐𝑐 = 5/14 = 0.357
+
+:
+
+To calculate 
+•
+•
+•
+•
+
+ Similarly, 
+
+𝑷𝑷 𝑿𝑿 𝒃𝒃𝒃𝒃𝒃𝒃_𝒄𝒄𝒄𝒄𝒎𝒎𝒄𝒄𝒃𝒃𝒍𝒍𝒄𝒄𝒄𝒄 = 𝒃𝒃𝒄𝒄𝒚𝒚)
+
+𝑃𝑃 𝑒𝑒𝑟𝑟𝑒𝑒 = 𝑏𝑏𝑐𝑐𝑠𝑠𝑙𝑙ℎ 𝑏𝑏𝑒𝑒𝑠𝑠) = 2/9 = 0.222
+𝑃𝑃 𝑚𝑚𝑛𝑛𝑐𝑐𝑐𝑐𝑚𝑚𝑒𝑒 = 𝑚𝑚𝑒𝑒𝑒𝑒𝑚𝑚𝑠𝑠𝑚𝑚 𝑏𝑏𝑒𝑒𝑠𝑠) = 4/9 = 0.444
+𝑃𝑃 𝑠𝑠𝑙𝑙𝑠𝑠𝑒𝑒𝑒𝑒𝑛𝑛𝑙𝑙 = 𝑏𝑏𝑒𝑒𝑠𝑠 𝑏𝑏𝑒𝑒𝑠𝑠) = 6/9 = 0.667
+𝑃𝑃 𝑐𝑐𝑐𝑐𝑒𝑒𝑒𝑒𝑚𝑚𝑙𝑙_𝑐𝑐𝑒𝑒𝑙𝑙𝑚𝑚𝑛𝑛𝑟𝑟 = 𝑐𝑐𝑒𝑒𝑚𝑚𝑐𝑐 𝑏𝑏𝑒𝑒𝑠𝑠) = 6/9 = 0.667
+𝑃𝑃 𝑋𝑋 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑏𝑏𝑒𝑒𝑠𝑠) = 0.044
+
+𝑃𝑃 𝑋𝑋 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑛𝑛𝑐𝑐) = 0.019
+
+Through Bayesian:
+•
+•
+Conclusion: X will buy a computer.
+
+𝑃𝑃 𝑋𝑋 | 𝑏𝑏𝑒𝑒𝑠𝑠 × 𝑃𝑃 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑏𝑏𝑒𝑒𝑠𝑠 = 0.028
+𝑃𝑃 𝑋𝑋 | 𝑛𝑛𝑐𝑐 × 𝑃𝑃 𝑏𝑏𝑠𝑠𝑏𝑏_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑛𝑛𝑐𝑐 = 0.007
+
+47
+
+Evaluation Measures
+
+ To assess how “accurate” your classifier is at predicting the 
+
+class label of tuples compared to actual labels
+ True Positives TP: positive tuples that were correctly labeled
+
+ Positive tuples: tuples of the main class of interest
+
+ True Negatives TN: negative tuples that were correctly labeled 
+ False Positives FP: negative tuples that were incorrectly labeled 
+
+as positive (e.g., people who do not buy computers but are 
+labeled as 
+
+)
+
+𝑏𝑏𝑠𝑠𝑏𝑏𝑠𝑠_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑏𝑏𝑒𝑒𝑠𝑠
+
+ False Negatives FN: positive 
+tuples that were mislabeled as 
+negative (e.g., people who really 
+buy computers but are labeled 
+as 
+
+)
+
+𝑏𝑏𝑠𝑠𝑏𝑏𝑠𝑠_𝑐𝑐𝑐𝑐𝑚𝑚𝑝𝑝𝑠𝑠𝑙𝑙𝑒𝑒𝑐𝑐 = 𝑛𝑛𝑐𝑐
+
+48
+
+Evaluation Measures
+
+49
+
+CLUSTERING
+
+50
+
+Partitioning Algorithms: Basic Concepts
+
+ Partitioning method
+
+ Discover groupings in the data by optimizing a specific objective 
+
+function and iteratively improving the quality of partitions
+-partitioning method
+
+
+
+ Objective: Divide a dataset 
+𝑲𝑲
+
+of 
+
+objects into a set of 
+
+clusters, 
+
+so that an objective function is optimized (e.g., minimizing the sum 
+𝑛𝑛
+of distances within clusters)
+
+𝑫𝑫
+ Typical objective function: Sum of Squared Errors (SSE)
+
+𝐾𝐾
+
+SSE C
+
+(
+
+)
+
+=
+
+K
+
+∑ ∑
+
+k
+
+=
+1
+
+x
+∈
+i Ck
+
+||
+
+x
+i
+
+−
+c
+k
+
+2
+||
+
+where 
+
+is the centroid or medoid of cluster 
+
+𝑐𝑐𝑘𝑘
+
+𝐶𝐶𝑘𝑘
+
+51
+
+The 
+
+-Means Clustering Algorithm 
+
+𝐾𝐾
+
+ Idea: each cluster is represented by the centroid, which is the 
+
+mean position of all data points in the cluster
+ It may not correspond to an actual data point in the dataset!
+
+ Given 
+
+, the number of clusters, the 
+
+-Means clustering 
+
+algorithm is outlined as follows:
+
+𝐾𝐾
+Initialization: Select 
+Repeat
+
+data points as initial centroids
+
+𝐾𝐾
+
+clusters by assigning each point to its closest centroid
+
+• Form 
+• Re-compute the centroids (i.e., mean point) of each cluster
+Until centroids no longer change or convergence criterion is met
+
+𝐾𝐾
+
+𝐾𝐾
+
+52
+
+Discussion on 
+
+-Means Clustering (I)
+
+ Limitations
+
+𝐾𝐾
+ Need to specify 
+
+in advance 
+ There are ways to automatically determine the ‘best’
+ In practice, one often runs a range of values and selected the ‘best’.
+
+𝐾𝐾
+
+.
+
+𝐾𝐾
+
+ Only for objects in a continuous data space: 
+
+-modes for 
+
+nominal data
+
+
+
+-means clustering often terminates at a local optimum.
+
+𝐾𝐾
+
+ Poor initialization can lead to suboptimal clusters.
+𝐾𝐾
+ Sensitive to noisy data and outliers (extreme values)
+
+53
+
+Measuring Clustering Quality
+
+ Evaluation: Evaluating the goodness of clustering results
+
+ No universally recognized ‘best’ measure in practice!
+
+ Three categorization of measures
+
+ Internal: Unsupervised, criteria derived from data itself
+
+ How well the clusters are separated and how compact the clusters are
+ External: Supervised, employ criteria not inherent to the dataset
+ Compare a clustering against prior or expert-specified knowledge (i.e., 
+
+the ground truth) using certain clustering quality measures
+ Relative: Directly compare different clustering, usually those 
+
+obtained by varying parameters for the same algorithm
+
+54
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+56
+
+

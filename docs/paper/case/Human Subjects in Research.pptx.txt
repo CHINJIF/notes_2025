@@ -1,0 +1,359 @@
+Unit VIII
+
+Using Animals and Human Subjects 
+in Research
+
+
+1
+Dr Daniel Lun     June 2024
+
+
+Part I Using Animals in Research 
+
+
+Dr Daniel Lun     June 2024
+2
+Using animals in research
+Animals are often used in scientific research and applications for two main purposes
+1. Non-experimental purpose: 
+refers to any action on animals for education or non-experimental purposes 
+for example, to dissect animals for educational purposes, to extract tissue and serum from animals to manufacture drugs
+2. Experimental purpose: 
+refers to any action on animals to find out the solution of scientific or medical queries 
+for example, to let animal take drugs to test whether the drug is effective
+
+3
+Dr Daniel Lun     June 2024
+Animals used in scientific research in the EU in 2020 (not including the UK)
+4
+Dr Daniel Lun     June 2024
+https://www.understandinganimalresearch.org.uk/news/eu-wide-animal-research-statistics-2020
+Note 1: The UK used about 1.38 M animals in research in 2020
+
+Note 2: Cats, dogs, and primates (such as Monkeys) are species of particular public concern. Including horses in the UK, they can only be used when no other species are suitable 
+Arguments for using animals in research
+Using animals in research has been a topic of heat debate for a few decades
+Advocates for animal testing say:
+Human life has greater intrinsic value than animal life
+Legislation has protected all lab animals from cruelty or mistreatment
+Millions of animals are killed every year for food, is medical research not a more worthy death?
+Few animals feel pain and most of them are killed before they suffer
+
+5
+Dr Daniel Lun     June 2024
+Arguments for using animals in research
+Opponents to animal testing say:
+Animals have as much right to live as humans
+Strict controls have not prevented some animals from being abused
+Animals suffer while they are locked up and how do we know when they do and don’t feel pain
+Deaths for research are unnecessary
+
+6
+Dr Daniel Lun     June 2024
+3Rs to use animals in research
+Scientists suggested three principles (3Rs) when using animals in research [1]. Become the guiding principles
+
+7
+Dr Daniel Lun     June 2024
+Refining the way the animals are cared for to help minimize any stress or pain, by using less invasive techniques where possible and improving medical care and living conditions
+Replacing, where possible, experiments using animals with alternative techniques such as cell culture, computer modeling or human volunteers instead of animals
+Reducing the number of animals used, by improving experimental techniques and sharing information with other researchers so that the same experiments aren’t being done by many people.
+1. Russell, W. M. S. and Burch, R. L. (1959). “The Principles 0/ Humane Experimental Technique,” London: Methuen and Co. Ltd.
+Using animals in teaching and research at PolyU
+Anyone wanting to use animals in teaching or research in Hong Kong needs to apply for a license from the Department of Health of the Hong Kong Government under the Animals Control of Experiments Ordinance Cap 340
+The license specifies the place(s) where experiments may be conducted, and special endorsements and permits are required for using animals:
+for the purpose of attaining manual skills;
+for the purpose of illustrating lectures;
+without administering any anesthetic or killing the animal.
+The code of ethics that the ordinance is based on also follows the 3R principles
+After obtaining the license, an application should be made to the Animal Subjects Ethics Sub-Committee (ASESC) of PolyU for ethical review before the research can start
+
+8
+Dr Daniel Lun     June 2024
+Case Study: Laika
+Laika, a mixed-breed dog “recruited” into the Soviet space program after being found on the streets of Moscow in 1957
+Laika’s mission would make her the first creature to orbit the Earth in an attempt to study the prolonged effect of weightlessness on a living being
+
+9
+Dr Daniel Lun     June 2024
+https://en.wikipedia.org/wiki/Laika
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Background
+Laika was 3 years old when she was launched on the Sputnik 2 spacecraft on November 3rd, 1957
+She was secured in a special pressurized capsule 3 days before launch and provided with a high-nutrition gel for food and water
+
+10
+Dr Daniel Lun     June 2024
+https://www.space.com/laika-space-dog
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Background
+Laika experienced minimal ill effects during launch but her heart rate did rise to three times its resting rate and she appeared to be quite agitated, eventually calming down
+It appeared that weightlessness alone did not cause major changes to the vital physiological functions of a living creature
+This was good news for human spaceflight
+11
+Dr Daniel Lun     June 2024
+https://www.nasa.gov/history/60-years-ago-the-first-animal-in-orbit/
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Mockup of Sputnik 2
+Background
+Soon after launching, cabin temperature began rapidly climbing to unacceptably high levels
+Temperature control inside the capsule was failing
+Between 5 and 7 hours into the flight telemetry showed that there were no signs of life within the capsule
+Laika had died from stress and overheating, undoubtedly a painful and distressing death 
+12
+Dr Daniel Lun     June 2024
+https://todayinsci.com/Events/Rockets/Laika.htm
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Background
+As the world began to learn about the launch of Sputnik 2, no word of Laika’s death was released
+The fact was that the Sputnik 2 capsule that carried Laika into orbit was not retrievable and it had been intended that Laika would die in orbit
+But at the time the world believed that Laika might come back
+13
+Dr Daniel Lun     June 2024
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Background
+Laika became a hero to the Soviet people and captured the imagination of the world
+Her flight immediately proved the near-term capability for human spaceflight
+On November 7th Soviet scientists were still claiming that Laika was in good health when she had in fact been dead for four days
+Eventually the truth of the dog’s fate emerged and on November 11th the Soviets confirmed that Laika was dead
+The exact cause of Laika’s death was not announced and remained a mystery for decades
+14
+Dr Daniel Lun     June 2024
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Background
+Protests from animal protection groups began around the world
+The truth of how Laika died was finally uncovered in 2002 when Russian scientists confirmed that Laika had died between 5 and 7 hours after launch due to heat and stress
+Russian scientist Oleg Gazenko who worked on the Soviet Space Program stated that “the more time passes, the more I’m sorry about it.  We did not learn enough to justify the death of the dog.”
+The question of whether the sacrifice of Laika was justified for the progress of space technology is still debatable nowadays in the context of the ethics of animal research
+
+15
+Dr Daniel Lun     June 2024
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Debate
+Arguments that support the mission
+Laika was a wandering dog. She would have died due to starving anyway. Moscow is extremely cold in Winter
+The experiment revealed how living creatures behaved in weightless conditions. It provided important information to later space missions with human being 
+The use of dogs was unavoidable as the tested subject needed to be close to human beings
+Facilities were equipped to sustain Laika’s life as much as possible. The failure of the temperature control system was unexpected
+
+16
+Dr Daniel Lun     June 2024
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Debate
+Arguments against the mission
+The experiment was designed to sacrifice Laika from day one. Laika was used just like a disposable tool. There was no respect at all to her life
+When flying the first human to space, the orbit was designed to let the astronaut return to the Earth. Why the mission to fly the first dog to space was designed as a one-way journey?
+Dogs are different from other animals such as mice or rats. They are close friends of human beings. They should be used with great care in research 
+There was no provision to reduce the pain of Laika before she died. Assume she did not die because of the malfunction of the temperature control system, her pain and stress would be even higher for wandering in space while starving or suffocating
+
+17
+Dr Daniel Lun     June 2024
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+Discussion
+Do you think that the space mission was justified for using a dog?
+How could the experiment be improved?
+Was the outcome of putting the first man in space a valid aim for sacrificing Laika?
+Did the fact that the Soviet scientists covered up Laika’s death make the experiment more unethical?
+Can the mission fulfill the 3R principles for using animals in research?
+
+18
+Dr Daniel Lun     June 2024
+https://www.ecolinc.vic.edu.au/sites/default/files/pages/Lesson_7_Ethics_of_Animal_Research_Power_Point_Presentation.ppt
+A model of Laika inside the Sputnik 2 capsule 
+https://www.space.com/laika-space-dog
+
+
+
+Part IIUsing Human Subjects in Research
+
+
+Dr Daniel Lun     June 2024
+19
+https://cdp.cancer.gov/resources/elsi/human_subjects_regulations_brochure.htm
+Using human subjects in research
+Advances in human health and welfare ultimately depend on research with human subjects 
+Properly designed and controlled studies with human subjects are essential to verify hypotheses about normal physiology, behavior, mechanisms of disease, processes of learning, or effectiveness of treatments, etc. 
+Unfortunately, not all human studies are justifiable and useful; human cruelty has sometimes been perpetrated in the name of research
+Such as, the research made by the Japanese army on human subjects in China during the Second World War 
+Nuremberg Code (1949) - Main provisions: 
+The voluntary consent of the human subject is absolutely essential 
+Experiments with human subjects should occur only in the context of a clear scientific rationale
+
+20
+Dr Daniel Lun     June 2024
+Belmont report
+In the US, a federal commission was appointed in 70’s to identify fundamental principles that should govern human subject studies 
+The Belmont Report (1979) defined the ethical principles that now guide studies with human subjects in the US. They include
+Respect for persons – individuals should be treated as autonomous agents; persons with diminished autonomy are entitled to protection
+Beneficence – Two general rules (1) do not harm; and (2) maximize possible benefits and minimize possible harms
+Justice – An injustice occurs when some benefit to which a person is entitled is denied without good reason or when some burden is imposed unduly
+
+21
+Dr Daniel Lun     June 2024
+Human subject protection
+Based on the Belmont Report, the U.S. National Institute of Environmental Health Sciences defined certain principles that must be followed when conducting research on human subjects [1] 
+Minimize harms and risks and maximize benefits
+Respect human dignity, privacy, and autonomy
+Take special precautions with vulnerable populations
+Strive to distribute the benefits and burdens of research fairly
+22
+Dr Daniel Lun     June 2024
+1. What is Ethics in Research & Why is it Important? U.S. National Institute of Environmental Health Sciences
+PolyU regulation
+It  is  a  requirement  of  The  Hong  Kong  Polytechnic  University  that  all research/teaching  projects  involving  human  subjects  must  be  reviewed  for  ethical appropriateness (ethics clearance)
+Ensure  that  the  benefits  of the proposed research/teaching project outweigh the risks involved before permitting any experiment  or  study  (including  survey,  interview,  or  questionnaire  type  of investigation) to proceed
+Application should be sent to PolyU Institutional Review Board (IRB)
+Non-clinical study – Send back to Department DRC for review
+Clinical study – either review by 2 members of IRB (low-risk case) or a meeting with all members of IRB and the applicant (high-risk case)
+
+
+23
+Dr Daniel Lun     June 2024
+FAQ – Is ethics clearance required …?
+If I plan to visit some firms/companies to meet and talk to their CEOs on selected topics
+No need if the discussion is not a part of a project.
+If I plan to ask for students’ views on the quality of some audio samples
+Yes, any interaction with human subjects as a part of a project requires ethics clearance
+If I plan to study some archived data collected from human subjects by previous studies
+No if only an audit of the archived data.
+Yes if new and different data are to be generated from the archived samples.
+If I plan to research human subjects in other countries
+Yes, irrespective of the geographic locations of the human subjects
+If I plan to conduct a project that has already got the ethics clearance
+No if conducting the study according to the set protocol specified in the original research proposal approved by the Ethics Committee
+Yes if a new research direction will be conducted without mentioning in the original proposal
+
+24
+Dr Daniel Lun     June 2024
+Case study – The Monster Study
+The Monster Study was a stuttering experiment performed on 22 orphan children in Davenport, Iowa in 1939
+Conducted by Dr. Wendell Johnson, a famous speech therapist, at the University of Iowa. Graduate student Mary Tudor conducted the experiment under Johnson's supervision
+
+25
+Dr Daniel Lun     June 2024
+Mary Tudor
+Dr. Wendell Johnson
+Orphan Home in Iowa, US
+https://cvltnation.com/the-monster-study-how-doctors-tortured-orphans-in-the-name-of-medicine/
+Background
+26
+Dr Daniel Lun     June 2024
+Wendell Johnson
+ (April 16, 1906 – August 29, 1965) .
+Methodology
+22 orphans (5 to 15 years old) in an orphan Home in Iowa were chosen to participate in the experiment
+None of the children were told the intention of the research. They were told to receive speech therapy
+Johnson graduate student, Mary Tudor, talked with the children, each 45 min per few weeks. The experiment lasted for 5 months
+27
+Dr Daniel Lun     June 2024
+
+Result
+The results of the experiment did not give the conclusion Dr Johnson expected but introduced permanent harm to some children
+
+28
+Dr Daniel Lun     June 2024
+Group IIA
+(6 children)
+Normal children were intentionally labeled as stutterers
+
+2 did not change
+2 decreased in fluency
+2 improved fluency
+No conclusion can be drawn if stuttering is a learned behavior
+Group IA
+(5 children)
+Stutterers were intentionally labeled as normal
+
+1 did not change
+2 improved fluency
+2 decreased in fluency
+Consequence …
+The nonstuttering children of Group IIA began to act like stutterers
+29
+Dr Daniel Lun     June 2024
+
+''much more conscious of herself, and she talked less,'' 
+“Because I'm afraid I can't say the next word.” “Why did you snap your fingers?” “Because I was afraid I was going to say ‘a.’”
+ ''It was very difficult to get her to speak, although she spoke very freely the month before.''
+''practically refuses to talk,'' 
+ ''Held hand or arm over eyes most of the time.'' 
+
+
+
+
+
+ ''He stopped and told me he was going to have trouble on words before he said them,‘’ 
+'''wouldn't come out. Feels like it's stuck in there.''
+Consequence
+Some children suffered from this experiment
+Became more reserved and were embarrassed to speak in front of people
+Two originally nonstuttering children could not talk freely after the study and became stutterers for their whole lives
+After the study, Tudor visited the group a few times and reported back to Dr. Johnson how they were doing. However, no positive speech therapy was provided to the suffering children 
+
+30
+Dr Daniel Lun     June 2024
+Consequence …
+With World War II ended in 1945, the world was abhorred by the Nazi human subject experiments that came to light in the Nuremberg Trials
+The details of the Monster study were covered up by the parties concerned to avoid possible challenges by the public
+Dr. Johnson went on to become one of the most influential speech pathologists until his death in 1965
+Only recently (2001) did San Jose’s Mercury News uncover the details of the experiment [1]
+It introduced a multi-million dollar lawsuit to the University of Iowa, which later issued a formal apology on June 13, 2001, and called the experiment “regrettable”
+
+31
+Dr Daniel Lun     June 2024
+[1] Dyer, Jim. "Ethic and Orphans: 'The Monster Study'". Mercury News. Archived from the original on 27 September 2011. Retrieved 19 September 2011.
+Ethical concerns
+The study was conducted well before the issue of the Nuremberg Code or Belmont Report
+Academics were using human subjects freely at that time to conduct their experiments which they saw fit
+Dr. Johnson was not the only team that used the orphans in that house in Iowa for doing human-related research
+The experiment of the Monster Study might be seen as ethically all right at that time, but it will not be able to pass the standard nowadays
+There are a few ethical concerns in this case that have been widely studied in recent years – which show that such kind of study should never be conducted nowadays
+32
+Dr Daniel Lun     June 2024
+Ethical concerns
+Dr. Johnson wanted to prove his theory that stuttering is a learned behavior when creating the Monster Study
+Assume that Dr. Johnson truly believed in his theory 
+It implies that he intentionally induced stuttering in the normal children in the experiment
+Besides, knowing harm was done to some normal children, Dr. Johnson did not conduct any correctional therapy for the suffering children
+It violates the Belmont Report’s “Beneficence” principle
+Beneficence – Two general rules (1) do not harm; and (2) maximize possible benefits and minimize possible harms
+If Dr. Johnson was actually not so sure about his theory, it then violates the Nuremberg Codes
+Experiments with human subjects should occur only in the context of a clear scientific rationale
+
+33
+Dr Daniel Lun     June 2024
+Ethical concerns
+Dr. Johnson chose children in an orphanage to conduct the experiment but without telling them the nature of the study
+It violates the Nuremberg Codes
+The voluntary consent of the human subject is absolutely essential 
+and also the Belmont Report’s “respect for persons” principle
+Respect for persons – individuals should be treated as autonomous agents; persons with diminished autonomy are entitled to protection
+Young children are not autonomous agents. Particularly, children in orphanages do not have parents, and thus cannot have proper guidance to make the decision to join the study or not, even if they know the nature of the study
+34
+Dr Daniel Lun     June 2024
+What if the same study is conducted now?
+If the same study is conducted nowadays, the researcher needs to do the following:
+Seek ethical clearance from the related approval body on the appropriateness of the use of young children in the study
+The researcher needs to provide strong scientific justification as to why using young children in the study is necessary and irreplaceable
+Need to evaluate how much harm will be introduced to the participants and if the harm is reversible
+The follow-up plan to reverse the harm to the participants 
+If the clearance is obtained, the researchers need to find a proper channel to recruit participants
+Since the target is young children, the researchers need to seek the approval of their parents to let their children join the study
+Details and objectives of the study should be released to the parents
+In normal situations, the ethical clearance and the approvals of the parents will be very difficult to obtain as harm is expected to be exerted on the participants
+In fact, the part of the experiment using normal children is not necessary, which is one of the major faults that many people commented on in the design of the Monster Study
+35
+Dr Daniel Lun     June 2024
+Summary
+Undoubtedly, using animals in research can improve the quality of human life
+However, animals have their right to live. Thus, they should be used in research with great care
+The guiding principles of using animals in research are Refining, Replacing, and Reducing
+Advances in human health and welfare ultimately depend on research with human subjects 
+The guiding principles of using human subjects in research are Respect for persons, Beneficence, and Justice, as stated in the Belmont Report
+Researchers who want to use animals in teaching or research should apply for a license from the Hong Kong Government 
+Before using animals or human subjects in a research project, ethical clearance should be obtained from the University
+
+
+
+36
+Dr Daniel Lun     June 2024

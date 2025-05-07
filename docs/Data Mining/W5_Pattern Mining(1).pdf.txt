@@ -1,0 +1,1940 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 5: Mining Frequent Patterns, Association and Correlations: 
+Basic Concepts and Methods
+
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2.30-4.30 pm every Thursday
+
+Outline
+
+ Basic Concepts
+
+ Pattern discovery, frequent itemsets, association rules, support, 
+
+confidence, closed patterns, maximal patterns
+
+ Frequent Itemset Mining Methods 
+ Apriori: downward closure property
+ Other more efficient methods
+
+ Pattern Evaluation Methods – Interestingness
+
+ Support-Confidence framework
+ Lift and Chi-Square
+ Null-invariant measures
+
+3
+
+What Is Pattern Discovery?
+
+ To identify meaningful relationships, trends, structures, etc.
+
+ Frequent Pattern Mining: a key method in pattern discovery
+ Search for patterns that occur frequently in massive data
+
+ Frequent occurrences of items (e.g., products purchased together)
+ Sequential patterns (e.g., events or actions happening in a sequence)
+ Structured patterns (e.g., subgraphs in networks)
+
+4
+
+What Is Pattern Discovery?
+
+ Motivation examples in real world
+
+Purchased 
+together
+
+ What products were often purchased together?
+ What combinations of symptoms frequently co-occur among patients?
+
+ What are the subsequent purchases after buying an iPad?
+ What word sequences likely form phrases in a corpus?
+
+ What kinds of network structures indicate influential groups in Twitter?
+ What spatial patterns in road networks imply traffic congestion?
+
+5
+
+Why Is ‘Frequent Pattern’ Important?
+
+ Revealing inherent regularities and important properties of data
+ Foundation for many essential data mining tasks:
+
+ Association, correlation, and causality analysis
+ Classification: Discriminative pattern-based analysis
+ Cluster analysis: Pattern-based subspace clustering
+ Other various patterns in spatiotemporal, multimedia, time-series data
+
+ Broad applications:
+
+ E-commerce: market-basket analysis, cross-marketing, catalog design
+ Management: sale campaign analysis, Web log analysis
+ Healthcare: biological sequence analysis
+
+6
+
+Market Basket Analysis: A Motivating Example
+
+ “Which groups or sets of items are customers likely to 
+
+purchase on a given trip to the store?”
+
+ Finding frequent itemsets
+
+ Items frequently purchased 
+
+together by customers
+
+ Benefits: 
+
+ Design store layouts, 
+ Understand buying habits
+ Plan marketing / advertising 
+
+strategies
+
+7
+
+Basic Concepts: Frequent Itemsets
+
+ Itemset: A set of one or more items
+
+
+
+-itemset: 
+ Support of an itemset
+
+𝒌𝒌
+
+𝑋𝑋 = 𝑥𝑥1, … , 𝑥𝑥𝑘𝑘
+
+𝑘𝑘
+
+with 
+
+items
+
+ Absolute Support (Count): the number of transactions 
+
+containing the given itemset 
+
+ Relative Support: the fraction of transactions containing 
+
+(i.e., 
+
+the probability that a transaction contains 
+
+𝑋𝑋
+
+)
+
+𝑋𝑋
+
+ Frequent Itemset: An itemset 
+
+𝑋𝑋
+
+is frequent if the support of 
+
+is no less than 
+
+– a minsup threshold.
+
+𝑋𝑋
+
+𝜎𝜎
+
+𝑋𝑋
+
+8
+
+Basic Concepts: Frequent Itemsets
+
+ Let minsup = 50% 
+ Frequent 1-itemsets:
+ Beer: 3 (60%)
+ Nuts: 3 (60%)
+ Eggs: 3 (60%)
+ Diaper: 4 (80%)
+ Frequent 2-itemsets: 
+
+ {Beer, Diaper}: 3 (60%)
+
+Tid
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Items bought
+
+Beer, Nuts, Diaper
+
+Beer, Coffee, Diaper
+
+Beer, Diaper, Eggs
+
+Nuts, Eggs, Milk
+
+Nuts, Coffee, Diaper, Eggs, Milk
+
+9
+
+From Frequent Itemsets to Association Rules
+
+ Association Rules written as X  Y [support, confidence]
+
+ Both 
+are non-empty itemsets, and 
+ It describes an ‘if-then’ relationship between two sets of items.
+
+and 
+
+.
+
+𝑋𝑋
+
+𝑌𝑌
+
+𝑋𝑋 ∩ 𝑌𝑌 = ∅
+
+ Support: The percentage of transactions containing both X and Y
+
+
+
+: the percentage of transactions that contains every item in 
+
+, i.e., how frequently both 
+
+appear together in the dataset
+𝑋𝑋
+ Confidence: The conditional probability that a transaction having 
+𝑋𝑋
+
+and 
+𝑃𝑃(𝑋𝑋 ∪ 𝑌𝑌)
+𝑌𝑌
+
+𝑌𝑌
+
+sup(𝑋𝑋 → 𝑌𝑌) = P(𝑋𝑋 ∪ 𝑌𝑌)
+and 
+
+also contains 
+
+, that is,
+
+𝑋𝑋
+
+𝑌𝑌
+
+conf 𝑋𝑋 → 𝑌𝑌 = P 𝑌𝑌 𝑋𝑋 = sup(𝑋𝑋 → 𝑌𝑌)/sup(𝑋𝑋)
+
+10
+
+Association Rule Mining
+
+ Strong Rules: Find all rules, 
+
+that satisfy
+
+ minimum support: frequency of X and Y appear together.
+ minimum confidence: likelihood that Y occurs when X occurs.
+
+𝑋𝑋 → 𝑌𝑌
+
+ What does a strong rule do really?
+
+ It correlates the presence of one set of items with another set.
+ Applications:
+→
+→ 
+𝒀𝒀
+∗
+
+: What actions can boost sales of 
+: What other products should be stocked up if 
+
+is popular?
+
+
+
+
+∗
+𝑿𝑿
+
+𝑋𝑋
+
+𝑌𝑌
+
+?
+
+11
+
+Association Rule Mining: An Example
+
+ Frequent itemsets: Let minsup = 50% 
+
+ Freq. 1-itemset: Beer: 3; Nuts: 3; Eggs: 3; Diaper: 4
+ Freq. 2-itemsets:  {Beer, Diaper}: 3
+ Association rules:  Let minconf = 50%
+
+ Beer  Diaper  (60%, 100%)
+ Diaper  Beer  (60%, 75%)
+
+Customers 
+buy both
+
+Tid
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Items bought
+
+Beer, Nuts, Diaper
+
+Beer, Coffee, Diaper
+
+Beer, Diaper, Eggs
+
+Nuts, Eggs, Milk
+
+Nuts, Coffee, Diaper, Eggs, Milk
+
+Beer
+
+Diaper
+
+Customers 
+buy beer
+
+Customers 
+buy diaper
+
+12
+
+Challenge: Too Many Frequent Patterns!
+
+ Long patterns generate an exponential number of sub-patterns.
+ Given two transactions with minimum support = 1:
+
+
+ How many frequent itemsets?
+, …, 
+
+𝑻𝑻𝟐𝟐: 𝒂𝒂𝟏𝟏, … , 𝒂𝒂𝟏𝟏𝟓𝟓𝟓𝟓
+
+; 
+
+, 
+
+. 
+
+, 
+
+, …, 
+
+𝑻𝑻𝟏𝟏: 𝒂𝒂𝟏𝟏, … , 𝒂𝒂𝟓𝟓𝟓𝟓
+ 1-itemsets: 
+ 2-itemsets: 
+ …, …, …, …
+ 99-itemsets: 
+ 100-itemsets: 
+
+ In total: 
+
+, …, 
+𝑎𝑎1 : 2
+
+𝑎𝑎1 : 2
+𝑎𝑎1, 𝑎𝑎2 : 2
+
+, 
+𝑎𝑎50 : 2
+𝑎𝑎1, 𝑎𝑎50 : 2
+, …, 
+
+𝑎𝑎51 : 1
+𝑎𝑎1, 𝑎𝑎51 : 1
+
+, …, …, 
+
+𝑎𝑎100 : 1
+
+𝑎𝑎99, 𝑎𝑎100 : 1
+Too huge for any 
+computer to 
+compute or store!
+
+𝑎𝑎1, 𝑎𝑎2, … , 𝑎𝑎99 : 1
+𝑎𝑎1, 𝑎𝑎2, … , 𝑎𝑎100 : 1
+100
+100
+100 = 2
+2 + ⋯ +
+
+100
+
+100
+1 +
+
+𝑎𝑎2, 𝑎𝑎3, … , 𝑎𝑎100 : 1
+
+sub-patterns!
+
+– 1
+
+13
+
+Expressing Patterns in Compressed Form: Closed Patterns
+
+ How to handle such a scalability challenge?
+ Solution 1: Closed patterns
+
+An itemset 
+is frequent
+•
+𝑿𝑿
+• NO super-pattern 
+
+is a closed pattern if:
+
+exists with the same support as 
+
+.
+
+𝑋𝑋
+ Given 
+
+; 
+𝑌𝑌 ⊃ 𝑋𝑋
+
+with minsup = 1
+𝑋𝑋
+
+ Only two closed patterns 
+𝑇𝑇1: 𝑎𝑎1, … , 𝑎𝑎50
+
+𝑇𝑇2: 𝑎𝑎1, … , 𝑎𝑎100
+
+, 
+
+ Closed pattern is a lossless compression of frequent patterns.
+
+𝒂𝒂𝟏𝟏, … , 𝒂𝒂𝟓𝟓𝟓𝟓 : 𝟐𝟐
+
+𝒂𝒂𝟏𝟏, … , 𝒂𝒂𝟏𝟏𝟓𝟓𝟓𝟓 : 𝟏𝟏
+
+ Reduces # patterns to process
+ Retains all support information: “
+
+”, “
+
+”, …
+
+14
+
+𝑎𝑎2, … , 𝑎𝑎40 : 2
+
+𝑎𝑎5, … , 𝑎𝑎51 : 1
+
+Expressing Patterns in Compressed Form: Maximal Patterns
+
+ Solution 2: Max-patterns  
+
+is a maximal pattern if:
+
+A pattern 
+•
+• NO frequent super-pattern 
+
+is frequent
+
+𝑋𝑋
+
+exist.
+
+𝑋𝑋
+
+ Given 
+
+; 
+
+𝑌𝑌 ⊃ 𝑋𝑋
+with minsup = 1
+
+ Only one max-pattern 
+𝑇𝑇1: 𝑎𝑎1, … , 𝑎𝑎50
+
+𝑇𝑇2: 𝑎𝑎1, … , 𝑎𝑎100
+𝑎𝑎1, … , 𝑎𝑎100 : 1
+
+ Limitation: Maximal patterns are lossy compression! 
+
+ Compared to close patterns, this method does NOT reveal the 
+
+real support for sub-patterns of a max-pattern.
+
+ Example: We only know
+
+is frequent, but cannot know 
+
+its real support.
+
+𝑎𝑎1, … , 𝑎𝑎40
+Therefore, closed patterns is more desirable than maximal patterns.
+
+15
+
+Apriori, FPGrowth, strong association rules, …
+
+FREQUENT ITEMSET MINING METHODS 
+
+16
+
+A Frequent Pattern Implies Frequent Subsets
+
+ Key Observation
+
+ Given 
+
+and 
+
+, we get a frequent 
+
+itemset: 
+
+𝑇𝑇1: 𝑎𝑎1, … , 𝑎𝑎50
+ All subsets are also frequent: 
+𝑎𝑎1, … , 𝑎𝑎50
+, …
+
+𝑇𝑇2: 𝑎𝑎1, … , 𝑎𝑎100
+, 
+
+, …, 
+
+, 
+
+, …, 
+
+𝑎𝑎50
+𝑎𝑎1
+There must be some hidden relationships 
+among these frequent patterns! 
+
+𝑎𝑎1, 𝑎𝑎2
+
+𝑎𝑎2
+
+𝑎𝑎1, … , 𝑎𝑎49
+
+The Downward Closure Property in Apriori
+
+ Any subset of a frequent itemset must be frequent!
+ e.g., if {beer, diaper, nuts} is frequent, so is {beer, diaper}
+
+ Reason: Every transaction containing {beer, diaper, nuts} also contains 
+
+{beer, diaper}. 
+
+ Pruning strategy: If any subset of an itemset 
+
+ Apriori: an efficient mining algorithm with downward closure.
+is infrequent, 
+at all?
+cannot be frequent. In this case, why consider 
+ Eliminate infrequent itemsets early. Focus on promising ones.
+
+then 
+
+𝑆𝑆
+
+𝑆𝑆
+
+𝑆𝑆
+
+Apriori Pruning and Scalable Mining Methods
+
+ Apriori’s pruning principle
+
+ If any itemset is infrequent, its superset should not even be generated! 
+ Example: If {A, B} is infrequent, {A, B, C} will not be considered.
+
+ Scalable Mining Methods
+
+ Apriori: Level-wise, join-based approach (Agrawal, et al. @VLDB’94)
+
+ Iterative procedure: 
+
+-itemsets are used to explore 
+
+-itemsets.
+
+ Eclat: Use vertical data format to compute intersections of transactions 
+
+𝑘𝑘 + 1
+
+𝑘𝑘
+(Zaki, et al. @KDD’97)
+
+ FP-growth: Avoid candidate generation by building a compact FP-tree 
+
+(Han, et al. @SIGMOD’00)
+
+19
+
+The Apriori Algorithm: Framework
+
+ Outline of Apriori: level-wise, candidate generation and test 
+
+ Initially, scan DB once to get frequent 1-itemset
+ Repeat
+
+• Generate length-
+• Test the candidates against DB to find frequent 
+• Set 
+
+𝑘𝑘 + 1
+
+candidate itemsets based on frequent 
+
+-itemsets
+
+-itemsets
+𝑘𝑘
+
+𝑘𝑘 + 1
+
+ Until no frequent or candidate set can be generated
+ Return all the frequent itemsets derived
+
+𝑘𝑘 ≔ 𝑘𝑘 + 1
+
+20
+
+The Apriori Algorithm: Pseudo-Code
+
+
+
+
+
+: Candidate itemsets of size 
+
+: Frequent itemsets of size 
+
+𝐶𝐶𝑘𝑘
+𝐹𝐹𝑘𝑘
+;
+{frequent items}; 
+
+) Do {
+
+𝑘𝑘 = 1
+While (
+𝐹𝐹𝑘𝑘 =
+
+= candidates generated from 
+
+𝐹𝐹𝑘𝑘 ≠ ∅
+
+Derive 
+𝐶𝐶𝑘𝑘+1
+
+by counting candidates in 
+
+𝐹𝐹𝑘𝑘
+
+𝐶𝐶𝑘𝑘+1
+
+;
+𝐹𝐹𝑘𝑘+1
+
+}
+
+𝑘𝑘 = 𝑘𝑘 + 1
+
+𝑘𝑘
+
+// frequent 1-itemset
+
+// as long as 
+
+is non-empty
+
+𝐹𝐹𝑘𝑘
+w.r.t. TDB at minsup;
+
+// test candi
+
+// candidate generation
+
+𝑘𝑘
+
+;  
+
+Return
+
+;
+
+// return 
+
+generated at each level
+
+∪𝑘𝑘 𝐹𝐹𝑘𝑘
+
+𝐹𝐹𝑘𝑘
+
+21
+
+The Apriori Algorithm: An Example 
+
+minsup = 2
+
+Itemset
+
+sup
+
+Database TDB
+
+Tid
+
+10
+
+20
+
+30
+
+40
+
+F2
+
+Items
+
+A, C, D
+
+B, C, E
+
+A, B, C, E
+
+B, E
+
+C1
+
+1st scan
+
+C2
+
+Itemset
+{A, C}
+{B, C}
+{B, E}
+{C, E}
+
+sup
+2
+2
+3
+2
+
+{A}
+
+{B}
+
+{C}
+
+{D}
+
+{E}
+
+2
+
+3
+
+3
+
+1
+
+3
+
+Itemset
+{A, B}
+{A, C}
+{A, E}
+{B, C}
+{B, E}
+{C, E}
+
+sup
+1
+2
+1
+2
+3
+2
+
+F1
+
+Itemset
+
+sup
+
+{A}
+
+{B}
+
+{C}
+
+{E}
+
+2
+
+3
+
+3
+
+3
+
+C2
+
+Itemset
+
+2nd scan
+
+{A, B}
+
+{A, C}
+
+{A, E}
+
+{B, C}
+
+{B, E}
+
+{C, E}
+
+C3
+
+Itemset
+
+{B, C, E}
+
+3rd scan
+
+F3
+
+Itemset
+
+{B, C, E}
+
+sup
+
+2
+
+22
+
+Candidate Generation in Apriori
+
+ Efficiently generate candidates
+
+ Step 1: self-join
+
+to generate 
+
+candidates of size 
+𝐹𝐹𝑘𝑘
+
+ Step 2: prune candidates whose 
+
+subsets are not all frequent
+
+𝑘𝑘 + 1
+
+ Example
+ Input: 
+ Self-joining: 
+ Pruning: 
+ Output: 
+
+
+
+, 
+
+𝐹𝐹3 = 𝑎𝑎𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎𝑎𝑎
+𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+is removed because 
+𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝐹𝐹3 × 𝐹𝐹3
+
+𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+𝐶𝐶4 = 𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+self-join
+
+self-join
+
+abc
+
+abd
+
+acd
+
+ace
+
+bcd
+
+abcd
+
+acde
+
+pruned
+
+is NOT in 
+
+𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝐹𝐹3
+
+23
+
+Candidate Generation: An SQL Implementation
+
+ Suppose the items in 
+
+are listed in an order (e.g., bac  abc)
+
+𝐹𝐹𝑘𝑘−1
+
+𝐹𝐹𝑘𝑘−1
+
+, 
+
+, …, 
+
+, 
+
+Step 1: self-joining 
+
+insert into 
+
+select 
+
+from 
+
+where 
+
+𝑪𝑪𝒌𝒌
+as 
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝟏𝟏
+𝑭𝑭𝒌𝒌−𝟏𝟏
+
+as 
+, 
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝟐𝟐
+𝑭𝑭𝒌𝒌−𝟏𝟏
+
+𝒑𝒑
+
+𝒒𝒒
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝟏𝟏 = 𝒒𝒒. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝟏𝟏
+
+Step 2: pruning
+
+for all itemsets 
+
+in 
+
+do
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝒌𝒌−𝟏𝟏
+
+𝒒𝒒_𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝒌𝒌−𝟏𝟏
+
+, …, 
+
+, 
+
+for all 
+
+-subsets 
+𝑪𝑪𝒌𝒌
+𝒄𝒄
+
+of 
+
+do
+
+if (
+
+is not in 
+(𝑘𝑘 − 1)
+
+) then delete 
+𝒄𝒄
+
+𝒔𝒔
+
+from 
+
+𝒔𝒔
+
+𝑭𝑭𝒌𝒌−𝟏𝟏
+
+𝒄𝒄
+
+𝑪𝑪𝒌𝒌
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝒌𝒌−𝟐𝟐 = 𝒒𝒒. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝒌𝒌−𝟐𝟐
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝒌𝒌−𝟏𝟏 < 𝒒𝒒. 𝒊𝒊𝒊𝒊𝒊𝒊𝒎𝒎𝒌𝒌−𝟏𝟏
+
+self-join
+
+self-join
+
+abc
+
+abd
+
+acd
+
+ace
+
+bcd
+
+abcd
+
+acde
+
+pruned
+
+24
+
+Final Step: Rule Generation via Frequent Itemsets
+
+ Support (min-sup): used to mine the frequent itemsets
+ Confidence (min-conf): used by the rule generation step to 
+
+qualify the strength of the derived association rules
+ For each frequent itemset 
+ For every non-empty subset 
+𝐹𝐹
+
+, generate a rule:
+𝐹𝐹
+
+, generate 
+
+’s all non-empty subsets
+
+satisfies the minimum confidence, i.e., 
+
+𝑠𝑠
+
+𝑅𝑅: 𝑠𝑠 → 𝐹𝐹 − 𝑠𝑠
+
+is a strong association rule and should be output.
+
+conf 𝑠𝑠 → 𝐹𝐹 − 𝑠𝑠 =
+
+sup 𝐹𝐹
+sup 𝑠𝑠 ≥ 𝑚𝑚𝑚𝑚𝑚𝑚 _𝑎𝑎𝑐𝑐𝑚𝑚𝑐𝑐
+
+ If the rule 
+
+𝑅𝑅
+
+then 
+
+𝑅𝑅
+
+25
+
+Rule Generation: An Example
+
+ For 
+
+
+, 
+
+, 
+, 
+𝐹𝐹3 = 2,3,5
+3
+2
+
+5
+
+, there are six non-empty subsets:
+
+, 
+
+, 
+
+ Thus, six candidate rules can be generated
+
+2,3
+
+2,5
+
+3,5
+
+
+
+
+, 
+, 
+
+, 
+, 
+
+2 → 3,5
+2,3 → 5
+
+3 → 2,5
+2,5 → 3
+
+5 → 2,5
+3,5 → 2
+
+ If any of them satisfies the minimum confidence, it will be 
+
+output to the end user.
+
+26
+
+Is Apriori Fast Enough? 
+
+ Core of the Apriori algorithm:
+
+ Use frequent 
+ Use scanning and pattern matching to calculate support for candidates
+
+-itemsets to generate candidate 
+
+-itemsets
+
+𝑘𝑘
+
+(𝑘𝑘 + 1)
+
+ The performance bottleneck of Apriori: candidate generation
+
+ Huge candidate sets (exponential growth)
+frequent 1-itemset will generate 
+
+
+ To discover a frequent pattern of size 100, e.g., {a1, a2, …, a100}, one 
+
+candidate 2-itemsets
+
+4
+10
+needs to generate 
+
+7
+> 10
+
+candidates.
+
+30
+ Multiple scans of database
+≈ 10
+
+100
+
+2
+scans, where 
+
+ Needs 
+
+is the length of the longest pattern
+
+𝑚𝑚 + 1
+
+𝑚𝑚
+
+27
+
+*Techniques to Enhance Apriori’s Efficiency
+
+ Shrink # candidates
+
+ Hashing: A 
+-itemset whose hashing bucket count < threshold cannot be frequent
+ Sampling: mining on a subset of data with lower min-sup to ensure completeness
+
+𝑘𝑘
+ Reduce database scans
+
+ Partitioning: Any itemset that is potentially frequent in DB must be frequent in at least 
+
+one of the partitions of DB
+
+ Dynamic itemset counting: Adding new candidate itemsets only when all of their 
+
+subsets are estimated to be frequent
+
+ Transaction reduction: A transaction that does not contain any frequent 
+
+-itemset is 
+
+useless in subsequent scans
+ Explore special data structures
+
+ Tree projection, H-miner, Hypercube decomposition
+
+𝑘𝑘
+
+28
+
+*Partitioning: Scan Database Only Twice
+
+ Theorem: Any itemset that is potentially frequent in TDB must 
+
+be frequent in at least one of the partitions of TDB
+Support threshold: 
+Partition: 
+
+𝜎𝜎
+
+TDB1 + TDB2 + ⋯ + TDBk = TDB
+
+TDB1
+
++
+
+TDB2
+
++
+
+. . .
+
+. . .
+
++
+
+TDBk
+
+=       TDB
+
+sup1 𝑋𝑋 < 𝜎𝜎 TDB1
+
+ Method [A. Savasere, E. Omiecinski, S. Navathe, VLDB’95]
+
+sup 𝑋𝑋 < 𝜎𝜎 TDB
+
+sup𝑘𝑘 𝑋𝑋 < 𝜎𝜎 TDB𝑘𝑘
+
+sup2 𝑋𝑋 < 𝜎𝜎 TDB2
+
+ Scan 1: Partition database and find local frequent patterns
+ Scan 2: Consolidate global frequent patterns
+
+29
+
+*DHP: Direct Hashing and Pruning
+
+ Reduce # candidates  [J. Park, M. Chen, P. Yu, SIGMOD’95]
+ Observation: A 
+
+-itemset whose corresponding hashing 
+
+bucket count is below the threshold cannot be frequent
+𝑘𝑘
+ Frequent items: 
+ minsup = 2
+
+Items
+
+a, b
+
+Tid
+
+1
+
+Itemsets
+
+{ab, ad, ae}
+
+2
+
+3
+
+4
+
+a, b, d, e
+
+{bd, be, de}
+
+a, e, f
+
+c, d
+
+Hash Table
+
+Count
+
+3
+
+1
+
+ Candidate 2-itemsets:
+
+𝑎𝑎, 𝑎𝑎, 𝑎𝑎, 𝑎𝑎
+
+ Hash buckets with counts
+𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎
+
+
+
+
+
+is not a promising candidate 2-itemset as the count of 
+
+is below the support threshold
+
+{𝑎𝑎𝑎𝑎}
+{𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎, 𝑎𝑎𝑎𝑎}
+
+30
+
+*ECLAT: Exploring Vertical Data Format
+
+ A depth-first search algorithm using set intersection [Zaki et al. @KDD’97]
+ Tid-List: List of transaction-ids containing an itemset 
+
+
+ Vertical format: 
+ Deriving frequent patterns based on vertical intersections
+
+; 
+
+𝑡𝑡 𝑎𝑎 = 𝑇𝑇10, 𝑇𝑇20
+
+𝑡𝑡 𝑎𝑎 = 𝑇𝑇10, 𝑇𝑇20, 𝑇𝑇30
+
+𝑡𝑡 𝑎𝑎𝑎𝑎 = 𝑇𝑇10, 𝑇𝑇20
+
+A transaction DB in 
+Horizontal Data Format
+
+The transaction DB in 
+Vertical Data Format
+
+Tid
+
+Itemset
+
+Item
+
+TidList
+
+always occur together in the same 
+
+and 
+
+Properties of Tid-Lists
+•
+
+If 
+transactions, then 
+𝑌𝑌
+If 
+𝑡𝑡(𝑋𝑋) = 𝑡𝑡(𝑌𝑌)
+Y must have X. For example, 
+
+, then 
+
+𝑋𝑋
+
+•
+
+. e.g., 
+
+.
+
+, as transactions having 
+
+𝑡𝑡 𝑎𝑎𝑎𝑎 = 𝑡𝑡 𝑎𝑎
+.
+
+𝑡𝑡 𝑌𝑌 ⊆ 𝑡𝑡 𝑋𝑋
+
+𝑋𝑋 ⊆ 𝑌𝑌
+ Using diffset to accelerate mining
+
+𝑡𝑡 𝑎𝑎𝑎𝑎 ⊆ 𝑡𝑡 𝑎𝑎
+
+10
+
+20
+
+30
+
+a, c, d, e
+
+a, b, e
+
+b, c, e
+
+ Only keep track of differences of Tids
+
+
+, 
+
+Diffset
+
+𝑡𝑡(𝑎𝑎) = 𝑇𝑇10, 𝑇𝑇20, 𝑇𝑇30
+
+𝑡𝑡 𝑎𝑎𝑎𝑎 = 𝑇𝑇10, 𝑇𝑇30 →
+
+(𝑎𝑎𝑎𝑎, 𝑎𝑎) = 𝑇𝑇20
+
+a
+
+b
+
+c
+
+d
+
+e
+
+10, 20
+
+20, 30
+
+10, 30
+
+10
+
+10, 20, 30
+
+31
+
+pattern evaluation methods
+
+WHICH PATTERNS ARE INTERESTING?
+
+32
+
+How to Evaluate if a Rule/Pattern Is Interesting?
+
+ Pattern-mining will generate a large set of patterns/rules.
+ Not all the generated patterns/rules are interesting.
+
+ Interestingness Measures
+
+ Objective: based on statistics behind the data
+
+ Support, confidence, correlation, …
+
+ Subjective: “one man’s trash could be other’s treasure”
+
+ Query-based: Relevant to a user’s particular request (actionable)
+ Against one’s knowledge-base: unexpected, freshness, timeliness
+ Visualization tools: Multi-dimensional, interactive examination
+
+33
+
+Limitation of the Support-Confidence Framework
+
+ Strong rules are not necessarily interesting: “
+ Example: Suppose a school may have the following statistics 
+
+” 
+
+on # students related to playing basketball and/or eating cereal:
+
+𝐴𝐴 → 𝐵𝐵
+
+𝑠𝑠, 𝑎𝑎
+
+Play basketball
+
+Not play basketball
+
+Eat cereal
+
+Not eat cereal
+
+sum
+
+400
+
+200
+
+600
+
+350
+
+50
+
+400
+
+sum
+
+750
+
+250
+
+1000 (TOTAL)
+
+ Association rule mining may generate a rule:
+
+play-basketball  eat-cereal [40%, 66.7%]
+
+ But this strong association rule is misleading  The overall % of 
+
+students eating cereal is 75% > 66.7%. 
+
+ A more telling rule: 
+
+not play-basketball  eat-cereal [35%, 87.5%] (high 
+
+& 
+
+)
+
+34
+
+𝑠𝑠
+
+𝑎𝑎
+
+Interestingness Measure: Lift
+
+ Measure of dependent / correlated events:
+
+ Tell how 
+𝒍𝒍𝒊𝒊𝒍𝒍𝒊𝒊 𝑩𝑩, 𝑪𝑪 =
+
+
+
+
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡 𝐵𝐵, 𝐶𝐶 = 1
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡 𝐵𝐵, 𝐶𝐶 > 1
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡 𝐵𝐵, 𝐶𝐶 < 1
+
+ Example:
+=CB
+)
+
+,
+
+lift
+
+(
+
+600
+/
+ Thus, 
+
+and 
+
+P 𝐵𝐵 ∪ 𝐶𝐶
+and 
+𝑃𝑃 𝐵𝐵 𝑃𝑃 𝐶𝐶
+: 
+: positively correlated
+: negatively correlated
+
+sup(𝐵𝐵 → 𝐶𝐶)
+=
+are correlated
+sup 𝐵𝐵 sup(𝐶𝐶)
+and 
+𝐶𝐶
+𝐵𝐵
+
+=
+are independent
+
+𝐵𝐵
+
+𝐶𝐶
+
+conf 𝐵𝐵 → 𝐶𝐶
+sup 𝐶𝐶
+C
+Not C
+
+400
+
+200
+
+sum
+
+600
+
+B
+
+Not B
+
+sum
+
+350
+
+50
+
+400
+
+750
+
+250
+
+1000
+
+is more telling than s & c
+
+400
+1000
+
+/
+1000
+×
+750
+and 
+
+=
+
+89.0
+
+lift
+
+(
+
+/
+
+1000
+
+=¬CB
+
+)
+
+,
+
+600
+
+/
+
+𝒍𝒍𝒊𝒊𝒍𝒍𝒊𝒊
+
+are negatively correlated since 
+
+200
+1000
+
+1000
+/
+×
+250
+.
+
+=
+
+33.1
+
+/
+
+1000
+
+are positively correlated since 
+
+𝐶𝐶
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡 𝐵𝐵, 𝐶𝐶 < 1
+
+.
+
+35
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡 𝐵𝐵, ¬𝐶𝐶 > 1
+
+𝐵𝐵
+¬𝐶𝐶
+
+𝐵𝐵
+
+Interestingness Measure: 
+
+ To test correlated events: 
+
+•
+•
+
+2
+
+: independent
+: correlated, either positive or 
+
+=
+
+𝜒𝜒
+
+2
+
+𝜒𝜒
+negative  needs additional test
+𝜒𝜒
+
+= 0
+> 0
+
+𝟐𝟐
+𝝌𝝌
+∑ 𝑂𝑂𝑂𝑂𝑠𝑠𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂 −𝐸𝐸𝐸𝐸𝐸𝐸𝑂𝑂𝐸𝐸𝐸𝐸𝑂𝑂𝑂𝑂
+B
+𝐸𝐸𝐸𝐸𝐸𝐸𝑂𝑂𝐸𝐸𝐸𝐸𝑂𝑂𝑂𝑂
+
+2
+
+2
+
+Not B
+
+C
+
+400 (450) 350 (300)
+
+Not C
+
+200 (150)
+
+50 (100)
+
+sum
+
+600
+
+400
+
+sum
+
+750
+
+250
+
+1000
+
+ Thus, 
+
+and 
+
+are negatively correlated since the expected
+
+Expected value
+
+Observed value
+
+value is 450 but the observed is only 400.
+
+𝐵𝐵
+
+𝐶𝐶
+
+is also more telling than the support-confidence framework
+
+36
+
+
+
+2
+
+𝜒𝜒
+
+Lift and 
+
+: Are They Always Good Measures?
+
+ Null transactions: Transactions that contain neither 
+
+2
+
+𝜒𝜒
+
+Examine the dataset:
+•
+
+is much rarer than 
+
+nor 
+
+𝑩𝑩
+
+𝑪𝑪
+
+and 
+𝐵𝐵𝐶𝐶 100, 0.1%
+& 
+
+• There are many 
+• Unlikely 
+
+¬𝐵𝐵𝐶𝐶 1000
+
+.
+will happen together!
+¬𝐵𝐵¬𝐶𝐶 100000, 98%
+
+𝐵𝐵¬𝐶𝐶 1000
+
+𝐵𝐵
+
+𝐶𝐶
+
+ However, B and C seem to be strongly positively 
+
+correlated based on:
+
+
+
+
+and Observed (100) >> 
+
+2
+
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡 𝐵𝐵, 𝐶𝐶 = 8.44 ≫ 1
+Expected (11.85)
+𝜒𝜒
+
+(𝐵𝐵, 𝐶𝐶) = 670
+
+null transactions
+
+Contingency table with 
+expected values added
+
+ Too many null transactions may “spoil the soup”!
+
+37
+
+Interestingness Measures: Null-Invariant
+
+ Null invariance: value does not change with # null-transactions
+
+
+
+and 
+
+are NOT null-invariant with the range of 
+
+.
+
+ Null-invariant Measures:
+𝑙𝑙𝑚𝑚𝑐𝑐𝑡𝑡
+
+𝜒𝜒
+
+2
+
+0, ∞
+
+ All Confidence: the minimum confidence of the two association rules 
+
+related to A and B, namely, “A  B” and “B  A”
+
+ Max Confidence: the maximum confidence of the two rules
+ Kulczynski (Kulc): an average of two confidence values
+ Cosine: a harmonized lift measure (unaffected by # total transactions)
+
+38
+
+Null Invariance: An Example
+
+ Why is null invariance crucial for the analysis of transactions? 
+
+ Many transactions may not contain any itemsets being examined.
+
+milk vs. coffee contingency table
+
+Null-transactions 
+w.r.t. milk and coffee
+
+are not null-invariant 
+
+Lift and 
+– not good to evaluate data that 
+𝝌𝝌
+contain either too many or too few 
+null transactions!
+
+𝟐𝟐
+
+39
+
+Comparison of Null-Invariant Measures
+
+ Not all null-invariant measures are created equal.
+ Which one is better?
+
+milk vs. coffee contingency table
+
+• Kulc (Kulczynski 1927) holds firm and is in 
+balance of both directional implications.
+
+Subtle: They disagree 
+on those cases
+
+40
+
+Summary
+
+ The discovery of frequent patterns, associations, and correlation 
+
+relationships is useful in many applications.
+ Customers’ buying habits: itemsets that are frequently bought together
+, min_sup);  
+
+ Association rule mining: 1) frequent k-itemsets (
+
+2) generating strong association (
+𝐴𝐴 ∪ 𝐵𝐵
+ Apriori: any subset of a frequent itemset must be frequent!
+ Efficiency bottleneck: reduce # candidates or DB scans
+
+, min_conf). 
+
+𝐴𝐴 → 𝐵𝐵
+
+ Not all strong association rules are interesting. 
+
+ The support–confidence framework vs other interestingness measures 
+ A measure is null-invariant if its value is free from the influence of null-
+
+transactions (that do not contain any itemsets being examined).
+
+41
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+42
+
+

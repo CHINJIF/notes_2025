@@ -1,0 +1,1251 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+Week 13: Course Review and Tutorial 
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2.30-4.30pm every Thursday
+
+Outline
+ Data Mining, Knowledge Discovery, and Data Preprocessing
+ Data Warehouse Modeling: Data Cube and OLAP
+ Mining (Sequential) Association Rules
+ Classification: Decision Tree, Naïve Bayesian Classifiers, Bayesian Belief Networks, Neural Networks
+ Clustering: hierarchical clustering, DBSCAN, deep clustering
+
+DATA MINING AND KNOWLEDGE DISCOVERY
+
+Why Data Mining?
+ We are drowning in data, but starving for knowledge!
+ Solution: data warehousing and data mining
+ To turn a large collection of data into knowledge and move from the data age toward the information age
+
+User Query
+ Flu symptoms
+ How to tell if I have the flu
+ Flu vs cold symptoms
+ Flu treatment
+ How long does the flu last
+ …
+
+Search Engine (e.g. Google)
+
+Knowledge
+ the level of flu activity across different regions
+ # flu-related searches over a period
+ comparing the current flu activity to past years
+ prediction
+ …
+
+What Is Data Mining?
+ Alternative names
+ Knowledge mining not emphasis on mining from data
+ Knowledge mining from data too long
+ Knowledge extraction
+ Data/pattern analysis
+ …
+
+Data Mining
+ Data mining as the core of knowledge discovery process
+ To extract interesting, non-trivial, implicit, previously unknown, and potentially useful information from huge amount of data
+ e.g., around 60% of the customers buy diapers also buy beer
+
+Knowledge discovery in databases
+ KDD Steps
+1. Evaluation (based on interestingness)
+2. Presentation (e.g., visualization)
+
+Selection and Transformation
+Data Cleaning and Integration
+Task-relevant Data
+Data Warehouse
+Databases
+Feedbacks
+
+Are All Patterns Interesting?
+ No!
+ One can mine tremendous amount of “patterns”
+ Some may fit only certain dimension space (time, location, …)
+ Some may not be representative enough, may be transient, …
+
+ A pattern is interesting if it is:
+ 1) easily understood by humans; 2) valid on new or test data with some degree of certainty; 3) potentially useful; and 4) novel
+
+ An interesting pattern represents knowledge.
+ Interestingness measures: e.g., support, confidence, …, each associated with a user-controlled threshold
+
+DATA PREPROCESSING
+
+Why Preprocess the Data? Data Quality!
+ Data quality depends on the intended use of data.
+ Multidimensional views of data quality:
+ Accuracy: data must correctly reflect the real-world scenario without errors or noise.
+ Completeness: all required data fields should be present and valid.
+ Consistency： data should follow the same rules and format across all records.
+ Timeliness: data should be up-to-date.
+ Believability: data should be credible and from trusted sources.
+ Interpretability: data should be clear and understandable.
+
+Major Tasks of Data Preprocessing
+ Data Cleaning
+ To fill in missing data, smooth noisy data, identify or remove outliers, and resolve inconsistencies
+ Data Integration (e.g., Bill Gates, William Gates, B. Gates, …)
+ To merge multiple databases into a coherent data store
+ Data Reduction (efficiency of mining process)
+ To obtain a reduced representation of the data with similar results
+ Data Transformation
+ To normalize data for similarity-based mining (e.g., age vs salary)
+
+Data Cleaning
+Data in the real world is Dirty!
+ Lots of potentially incorrect data due to faulty collection, human or computer errors, transmission errors, etc.
+ Inaccurate: containing noise, errors, or outliers
+ e.g., Salary = “−10” – error
+ Incomplete: lacking attribute values or attributes of interest
+ e.g., Occupation = “ ” – missing values
+ Inconsistent: containing discrepancies in attribute values
+ Age = “20”, but Birthday = “01/01/1970”
+ Used to rate via “1, 2, 3”, now rating via “A, B, C”
+ Discrepancy between duplicate records: “Bill Gates” vs “B. GATES”
+ Intentional: e.g., setting 01/01/1970 as everyone’s birthday
+
+Data Integration
+ To merge data from multiple sources into a single unified view
+ Schema Integration – redundancy
+ Integrate metadata (e.g., “user-ID” in DB1 and “user-#” in DB2)
+ Entity Matching – duplication
+ Identify different representations of the same real-world entities (e.g., “Bill Gates” and “William Gates”)
+ Conflict Resolution
+ Inconsistent values from multiple sources for the same entity, potentially caused by different representations or scales (e.g., “mile” for British units vs. “meter” for metric)
+
+Data Reduction
+ To obtain a reduced representation of the data set
+ much smaller in volume, but almost the same analytical results
+ Strategies for Data Reduction
+ Dimensionality reduction: reduce # variables under consideration  PCA, attribute subset selection, etc.
+ Numerosity reduction: replace the original data volume by alternative, smaller forms of data representations  regression, sampling, etc.
+ Data compression: lossless (compete reconstruction) or lossy (approximation)
+
+Data Transformation
+ To map the entire set of data  a new set of replacement values s.t. each old value can be identified with new values
+ Strategies:
+ Normalization: scaled to fall within a smaller range, e.g., [0,1]
+ Discretization: concept hierarchy climbing (also for reduction)
+ Smoothing: remove noise from data (also for cleaning)
+ Aggregation: summarization in data cube (also for reduction)
+ Attribute construction: existing attributes  new attributes, e.g., amount and unit price  total cost (also for reduction)
+
+DATA WAREHOUSE MODELING: DATA CUBE AND OLAP
+
+What is a Data Warehouse?
+ Commonly defined as a:
+ Subject-oriented system that is organized for major entities such as customers, products, sales
+ Integrated platform that consolidates data from different sources
+ Time-variant approach that keeps historical snapshots of data over time.
+ Non-volatile environment: data is stable once loaded, primarily read-only.
+
+“A data warehouse is a subject-oriented, integrated, time-variant, and nonvolatile collection of data in support of management’s decision-making process.” – W. H. Inmon
+
+Data “Warehousing”
+ The process of constructing and leveraging data warehouses for decision support
+ Maintains a specialized decision-support database separate from operational systems
+ Supports information processing via a solid platform for historical data analysis
+
+OLTP vs. OLAP
+OLTP in operational DB
+On-Line Transactional Processing
+customer-oriented: daily operations, transaction and query processing
+clerks, clients, DBA, IT professionals
+current, up-to-date data – too detailed to be easily used for decision making
+application-oriented: entity-relationship (ER) data model
+data in: read/write, index/hash on prime key
+tens records; GB to high-order GB; thousands users
+
+OLAP in data warehouse
+On-Line Analytical Processing
+market-oriented: complex query, data analysis, decision support
+knowledge worker: managers, executives, analysts, etc.
+large amounts of historical data – summarized, integrated, information at different granularities
+subject-oriented: a star or a snowflake model
+information out: lots of read-only scans
+millions records; TB; hundreds users
+
+Why a Separate Data Warehouse?
+ High performance for both systems:
+• DBMS – tuned for OLTP: access methods, indexing, hashing, concurrency control, recovery
+• Warehouse – tuned for OLAP: complex OLAP queries, consolidation, multi-dimensional view
+ Different data and functions:
+ Data warehouses are structured for analysis, with standardized schemas and consolidated information from diverse sources.
+ Data warehouses support complex analytics on historical data. Operational databases handle frequent transactions and updates.
+ Some systems perform OLAP directly on DBs, but performance and scalability may be limited.
+
+From Tables and Spreadsheets to Data Cubes
+ A data warehouse is based on a multi-dimensional data mode, which views data in the form of a data cube, defined by:
+ Dimension tables: to describe a dimension, e.g., item (item_name, brand, type), or time (day, week, month, quarter, year)
+ Fact table: to store numeric measures (e.g., dollars_sold) and keys linking to dimension tables – analyze relationships between dimensions
+ Data cube is typically n-dimensional.
+ The n-dimensional base cube is called a base cuboid.
+ The topmost 0-dimensional cuboid, which provides the highest-level summarization, is called the apex cuboid.
+ All levels of cuboids form the entire data cube.
+
+Example: Structure of Data Cube
+
+Example: a 3-D Data Cube
+
+Schemas for Multi-dimensional Data Models
+ Entity-Relationship (ER) model and the schema
+ a set of entities and their relationships – appropriate for OLTP
+
+Stu_Id
+Stu_name
+Cou_Id
+Cou_name
+Student
+study
+Course
+
+ A multi-dimensional model for data warehouses: focus on dimensions and measures, in the form of:
+ star schema, snowflake schema, fact constellation schema
+
+(1) Star Schema
+A fact table in the center, surrounded by a set of dimension tables
+
+time
+time_key
+day
+day_of_the_week
+month
+quarter
+year
+
+branch
+branch_key
+branch_name
+branch_type
+
+Measures
+Sales (Fact Table)
+time_key
+item_key
+branch_key
+location_key
+units_sold
+dollars_sold
+avg_sales
+
+item
+item_key
+item_name
+brand
+type
+supplier_type
+
+location
+location_key
+street
+city
+state_or_province
+country
+
+(2) Snowflake Schema
+A variant of star schema: some dimensional hierarchy is normalized  thereby splitting the data into additional smaller dimension tables
+
+time
+time_key
+day
+day_of_the_week
+month
+quarter
+year
+
+branch
+branch_key
+branch_name
+branch_type
+
+Measures
+Sales (Fact Table)
+time_key
+item_key
+branch_key
+location_key
+units_sold
+dollars_sold
+avg_sales
+
+item
+item_key
+item_name
+brand
+type
+supplier_key
+
+location
+location_key
+street
+city_key
+
+supplier
+supplier_key
+supplier_type
+
+city
+city_key
+city
+state_or_province
+country
+
+(3) Fact Constellation
+allow dimension tables to be shared between multiple fact tables  a collection of stars
+
+time
+time_key
+day
+day_of_the_week
+month
+quarter
+year
+
+branch
+branch_key
+branch_name
+branch_type
+
+Measures
+Sales (Fact Table)
+time_key
+item_key
+branch_key
+location_key
+units_sold
+dollars_sold
+avg_sales
+
+Shipping (Fact Table)
+time_key
+item_key
+shipper_key
+from_location
+to_location
+dollars_cost
+units_shipped
+
+shipper
+shipper_key
+shipper_name
+location_key
+shipper_type
+
+item
+item_key
+item_name
+brand
+type
+supplier_type
+
+location
+location_key
+street
+city
+state_or_province
+country
+
+The Role of Concept Hierarchies
+all
+region
+country
+city
+office
+
+A lattice for time
+A hierarchy for location
+
+A Sample Data Cube
+Sales volume as a function of product, quarter, and country
+
+Typical OLAP Operations
+ Roll up (drill-up): summarize data by climbing up hierarchy or by dimension reduction techniques
+ Drill down (roll-down): reverse of roll-up
+ from higher-level summary to lower-level summary or detailed data, or introducing new dimensions
+ Slice and dice: project and select
+ Pivot (rotate): reorient the cube, visualization, 3D to series of 2D planes
+ Other operations:
+ Drill-across: involving (across) more than one fact table
+ Drill-through: through the bottom level of the cube to its back-end relational tables (using SQL)
+
+Typical OLAP Operations
+ Roll up (drill-up)
+ summarize data by climbing up hierarchy for a dimension or by dimension reduction
+ Dice
+ define a subcube by performing a selection on two or more dimensions
+
+Typical OLAP Operations
+ Roll-down (drill-down): reverse of roll-up
+ from higher-level summary to lower-level summary or detailed data, or introducing new dimensions
+ Slice: define a subcube by performing a selection on one dimension
+ Pivot (rotate): reorient the cube, visualization, 3D to series of 2D planes
+
+Efficient Data Cube Computation
+ Data cube can be viewed as a lattice of cuboids
+ The bottom-most cuboid is the base cuboid – the most specific
+ The top-most cuboid (apex) contains only one cell – the most generalized (all)
+• Drilling down: start from apex cuboid and explore downward
+• Rolling up: start at the base cuboid and explore upward
+• 0-D op: i.e., no group-by SQL, like “compute the sum of total sales”
+• 1-D op: one group-by, e.g., “compute the sum of sales, group-by city”
+• …
+• The cube operator is the n-dimensional generalization of the group-by operator.
+
+Cube Materialization: Full Cube vs. Iceberg Cube
+ Only a small portion of the cube’s cells may have meaningful data (i.e., "above the water" in a sparse cube).
+ Full Cube: to compute all possible combinations of dimensions and measures in a data cube.
+ Iceberg Cube: to compute only the cells that meet a specified iceberg condition, such as a minimum threshold for a measure.
+
+compute cube sales_iceberg as
+select month, city, customer_group, count(*)
+from salesInfo
+cube by month, city, customer_group
+having count(*) >= min_support
+
+iceberg condition: Filters out low-value cells, retaining only significant data.
+
+Efficient Processing of OLAP Queries
+ Steps to Efficiently Process an OLAP Query
+ Identify the dimensions and filters
+ e.g., on {brand, province} with “year = 2004”
+ Convert OLAP operations into SQL-like operations:
+ e.g., dice = selection (year = 2004) + projection (brand, province)
+ Select the best materialized cuboids
+ Compare the query with available cuboids
+ Use cost-based estimation to choose the most efficient one
+
+MINING ASSOCIATION RULES
+
+Basic Concepts: Frequent Itemsets
+ Itemset: A set of one or more items
+ k-itemset: X = {x1, … , xk} with k items
+ Support of an itemset
+ Absolute Support (Count): the number of transactions containing the given itemset
+ Relative Support: the fraction of transactions containing X (i.e., the probability that a transaction contains X)
+ Frequent Itemset: An itemset X is frequent if the support of X is no less than σ – a minsup threshold.
+
+A Frequent Pattern Implies Frequent Subsets
+ Key Observation
+ Given T1: {a1, … , a50}, T2: {a1, … , a100}, we get a frequent itemset: {a1, … , a50}
+ All subsets are also frequent: {a1}, {a2}, …, {a50}, {a1, a2}, {a1, … , a49}, …
+There must be some hidden relationships among these frequent patterns!
+
+The Downward Closure Property in Apriori
+ Any subset of a frequent itemset must be frequent!
+ e.g., if {beer, diaper, nuts} is frequent, so is {beer, diaper}
+ Reason: Every transaction containing {beer, diaper, nuts} also contains {beer, diaper}.
+ Pruning strategy: If any subset of an itemset S is infrequent, then S cannot be frequent. In this case, why consider S at all?
+ Apriori: an efficient mining algorithm with downward closure.
+ Eliminate infrequent itemsets early. Focus on promising ones.
+
+The Apriori Algorithm: Framework
+ Apriori’s pruning principle
+ If any itemset is infrequent, its superset should not even be generated!
+ Example: If {A, B} is infrequent, {A, B, C} will not be considered.
+ Outline of Apriori: level-wise, candidate generation and test
+ Initially, scan DB once to get frequent 1-itemset
+ Repeat
+• Generate length-k+1 candidate itemsets based on frequent k-itemsets
+• Test the candidates against DB to find frequent k+1-itemsets
+ Until no frequent or candidate set can be generated
+ Return all the frequent itemsets derived
+
+From Frequent Itemsets to Association Rules
+ Association Rules written as X  Y [support, confidence]
+ Both X and Y are non-empty itemsets, and X ∩ Y = ∅.
+ It describes an ‘if-then’ relationship between two sets of items.
+ Support: The percentage of transactions containing both X and Y
+ sup(X → Y) = P(X ∪ Y): the percentage of transactions that contains every item in X and Y, i.e., how frequently both appear together in the dataset
+ Confidence: The conditional probability that a transaction having X also contains Y, that is,
+conf(X → Y) = P(Y|X) = sup(X → Y)/sup(X)
+
+Basic Concepts: Sequence
+ Each transaction is itemset (a set of items): s = {i1, i2, … , im}
+ Each customer’s multiple transactions:
+{Digital Camera, SD Memory card} on 1 Mar
+{Digital Video, Tripod} on 10 Mar
+{TV, PS5} on 20 Mar
+ Form a sequence S =< s1, s2, s3 > ordered by time
+ s1 = {Digital Camera, SD Memory card}
+ s2 = {Digital Video, Tripod}
+ s3 = {TV, PS5}
+ A sequence consists of a list of transactions in temporal order, denoted as S =< s1, s2, … , sn >.
+ Sequence length: n, i.e., the number of transactions.
+ Sequence database: a set of all sequences in the form <SID, S>.
+
+Basic Concepts: Sequence Support
+ The support of a sequence α in a sequence database S is defined as
+ the fraction of total tuples (NOT individual events) that support this sequence in S.
+ Example:
+ The support of <a> is 4
+ S1 contains the item ‘a’ in three transactions, but S1 contributes only one to the support.
+ The support of <(ab)(c)> is 2 (in S1 and S3)
+
+SID Sequence
+S1 <(a)(abc)(ac)(d)(cf)>
+S2 <(ad)(c)(bc)(ae)>
+S3 <(ef)(ab)(df)(cb)>
+S4 <(e)(g)(af)(c)(bc)>
+
+• <(a)(bc)(d)(f)> is the subsequence of S1
+• <(a)(b)(c)(e)> is NOT the subsequence of S2
+
+A sequence α =< a1, a2, … , an > is a subsequence of β = < b1, b2, … , bm >, denoted as α ⊆ β, if there exists integers j1, j2, … , jn ∈ {1, m} such that a1 ⊆ bj1, a2 ⊆ bj2, … , an ⊆ bjn.
+
+Subsequence and Maximal Sequence
+ A sequence α =< a1, a2, … , an > is contained in another sequence β = < b1, b2, … , bm > if there exists integers j1, j2, … , jn such that a1 ⊆ bj1, a2 ⊆ bj2, … , an ⊆ bjn
+ <(3), (4 5), (8)> is contained in <(7), (3 8), (9), (4 5 6), (8)> ?
+TRUE
+ <(3), (5)> is contained in <(3 5)> ?
+FALSE, Why?
+ Customers bought “iPad” (3), then “Apple Pencil” (5)
+ Customers bought “iPad” and “Apple Pencil” (3 5)
+
+A sequence s is maximal if s is NOT contained in any other sequence.
+
+Forming the Sequential Association Rules
+ Again, the user specified confidence is used for rule generation to qualify the strength of sequential association rules.
+ The rule generation step is rather simple:
+ For each frequent sequence S, divide the sequence into two nonempty sequential parts Sf and Sl and generate the rule R: Sf → Sl
+ If conf(Sf → Sl) = support(S)/support(Sf) ≥ min_conf, then R is a strong rule and should be output.
+ Example: <1 2 3 4> will form 1  2 3 4, 1 2  3 4, 1 2 3  4
+ Rules like 1 3  2 4, 1 2 4  3 cannot be formed as the temporal order has been distorted!
+
+CLASSIFICATION MODELS
+
+Decision Tree Structure
+ A flow-chart-like structure used for classification
+ Internal node: a test on an attribute (e.g., age, exercise, weight, smoking)
+ Branch: an outcome of the test
+ Leaf nodes: class labels (e.g., high-, moderate-, and low-risk)
+
+How it works:
+An object is classified by traversing the tree from its root to a leaf.
+
+Age 
+=<20 
+>20 & =< 50 
+>50 
+Low 
+Obese 
+Weight 
+Smoking 
+Over 
+Normal 
+Under 
+No 
+Yes 
+Exercise 
+Moderate 
+Low 
+Low 
+Moderate 
+High 
+Never 
+Regular 
+Seldom 
+High 
+High  Moderate 
+
+Decision Tree Induction
+ Decision Tree Generation
+1. Tree Construction
+ Initially, all training examples are at the root (a single node).
+ The data is partitioned recursively based on selected attributes.
+ Data-driven: requires NO domain knowledge or parameter settings.
+2. Tree Pruning 
+ Identify and remove branches that reflect noise or outliers.
+ Improve accuracy on unseen data by preventing overfitting.
+
+ Use of Decision Tree: Classify an unknown sample by testing its attribute values against the decision tree
+
+Entropy
+ A measure of randomness, uncertainty, and disorder in a system with probability distributions of outcome. 
+ Entropy is formulated as a function that measures disorder.
+ “The higher the entropy, the greater the disorder.”
+ For classification, it tells how diverse the classes are in a set.
+
+ Let D be a set of examples from m classes.
+• Input: Distribution of outcomes
+• Output : A value indicating how disordered the outcomes are
+• S = {p1, p2, … , pm}: The proportion of examples observed in S that belong to i-th class within [0,1].
+Sunc(S) = − ∑i=1m pi × log2 pi
+
+Example: Tossing Coins in Casino
+ Casino A with real coins (50/50 chances):
+Sunc(Casino Toss) = −p(heads) log2 p(heads) − p(tails) log2 p(tails)
+= −(1/2) log2 (1/2) − (1/2) log2 (1/2)
+= 1
+
+ Casino B with fake coins (75/25 chances):
+Sunc(Casino Toss) = −p(heads) log2 p(heads) − p(tails) log2 p(tails)
+= −(3/4) log2 (3/4) − (1/4) log2 (1/4)
+= 0.811
+
+Entropy is a measure of randomness and disorder. Higher entropy means higher uncertainty.
+
+Information Gain and Iterative Dichotomiser (ID3) 
+ Classification Goal: To split the dataset in a way that reduces entropy the most.
+ Information Gain: To measure the reduction in entropy after splitting the dataset on an attribute A
+ Weighted entropy after split: SuncA(S) = ∑j=1A p(Sj) × Sunc(Sj)
+ Sj: subsets of S created by splitting on A
+Gain(S, A) = Sunc(S) – SuncA(S)
+
+ID3 Algorithm: Repeatedly selects the attribute with the highest information gain at each step to build the decision tree.
+
+ID3 Example (Decision: buy computer or not)
+ Class P: buys_computer = ‘yes’  9
+ Class N: buys_computer = ‘no’  5
+• Info(D) = ∑ −pi × log2pi
+• InfoA(D) = ∑ p(Sj|A) × Info(Sj)
+• Gain(S, A) = Info(D) – InfoA(D)
+
+income student
+age
+high
+<=30
+<=30
+high
+31…40 high
+medium
+>40
+low
+>40
+>40
+low
+31…40 low
+<=30
+<=30
+>40
+<=30
+31…40 medium
+31…40 high
+>40
+
+no
+no
+no
+no
+yes
+yes
+yes
+no
+medium
+low
+yes
+medium yes
+medium yes
+no
+yes
+no
+
+medium
+
+credit_rating
+
+fair
+excellent
+fair
+fair
+fair
+excellent
+excellent
+fair
+fair
+fair
+excellent
+excellent
+fair
+excellent
+
+buys_computer
+no
+no
+yes
+yes
+yes
+no
+yes
+no
+yes
+yes
+yes
+yes
+yes
+no
+
+Info(D) = ID(5,9) = −(9/14) log2 (9/14) − (5/14) log2 (5/14) = 0.940
+Infoage(D) = (5/14) I(3,2) + (4/14) I(0,4) + (5/14) I(2,3) = 0.694
+Gain(age) = Info(D) − Infoage(D) = 0.246
+
+Similarly,
+Gain(income) = 0.029
+Gain(student) = 0.151
+Gain(credit_rating) = 0.048
+
+ID3 Example (Decision: buy computer or not)
+
+Final Decision Tree based on ID3
+
+income student credit_rating buys_computer
+age
+high
+<=30
+high
+<=30
+31…40 high
+medium
+>40
+low
+>40
+>40
+low
+31…40 low
+<=30
+<=30
+>40
+<=30
+31…40 medium
+31…40 high
+>40
+
+no
+no
+no
+no
+yes
+yes
+yes
+medium
+no
+yes
+low
+medium yes
+medium yes
+no
+yes
+no
+
+fair
+excellent
+fair
+fair
+fair
+excellent
+excellent
+fair
+fair
+fair
+excellent
+excellent
+fair
+excellent
+
+no
+no
+yes
+yes
+yes
+no
+yes
+no
+yes
+yes
+yes
+yes
+yes
+no
+
+medium
+
+age?
+
+<=30
+
+31..40
+
+>40
+
+student?
+
+YES
+
+credit rating?
+
+no
+
+NO
+
+yes
+
+YES
+
+excellent
+
+fair
+
+NO
+
+YES
+
+Overfitting and Tree Pruning
+ Overfitting: An induced tree may overfit the training data.
+ Too many branches: some may reflect noise or outliers, rather than meaningful patterns  Poor accuracy for unseen samples
+ Avoid Overfitting 
+ Pre-pruning: stop tree construction early – do not split a node if it would result in the goodness measure falling below a threshold
+ Challenge: choosing an appropriate threshold can be difficult.
+ Post-pruning: start with a fully grown tree, then remove branches progressively to simplify the tree
+ Use a validation dataset different from training sets to decide the best-pruned tree
+
+Bayesian Classifier
+ Decision Tree: data-driven, rule-based reasoning; generating highly interpretable and explainable decisions
+ Real-world problems involve uncertainty.
+ How likely is this email a spam based on the words it contains?
+ What is the likelihood of a patient having flu based on symptoms?
+ Probability-based Bayesian Classifiers: 
+ prior knowledge (what we already know from training data) + observed evidence (new data) + Bayesian Theorem 
+ Make informed decisions
+
+Naïve Bayesian Classifier
+ A data tuple with n attributes: X = {x1, x2, … , xn}
+ Bayesian Theorem
+Posterior probability P(Ci|X) that X belongs to Ci after observing X
+P(Ci|X) = P(X|Ci) ⋅ P(Ci) / P(X)
+ The probability of X occurring in the class Ci:
+ Assume all attributes are independent from each other.
+ P(X|Ci) = P(x1|Ci) × P(x2|Ci) × ⋯ × P(xn|Ci)
+where P(xj|Ci) can also be estimated from the training set S.
+
+Independence Assumption Can Be a Drawback!
+ Complexity of real-world problems
+ “age” and “student” may collectively affect “income”.
+ Overestimation of some evidence
+ “cloth_color” and “buys_computer”
+ Underfitting importance evidence
+ “income” and “buys_computer”
+
+Bayesian Belief Networks (BBN)
+ An extension of Bayesian reasoning that:
+ Relaxes the independence assumption
+ Captures dependencies explicitly using a graphical structure
+ Example: 
+ Weather, Traffic, and Being late
+ “Weather” affects “traffic” (dependency)
+ “Traffic” affects “being late” (dependency)
+
+Bayesian Belief Networks (BBN)
+ Directed Acyclic Graph (DAG): model dependencies
+ Nodes: random variables
+ Edges: conditional dependency
+ S → A means A depends on S
+ Conditional Probability Tables (CPTs)
+ The probability of a random variable conditioned on its ‘parents’
+
+A=0, B=0 A=0, B=1 A=0, B=2 A=1, B=0 A=1, B=1 A=1, B=2
+C=0
+C=1
+0.7
+0.3
+0.6
+0.4
+0.2
+0.8
+0.9
+0.1
+0.75
+0.25
+0.3
+0.7
+
+Bayesian Belief Networks (BBN)
+ S → A means A depends on S
+S is called the parent of A.
+A is called the descendant (child) of S.
+ Property: Given its parents, a random variable is conditionally independent of its non-descendants
+ P(B|A, S) = P(B)
+ P(C|A, B, S) = P(C|A, B)
+ P(A|C, S) ≠ P(A|S)
+
+Classification Using BBN
+ Classify C given A
+Consider only A and B
+ Classify D given B
+Consider only B and C
+ How to classify student, credit_rating, income given A, B, C, S ⇒ D
+ In Naïve Bayes Classifier,
+P(S|A, B, C) = P(A, B, C|S) ⋅ P(S) / P(A, B, C)
+ In Bayesian Belief Network, 
+P(A, B, C|S) = P(A|S) × P(B|S) × P(C|S)
+Chain rule for joint probability:
+ P(A, B, C|S) = P(A|S) × P(B|A, S) × P(C|A, B, S)
+ P(A1, A2, A3, … , An) = P(A1) × P(A2|A1) × P(A3|A1, A2) × ⋯ × P(An|A1, A2, A3, … , An−1)
+
+Neural Networks (NN)
+ A machine learning model inspired by the human brain, consisting of interconnected layers of nodes (neurons) that process data and learn patterns.
+
+Structure of NN
+• Input Layer: take in raw data features
+• Hidden Layer(s): perform computations and learn representations through weights and bias
+• Output Layer: produce final results
+
+Classification Using NNs
+ In the output layer with c neurons 
+ O: a tensor of size (n, c), where c is the number of classes
+ Generate the estimated labels Ŷ
+ Calculate Lcls(Ŷ, Y), where Y is the real labels
+ e.g., cross-entropy for classification
+ Backpropagate the loss and adjust the trainable parameters across all layers to minimize loss
+ using gradient descent or other optimization algorithms
+
+Other Advanced NNs
+Transformer
+Recurrent NN (RNN)
+Graph NN (GNN)
+
+Evaluation Measures
+ To assess how “accurate” your classifier is at predicting the class label of tuples compared to actual labels
+ True Positives TP: positive tuples that were correctly labeled
+ Positive tuples: tuples of the main class of interest
+ True Negatives TN: negative tuples that were correctly labeled 
+ False Positives FP: negative tuples that were incorrectly labeled as positive (e.g., people who do not buy computers but are labeled as buys_computer = yes)
+ False Negatives FN: positive tuples that were mislabeled as negative (e.g., people who really buy computers but are labeled as buys_computer = no)
+
+Evaluation Measures
+
+CLUSTERING MODELS
+
+What Is Cluster Analysis?
+ Cluster: a collection of data objects that are –
+ Similar (or related) to one another within the same group / cluster
+ Dissimilar (or unrelated) to the objects in other groups / clusters
+ Cluster analysis (also called clustering or data segmentation)
+ The process of partitioning data points into a set of groups where members of each group are as similar as possible to each other.
+ Unsupervised： no predefined classes
+
+Partitioning Algorithms: Basic Concepts
+ Partitioning method
+ Discover groupings in the data by optimizing a specific objective function and iteratively improving the quality of partitions
+ K-partitioning method
+ Objective: Divide a dataset D of n objects into a set of K clusters, so that an objective function is optimized (e.g., minimizing the sum of distances within clusters)
+ Typical objective function: Sum of Squared Errors (SSE)
+SSE(C) = ∑k=1K ∑xi∈Ck ||xi − ck||2
+where ck is the centroid or medoid of cluster Ck
+
+The K-Means Clustering Algorithm 
+ Idea: each cluster is represented by the centroid, which is the mean position of all data points in the cluster
+ It may not correspond to an actual data point in the dataset!
+ Given K, the number of clusters, the K-Means clustering algorithm is outlined as follows:
+Initialization: Select K data points as initial centroids
+Repeat
+• Form K clusters by assigning each point to its closest centroid
+• Re-compute the centroids (i.e., mean point) of each cluster
+Until centroids no longer change or convergence criterion is met
+
+Hierarchical-based clustering
+ To group data objects into a hierarchy or “tree” of clusters
+ Very useful for data summarization and visualization as it provides a nested structure of clusters
+
+Employees can be grouped hierarchically:
+• Top-level: {Executives, Managers, Staff} 
+• Subgroups: Staff = {Senior Officers, Officers, Trainees}
+
+In the study of evolution, group animals according to their biological features to uncover evolutionary paths – a hierarchy of species
+
+Why Hierarchical Clustering?
+ No need to specify # clusters in advance
+ Provide more insights into data structure (relationships)
+ Flexible linkage criteria based on data characteristics
+ Handle any type of distance metric
+ Two types of methods:
+ Agglomerative: bottom-up
+ Divisive: top-down
+
+Agglomerative Hierarchical Clustering
+ Bottom-up strategy 
+ Start by letting every object form its own cluster and iteratively merges clusters into larger and larger clusters
+ For merging, it finds the two clusters that are closest to each other (according to some similarity measures) as a new one. 
+ Stop until all the objects are in a single cluster (the hierarchy’s root), or certain termination conditions are satisfied. 
+
+Distance Between Clusters
+ Single linkage (between the nearest points of two clusters)
+ Complete linkage (between the farthest points of two clusters) 
+ Average linkage (between all points)
+ Centroid linkage (mean)
+
+Single linkage:
+Merge C1 and C2
+ Example: 
+ C1 = {p1, p2}
+ C2 = {p3, p4}
+ C3 = {p5}
+dist(C1, C2) = 2, dist(C2, C3) = 2.5 →
+Complete linkage:
+Merge C1 and C2
+dist(C1, C2) = 4, dist(C2, C3) = 3.5 →
+
+AGNES: AGglomerative NESting algorithm
+ Steps:
+1. Initialization: Start with n points, each treated as its own cluster (i.e., n clusters)
+2. Find the nearest pair of clusters based on a predefined measure
+3. Merge these two clusters
+ Combine them into one cluster
+ Update the distance matrix to reflect the new cluster distances
+4. Repeat step 2 & 3 until all data points belong to a single cluster
+
+AGNES: An Example
+ Initialize with 6 clusters
+ {p1}, {p2}, {p3}, {p4}, {p5}, {p6}
+ Calculate distances
+{p1}
+{p2}
+{p3}
+{p4}
+{p5}
+{p6}
+{p1}
+0.0
+0.7
+5.7
+3.6
+4.2
+3.2
+{p2}
+0.0
+4.9
+2.9
+3.5
+2.5
+{p3}
+0.0
+2.2
+1.4
+2.5
+{p4}
+0.0
+1.0
+0.5
+{p5}
+0.0
+1.1
+{p6}
+0.0
+
+AGNES: An Example
+ Merge {p6} and {p4}
+ Calculate distances
+{p1}, {p2}, {p3}, {p4, p6}, {p5}
+{p1}
+{p2}
+{p3}
+{p4, p6}
+{p5}
+{p1}
+0.0
+0.7
+5.7
+3.2
+4.2
+{p2}
+0.0
+4.9
+2.5
+3.5
+{p3}
+0.0
+2.2
+1.4
+{p4, p6}
+0.0
+1.0
+{p5}
+0.0
+
+AGNES: An Example
+ Merge {p2} and {p1}
+ Calculate distances
+{p1, p2}, {p3}, {p4, p6}, {p5}
+{p1, p2}
+{p3}
+{p4, p6}
+{p5}
+{p1, p2}
+0.0
+4.9
+2.5
+3.5
+{p3}
+0.0
+2.2
+1.4
+{p4, p6}
+0.0
+1.0
+{p5}
+0.0
+
+AGNES: An Example
+ Merge {p4, p6} and {p5}
+ Calculate distances
+{p1, p2}, {p3}, {p4, p5, p6}
+{p1, p2}
+{p3}
+{p4, p5, p6}
+{p1, p2}
+0.0
+4.9
+2.5
+{p3}
+0.0
+1.4
+{p4, p5, p6}
+0.0
+
+AGNES: An Example
+ Merge {p3} and {p4, p5, p6}
+ Merge {p1, p2} and {p3, p4, p5, p6}
+dist({p1, p2}, {p3, p4, p5, p6}) = 2.5
+
+Visualization Using Dendrogram
+ A tree structure to represent the process of hierarchical clustering
+ {p6} and {p4} merges at distance 0.5 
+ {p2} and {p1} merges at distance 0.7 
+ {p4, p6} and {p5} merges at distance 1.0
+ {p3} and {p4, p5, p6} merges at distance 1.4
+ {p1, p2} and {p3, p4, p5, p6} merges at distance 2.5
+
+Density-based Clustering
+ Idea: Clusters are identified as dense regions separated by areas of lower density (sparse).
+ Group data points into clusters based on the density in a region.
+ Regions with high densities of points form clusters, while regions with low densities are treated as noise or outliers.
+ Advantages:
+ No predefined number of clusters
+ Deal with arbitrary shapes
+ Robust to noises
+
+Density-Based Spatial Clustering of Applications with Noise
+
+DBSCAN – Basic Concepts
+ Input: radius of neighborhood ε, minimum points minPts
+ An object’s ε-neighborhood: Nε(p) = {q|dist(p, q) ≤ ε}
+ itself included
+ p is a core object ⟺ Nε(p) ≥ minPts
+
+Three types of objects: 
+• Core objects: points with at least minPts neighbors within ε
+• Border objects: points within ε-neighborhood of a core object but with fewer than minPts neighbors
+• Noise: points that are not within the ε-neighborhood of any core object
+
+DBSCAN – Density-Reachability
+ q is directly density-reachable from p if
+1. p is a core object
+2. q is within p’s ε-neighborhood, i.e., q ∈ Nε(p)
+ p is density-reachable from q if there exists a chain of objects p1, p2, … , pn, s.t.,
+1. p1 = q, pn = p
+2. pi+1 is directly density-reachable from pi, for 1 ≤ i < n
+
+DBSCAN – Density-Reachability (Properties)
+ Density-reachability is transitive
+ q → p and p → c, then q → c
+ Density-reachability is NOT symmetric
+ p → w does not mean w → p
+
+DBSCAN – Density-Connectivity
+ p and q are density-connected if there exists a core object w, s.t.,
+ p → w and w → q
+ Properties
+ Density-connectivity is symmetric
+ If p is density-connected to q, then q is also density-connected to p.
+ Density-connectivity is NOT transitive
+ If p and q are density-connected, and q and c are density-connected, it does not mean p and c are density-connected.
+
+Density-based Clusters
+ A density-based cluster C satisfies:
+ Connectivity: For any p, q ∈ C, p and q are density-connected
+ Maximality: For any p ∈ C, if q is density-reachable from p, then q ∈ C
+ If a core object p ∈ C, then all objects density-reachable from p belong to C
+
+Density-based Clusters
+ Core objects
+ Border objects: p belongs to a cluster C, but p is not a core object
+ A border object can belong to multiple clusters (hub or bridge)
+ Noises: objects belong to no clusters
+
+What are Outliers?
+ Outlier: A data object that deviates significantly from the rest of the objects, as if it were generated by a different mechanism
+ Unusual transaction target/amount
+ Temperature 
+ …
+
+Sales
+
+We often refer the rest of the object as normal data and outliers as abnormal data.
+
+Test Score
+
+Distance-Based Outlier
+ Given a data object c and a distance threshold r, its r-neighborhood is defined as Nr = {c′|c′ ≠ c ∧ dist(c′, c) ≤ r}
+ Excluding the point itself is meaningful to measure ‘isolation’ because it aims to identify points that lack sufficient other neighbors.
+ A data object c is a DB(r, π)-outlier if 
+|Nr|/|D| < π
+ Fraction threshold: 0 ≤ π < 1
+ It suggests c is an outlier if its r-neighborhood contains too few data points compared to the total dataset.
+
+Distance-Based Method: A Nested Loop Algorithm
+ For each data object ci, let count ← 0
+1. Calculate dist(cj, ci) for j ≠ i
+2. If dist(cj, ci) ≤ r, count ← count + 1
+3. If count ≥ π|D|, exit
+4. Repeat from Step 1
+ If not exit before, then ci is a DB(r, π)-outlier 
+
+Deep Clustering
+ Most clustering algorithms rely on distance functions. 
+ Distance measures are meaningless in high-dimensional space 
+ distance to nearest neighbors vs distance to farthest ones
+ Deep neural networks extract important features and capture the underlying structure of data encoded representations that make clustering easier and more meaningful
+
+Typical Workflow
+1. Representation learning (embedding): map high-dimensional data into a lower-dimensional latent space
+2. Clustering in latent space: apply clustering algorithms (e.g., k-means) to the learned embedding
+3. *Iterative refinement: some methods alternate between feature learning and cluster assignment to iteratively improve both
+
+(I) Unsupervised, Autoencoder-based Clustering
+ Core Idea: Use an autoencoder to compress data into a latent space, then cluster those latent embeddings.
+ Advantages: Keeps a reconstruction objective that preserves important data characteristics.
+
+The prediction (output) is a reconstruction of the input data.
+
+(II) Self-supervised, Contrastive-based Clustering
+ Core Idea: Learn latent representations by pushing apart dissimilar data samples and pulling together similar ones —often via data augmentations.
+ Advantages: Does not require labeled data; learned features tend to be robust and highlight semantic 
+
+Positive: diverse views of the same data points
+Negative: views of different ones
+
+Deep Clustering
+ Deep Clustering: handles high-dimensional data through representation learning (without relying on distance measures)
+ Autoencoder-based Clustering: learns low-dimensional embeddings by encoding and reconstructing data
+ Preserves global structure and is effective for structured data.
+ Jointly minimizes reconstruction and clustering objectives.
+ Contrastive-based Clustering: learns robust representations by contrasting similar (positive) and dissimilar (negative) pairs.
+ Forms a feature space ideal for clustering.
+ No need for explicit labels and generalizes well across tasks.
+
+COMP5121 Final Exam
+ Exam Date: 7 May 2024 (Wed)
+ Exam Time: 19:00 – 21:00
+ Exam Venue: SH2 (centralized)
+ Exam Type: open-book, paper-based materials only, no electronic devices
+ Question Type: 1) Short-Answer; 2) Problem-Solving
+
+Some Tips: clear presentation and writing, provide concise & relevant answers, highlight your key points, avoid excessive sentences, manage your time
+
+Email: fengmei.jin@polyu.edu.hk
+Office: PQ747
+THANK YOU!
+

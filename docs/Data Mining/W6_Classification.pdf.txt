@@ -1,0 +1,1825 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 6: Classification – Basic Concepts
+
+(Chapter 8 in textbook)
+
+Dr. Fengmei Jin
+
+§ Email: fengmei.jin@polyu.edu.hk
+
+§ Office: PQ747 (+852 3400 3327)
+
+§ Consultation Hours: 2.30-4.30pm every Thursday
+
+ 
+ 
+Outline
+
+o Classification: Basic Concepts
+
+o Decision Tree Induction – Entropy-based ID3 Algorithm
+
+o Bayes Classification Methods
+
+o Model Evaluation and Selection
+
+2
+
+Prediction Analysis: Classification vs. Regression
+
+o Prediction: a general process of forecasting or estimating an 
+
+unknown outcome
+
+n Classification: categorize data objects into 
+
+predefined classes
+o Output: categorical/discrete labels
+o Applications: spam detection, medical diagnosis, 
+
+credit/loan approval
+
+n Regression: predict continuous numerical values
+
+o Output: numbers on a continuous scale
+
+o Applications: stock price, temperature forecasting, 
+
+traffic flow control
+
+3
+
+Supervised vs. Unsupervised Learning
+
+o Supervised Learning: Classification
+
+n Supervision: The training data are accompanied by labels, 
+
+indicating classes of observations. 
+
+o Unsupervised Learning: Clustering
+
+n The class labels of training data is unknown. 
+n Given a set of observations, it aims to establish clusters in the 
+
+data through a self-discovery process.
+
+n Applications: customer segmentation, topic modeling
+
+4
+
+Classification – A Two-Step Process 
+
+1. Model Construction
+
+n  To learn a model using a training set (data with known labels), 
+
+assuming each tuple belongs to a predefined class
+
+n Model: represented as classification rules, decision trees, or 
+
+mathematical formulas
+
+2. Model Usage
+
+n To classify future or unknown objects
+n Evaluation by comparing predicted labels with actual ones
+o Accuracy: % of samples correctly classified by the models
+o Avoid overfitting by testing on independent data (testing/validating)
+o If the accuracy is acceptable, use the model for future predictions
+
+5
+
+Process (1): Model Construction
+
+Training
+Data
+
+!"# A %"!&
+B&&"&D()D*+,J.
+! "#A
+! (,M B&&"&D()D*+,J.
++,J.A&&J,
+2"PP*
+B&&J7"(DA*+,J.
+5"6
+8(9A B&&"&D()D*+,J.
+B))A B&&J7"(DA*+,J.
+
+DA"%E )A!*%A+
+
+/
+1
+4
+1
+:
+/
+
+)J
+MA&
+MA&
+MA&
+)J
+)J
+
+Classification
+Algorithms
+
+Classifier
+(Model)
+
+IF rank = ‘professor’ OR years > 6
+THEN tenured = ‘yes’ 
+
+6
+
+Process (2): Using the Model in Prediction 
+
+Classifier
+
+Testing
+Data
+
+!"#A %"!&
+A%%&%’()’G+,"J
+!"#
+/M,1&%( A%%"2&(’MG+,"J
+4M",5M +,"JM%%",
+8"%M9: A%%&%’()’G+,"J
+
+DA"%E )A!*%A+
+
+.
+P
+6
+P
+
+)"
+)"
+TM%
+TM%
+
+Unseen Data
+
+(Jeff, Professor, 4)
+
+Tenured?
+
+7
+
+Issues in Classification and Prediction
+
+o Data Preparation
+
+n Data cleaning: reduce noises and handle missing values
+n Correlation analysis: remove irrelevant or redundant attributes
+n Data transformation: generalize and normalize data
+
+o Model Evaluation
+
+n Accuracy: how well the model performs
+n Speed: time to construct and use the model 
+n Scalability: efficiency when handling large-scale DBs
+n Robustness: ability to handle noise and missing values
+n Interpretability: how easily the model’s insights can be understood
+n Goodness of rules: 1) decision tree size; 2) compactness of rules
+
+8
+
+Iterative Dichotomiser (ID3), CART, C4.5, … 
+CLASSIFICATION BY DECISION TREE INDUCTION
+
+9
+
+Decision Tree Structure
+
+o A flow-chart-like structure used for classification
+
+n Internal node: a test on an attribute (e.g., age, exercise, weight, 
+
+smoking)
+
+n Branch: an outcome of the test
+n Leaf nodes: class labels (e.g., high-, moderate-, and low-risk)
+
+How it works:
+An object is classified 
+by traversing the tree 
+from its root to a leaf.
+
+>
+
+"#A>
+
+%&’E>
+
+)’E>*>%&>HE>
+
+)HE>
+
+c.d>
+
+U9A3A>
+
+RAM#S7>
+
+,-.LMN#>
+
+U=AW>
+
+4.W-;Y>
+
+>N?AW>
+
+4.>
+
+OA3>
+
+@AAWBM3A>
+
+e.?AW;7A>
+
+c.d>
+
+c.d>
+
+e.?AW;7A>
+
+bM#S>
+
+4A=AW>
+
+CA#aY;W>
+
+,AY?. ->
+
+bM#S>
+
+bM#S> e.?AW;7A>
+
+10
+
+Decision Tree Induction
+
+o Decision Tree Generation
+
+1. Tree Construction
+
+Ø Initially, all training examples are at the root (a single node).
+Ø The data is partitioned recursively based on selected attributes.
+Ø Data-driven: requires NO domain knowledge or parameter settings.
+
+2. Tree Pruning 
+
+Ø Identify and remove branches that reflect noise or outliers.
+Ø Improve accuracy on unseen data by preventing overfitting.
+
+o Use of Decision Tree: Classify an unknown sample by testing 
+
+its attribute values against the decision tree
+
+11
+
+Decision Tree Construction
+
+o A decision tree is said to represent the classification if it correctly 
+classifies all training instances à consistent with the training data.
+
+o Simple Idea, Complex Problem
+
+n Can be built in many possible ways to split the data and represent the 
+
+classification à finding the best one is a challenge!
+
+n Does a tree consistent with training data have the highest likelihood of 
+
+accurately classifying unseen instances of the population?
+
+o The goal is not just consistency with the training data, but also 
+
+generalization to unseen new data.
+
+12
+
+Example: Training Set
+
+!
+
+!
+
+!"#A%&##D##ED)G%HI-%.IL)%&MM1"OLG"I)#%
+
+"#ABCD!E! ")BGAD!HAID-)K! LBMD!NB2B#! "-##3DB)3#!
+
+4CR-SB!NB2B#! 74UV!N:;:N!
+
+<!
+B!
+d!
+e!
+I!
+g!
+M!
+k!
+l!
+<n!
+<<!
+<B!
+<d!
+<e!
+
+=3G!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+=3G!
+=3G!
+m--G!
+m--G!
+m--G!
+m--G!
+m--G!
+=3G!
+
+HA>?!
+HA>?!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+HA>?!
+HA>?!
+HA>?!
+HA>?!
+HA>?!
+
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+hGBic3DB!
+@-CB!
+hGBic3DB!
+@-CB!
+hGBic3DB!
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+
+N-A!
+bBGAcS!
+bBGAcS!
+N-A!
+HA>?!
+HA>?!
+N-A!
+HA>?!
+HA>?!
+HA>?!
+N-A!
+bBGAcS!
+HA>?!
+bBGAcS!
+
+34R3%
+34R3%
+6T89!&W9%
+34R3%
+.T;%
+.T;%
+34R3%
+6T89!&W9%
+.T;%
+.T;%
+34R3%
+6T89!&W9%
+.T;%
+34R3%
+
+13
+
+Decision Tree Generation
+
+! "#!$%CC’(!)*HCI(!-’!.CCL!CM!L.((1!
+
+8C9!
+
+)*HCI(!
+
+5(637I!
+
+>#!
+
+234%!
+
+;#!
+
+=#!
+
+":;:<:""!
+
+=:>:"=:";!
+
+?:@:A:B:"C:">!
+
+! "#!A%%!&’()G%&H!(I&!-.!LM&!H()&!N%(HH2!34R36!
+!!!!7&L8I.!9&(:!;<=&6!
+
+9<@!
+
+4.N<)&!
+!
+?&=-8)!
+
+3->M!
+
+34R3!
+
+"2A2B"2BC!
+
+a2E2c2d2Be2BA!
+
+4）
+
+!
+
+!"#A%&##D##ED)G%HI-%.IL)%&MM1"OLG"I)#%
+
+"#ABCD!E! ")BGAD!HAID-)K! LBMD!NB2B#! "-##3DB)3#!
+
+4CR-SB!NB2B#! 74UV!N:;:N!
+
+<!
+B!
+d!
+e!
+I!
+g!
+M!
+k!
+l!
+<n!
+<<!
+<B!
+<d!
+<e!
+
+=3G!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+=3G!
+=3G!
+m--G!
+m--G!
+m--G!
+m--G!
+m--G!
+=3G!
+
+HA>?!
+HA>?!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+HA>?!
+HA>?!
+HA>?!
+HA>?!
+HA>?!
+
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+hGBic3DB!
+@-CB!
+hGBic3DB!
+@-CB!
+hGBic3DB!
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+
+N-A!
+bBGAcS!
+bBGAcS!
+N-A!
+HA>?!
+HA>?!
+N-A!
+HA>?!
+HA>?!
+HA>?!
+N-A!
+bBGAcS!
+HA>?!
+bBGAcS!
+
+34R3%
+34R3%
+6T89!&W9%
+34R3%
+.T;%
+.T;%
+34R3%
+6T89!&W9%
+.T;%
+.T;%
+34R3%
+6T89!&W9%
+.T;%
+34R3%
+
+! "#!$%CCD(!)(*H!,(-(.!LD!0CCH!C1!D2*H0((3!
+
+! "#A!%&&!DE#)*&DH!#,D!-.!LMD!H#)D!1&#HHO!34R6T%869!
+!!!!!!TDL:,.!;D#<!.=>D9!
+
+)(*H!,(-(.!
+
+456%!
+
+"*#!
+
+,C7!
+
+"L#!
+
+"!
+
+RD?L!;D@D&!
+
+;=C!
+
+89:89:;!
+
+34R6T%86!
+
+A-BM!
+
+"?A!
+
+aObaObc!
+
+14
+
+Decision Tree Generation
+
+!
+
+!"#A%&##D##ED)G%HI-%.IL)%&MM1"OLG"I)#%
+
+"#ABCD!E! ")BGAD!HAID-)K! LBMD!NB2B#! "-##3DB)3#!
+
+4CR-SB!NB2B#! 74UV!N:;:N!
+
+=3G!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+CCaC-AC!
+=3G!
+=3G!
+m--G!
+m--G!
+m--G!
+m--G!
+! "#A"BC!DEE!)G#H,E)-!#.)!LM!1O)!-#H)!BE#--3!
+m--G!
+!!!!!!!!!!!4)1R.M!6)#T!MU9)-3!
+=3G!
+
+<!
+B!
+d!
+e!
+I!
+g!
+M!
+k!
+l!
+<n!
+<<!
+<B!
+<d!
+<e!
+
+!
+
+HA>?!
+HA>?!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+N-A!
+HA>?!
+HA>?!
+HA>?!
+HA>?!
+HA>?!
+
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+hGBic3DB!
+@-CB!
+hGBic3DB!
+@-CB!
+hGBic3DB!
+@-CB!
+@-CB!
+@-CB!
+@-CB!
+
+N-A!
+bBGAcS!
+bBGAcS!
+N-A!
+HA>?!
+HA>?!
+N-A!
+HA>?!
+HA>?!
+HA>?!
+N-A!
+bBGAcS!
+HA>?!
+bBGAcS!
+
+34R3%
+34R3%
+6T89!&W9%
+34R3%
+.T;%
+.T;%
+34R3%
+6T89!&W9%
+.T;%
+.T;%
+34R3%
+6T89!&W9%
+.T;%
+34R3%
+
+! "#!$BCC’(!$)(GH,!-H’,C).!/’!)CC,!C0!’12,)((3!
+
+$)(GH,!-H’,C).!
+
+67U7C97!
+
+"/#!
+
+:;<!
+
+"2#!
+
+5/G!
+
+=!
+
+4CCG!
+
+"B#!
+
+W.)9L1!;L-1U.<!
+
+?M@MUAM!
+
+>#9!
+
+=UU9!
+
+>;?@;?A!
+
+6BC!
+
+aBEc4Ddc!
+
+6BC!
+
+! "#$!BC’’()!BG)H,-!.,(-’G/!0(!G’’-!’1!(2#-G))3!
+
+! "#AB"#AAAC!DEE!)GHI-E).!HL)!M1!O3)!.HI)!4EH..R!
+!!!!!!!!!!!!!!!!!6)OTL1!U)H9!1:;).R!
+
+BG)H,-!.,(-’G/!
+
+67U7’97!
+
+"#=$!
+
+:!
+
+50H!
+
+"#==$!
+
+;<!
+
+4’’H!
+
+"#===
+$!
+
+;:!
+
+<L);MO!=M.O:L>!
+
+A1B1:C1!
+
+@H;!
+
+?::;!
+
+=a?=!
+
+=a?=!
+
+bcde6Dfe!
+
+15
+
+Final Decision Tree
+
+! "##ABC!DE)#GHHD!A#!AIIG-IG.A#H!ILABHDM!
+
+Attribute Selection:
+
+based on heuristic or statistical measures 
+
+(e.g., information gain in ID3).
+
+1OB-3H!
+
+U-9!
+
+6HT.E3!
+
+4.RC!
+
+41W4!
+
+;H)#!UH<HL!
+
+U-9!
+
+4.RC!
+
+AGHT.#!4.D#-GB!
+
+aObO-9O!
+
+CAT!
+
+W--T!
+
+6=;>?"@>!
+
+AGHT.#!4.D#-GB!
+
+U=c!
+
+6=;>?"@>!
+
+U=c!
+
+aObO-9O!
+
+CAT!
+
+W--T!
+
+41W4!
+
+41W4!
+
+6=;>?"@>!
+
+16
+
+Entropy
+
+o A measure of randomness, uncertainty, and disorder in a 
+
+system with probability distributions of outcome. 
+
+o Entropy is formulated as a function that measures disorder.
+
+n “The higher the entropy, the greater the disorder.”
+n For classification, it tells how diverse the classes are in a set.
+
+o Let 𝑫 be a set of examples from 𝒎 classes.
+
+$
+
+𝐼𝑛𝑓𝑜 𝐷 = − (
+!"#
+
+𝑝! * log% 𝑝!
+
+• Input: Distribution of outcomes
+• Output : A value indicating how disordered the outcomes are
+• 𝑝!: The proportion of examples observed in 𝐷 that belong to i-th class within [0,1].
+
+17
+
+Example: Tossing Coins in Casino
+
+o Casino A with real coins (50/50 chances):
+
+𝐼𝑛𝑓𝑜 𝐶𝑜𝑖𝑛	𝑇𝑜𝑠𝑠 = −𝑝 ℎ𝑒𝑎𝑑 log% 𝑝 ℎ𝑒𝑎𝑑 − 𝑝 𝑡𝑎𝑖𝑙 log% 𝑝 𝑡𝑎𝑖𝑙
+
+= −
+
+1
+2
+
+log%
+
+1
+2
+
+−
+
+1
+2
+
+log%
+
+1
+2
+
+= 1
+
+o Casino B with fake coins (75/25 chances):
+
+𝐼𝑛𝑓𝑜 𝐶𝑜𝑖𝑛	𝑇𝑜𝑠𝑠 = −𝑝 ℎ𝑒𝑎𝑑 log% 𝑝 ℎ𝑒𝑎𝑑 − 𝑝 𝑡𝑎𝑖𝑙 log% 𝑝 𝑡𝑎𝑖𝑙
+1
+4
+
+= 0.811
+
+log%
+
+log%
+
+= −
+
+3
+4
+
+1
+4
+
+3
+4
+
+−
+
+Entropy is a measure of randomness and disorder. 
+Higher entropy means higher uncertainty.
+
+18
+
+Information Gain and Iterative Dichotomiser (ID3) 
+
+o Classification Goal: To split the dataset in a way that reduces 
+
+entropy the most.
+
+o Information Gain: To measure the reduction in entropy after 
+
+splitting the dataset on an attribute 𝐴
+
+𝐺𝑎𝑖𝑛 𝐷, 𝐴 = 𝐼𝑛𝑓𝑜 𝐷 – 𝐼𝑛𝑓𝑜! 𝐷
+n Weighted entropy after split: 𝐼𝑛𝑓𝑜! 𝐷 = ∑"#$
+
+% 𝑝 𝐷" 𝐴 𝐼𝑛𝑓𝑜 𝐷"
+
+o 𝐷!: subsets of 𝐷 created by splitting on 𝐴
+
+ID3 Algorithm: Repeatedly selects the attribute with the highest 
+information gain at each step to build the decision tree.
+
+19
+
+ID3 Example (Decision: buy computer or not)
+
+o Class P: buys_computer = ‘yes’ à 9
+
+o Class N: buys_computer = ‘no’ à 5
+
+𝐈𝐧𝐟𝐨 𝐷 = ∑ −𝑝!×log"𝑝!
+•
+𝐈𝐧𝐟𝐨𝑨 𝐷 = ∑ 𝑝 𝐷$ 𝐴 ×𝐈𝐧𝐟𝐨 𝐷$
+•
+• 𝐆𝐚𝐢𝐧 𝐷, 𝐴 = 𝐈𝐧𝐟𝐨 𝐷 – 𝐈𝐧𝐟𝐨𝑨 𝐷
+
+>"#
+$%&’(# )*+,#%*
+2345
+6$"6
+6$"6
+2345
+4:;<5 6$"6
+(#,$+(
+=<5
+9’>
+=<5
+=<5
+9’>
+4:;<5 9’>
+2345
+2345
+=<5
+2345
+4:;<5 (#,$+(
+4:;<5 6$"6
+=<5
+
+%’
+%’
+%’
+%’
+0#)
+0#)
+0#)
+%’
+(#,$+(
+9’>
+0#)
+(#,$+( 0#)
+(#,$+( 0#)
+%’
+0#)
+%’
+
+(#,$+(
+
+&-#,$*.->*$%"
+
+7>$-
+#8&#99#%*
+7>$-
+7>$-
+7>$-
+#8&#99#%*
+#8&#99#%*
+7>$-
+7>$-
+7>$-
+#8&#99#%*
+#8&#99#%*
+7>$-
+#8&#99#%*
+
+/+0).&’(1+*#-
+%’
+%’
+0#)
+0#)
+0#)
+%’
+0#)
+%’
+0#)
+0#)
+0#)
+0#)
+0#)
+%’
+
+!#$%
+(
+
+= !"
+%
+
+%’,!(
+
+!=
+
+!
+&"
+
+)*+
+
+-
+
+!
+(
+&"
+
+%
+
+!
+
+’
+&"
+
+)*+
+
+-
+
+’
+(
+&"
+
+!"#$#%
+
+=
+
+!"#
+,-.I
+.456I
+76I
+
+$%
+0
+6
+.
+(
+&’
+
+’($%)*&%+
+
+&%
+. I1234
+I I
+0 I1234
+
+!#$%&D(
+
+*
+
+"
+
+&
+
+=
+
+,
++#
+
+!
+
+&)(’*
+
++
+
+#
++#
+
+!
+
+&%(#*
+
++
+
+,
++#
+
+!
+
+$%&’()*
+
+=
+
+!"#
+
+!
+
+!"#$%
+
+means ‘age <=30’ has 5 out of 14 
+
+samples, with 2 ‘yes’ and 3 ‘no’. 
+
+Hence,
+
+)&G#
+
+’
+
+&D(
+
+&
+
+=
+
+"#$%
+
+’
+
+!
+
+&
+
+!
+
+"#$%
+
+’
+
+!
+
+!"#$%&
+
+=
+
+&D(
+
+Similarly,
+
+𝐺𝑎𝑖𝑛(𝑖𝑛𝑐𝑜𝑚𝑒) = 0.029
+𝐺𝑎𝑖𝑛(𝑠𝑡𝑢𝑑𝑒𝑛𝑡) = 0.151
+𝐺𝑎𝑖𝑛(𝑐𝑟𝑒𝑑𝑖𝑡_𝑟𝑎𝑡𝑖𝑛𝑔) = 0.048
+
+ID3 Example (Decision: buy computer or not)
+
+Detailed 
+Calculations
+
+21
+
+Final Decision Tree based on ID3
+
+$%&’(# )*+,#%* &-#,$*.->*$%" /+0).&’(1+*#-
+>"#
+6$"6
+2345
+2345
+6$"6
+4:;<5 6$"6
+=<5
+(#,$+(
+=<5
+9’>
+9’>
+=<5
+4:;<5 9’>
+2345
+2345
+=<5
+2345
+4:;<5 (#,$+(
+4:;<5 6$"6
+=<5
+
+%’
+%’
+%’
+%’
+0#)
+0#)
+0#)
+%’
+(#,$+(
+9’>
+0#)
+(#,$+( 0#)
+(#,$+( 0#)
+%’
+0#)
+%’
+
+7>$-
+#8&#99#%*
+7>$-
+7>$-
+7>$-
+#8&#99#%*
+#8&#99#%*
+7>$-
+7>$-
+7>$-
+#8&#99#%*
+#8&#99#%*
+7>$-
+#8&#99#%*
+
+%’
+%’
+0#)
+0#)
+0#)
+%’
+0#)
+%’
+0#)
+0#)
+0#)
+0#)
+0#)
+%’
+
+(#,$+(
+
+age?
+
+<=30
+
+31..40
+
+>40
+
+student?
+
+YES
+
+credit rating?
+
+no
+
+NO
+
+yes
+
+YES
+
+excellent
+
+fair
+
+NO
+
+YES
+
+22
+
+ID3 Example (Decision: play outside or not)
+
+𝐈𝐧𝐟𝐨 𝐷 = ∑ −𝑝!×log"𝑝!
+•
+𝐈𝐧𝐟𝐨𝑨 𝐷 = ∑ 𝑝 𝐷$ 𝐴 ×𝐈𝐧𝐟𝐨 𝐷$
+•
+• 𝐆𝐚𝐢𝐧 𝐷, 𝐴 = 𝐈𝐧𝐟𝐨 𝐷 – 𝐈𝐧𝐟𝐨𝑨 𝐷
+
+Step 1: Entropy based on “Decision”
+
+Info(Decision)	= −𝑝 𝑌𝑒𝑠 ×log!𝑝 𝑌𝑒𝑠 − 𝑝 𝑁𝑜 ×log!𝑝 𝑁𝑜
+
+= −
+
+× log!
+
+9
+14
+
+9
+14
+
+−
+
+5
+14
+
+× log!
+
+5
+14
+
+= 0.940
+
+23
+
+ID3 Example (Decision: play outside or not)
+
+Wind on Decision
+
+Gain(Decision, Wind) 
+= Info(Decision) 
+    – [p(Decision | Wind=Weak) x Info(Decision | Wind=Weak)] 
+
+    – [p(Decision | Wind=Strong) x Info(Decision | Wind=Strong)]
+
+• Info(Decision | Wind=Weak) = − "
+%
+
+	×	log"
+
+"
+
+%
+
+	 −
+
+	×	log"
+
+	 = 0.811
+
+&
+
+%
+
+’
+
+&
+
+%
+
+’
+
+• Info(Decision | Wind=Strong) = − ’
+&
+
+	×	log"
+
+’
+
+&
+
+	 −
+
+&
+
+×	log"
+
+	 = 1
+• Gain(Decision, Wind)
+     = 0.940 – (8/14) x 0.811 – (6/14) x 1 = 0.048
+
+&
+
+24
+
+ID3 Example (Decision: play outside or not)
+
+Outlook, Temperature and Humidity on Decision
+
+n Gain(Decision, Outlook) = 0.246 (highest gain)
+
+n Gain(Decision, Humidity) = 0.151
+
+n Gain(Decision, Wind) = 0.048
+
+n Gain(Decision, Temperature) = 0.029
+
+25
+
+Day
+
+Outlook
+
+Temp.
+
+Humidity Wind Decision
+
+3
+
+7
+
+12
+
+13
+
+Overcast
+
+Hot
+
+High
+
+Weak
+
+Overcast
+
+Cool
+
+Normal
+
+Strong
+
+Overcast
+
+Overcast
+
+Mild
+
+Hot
+
+High
+
+Strong
+
+Normal
+
+Weak
+
+Yes
+
+Yes
+
+Yes
+
+Yes
+
+Day
+
+Outlook
+
+Temp.
+
+Humidity Wind Decision
+
+1
+
+2
+
+8
+
+9
+
+Sunny
+
+Sunny
+
+Sunny
+
+Sunny
+
+11
+
+Sunny
+
+Hot
+
+Hot
+
+Mild
+
+Cool
+
+Mild
+
+High
+
+High
+
+High
+
+Weak
+
+Strong
+
+Weak
+
+Normal
+
+Weak
+
+Normal
+
+Strong
+
+No
+
+No
+
+No
+
+Yes
+
+Yes
+
+Day
+
+Outlook
+
+Temp.
+
+Humidity Wind Decision
+
+4
+
+5
+
+6
+
+10
+
+14
+
+Rain
+
+Rain
+
+Rain
+
+Rain
+
+Rain
+
+Mild
+
+Cool
+
+Cool
+
+Mild
+
+Mild
+
+High
+
+Weak
+
+Normal
+
+Weak
+
+Normal
+
+Strong
+
+Normal
+
+Weak
+
+High
+
+Strong
+
+Yes
+
+Yes
+
+No
+
+Yes
+
+No
+
+(1) Outlook = Overcast on Decision
+Decision will always be ‘Yes’, no need to calculate this 
+branch, it is leaf node already.
+
+(2) Outlook = Sunny on Decision
+• For 5 sunny instances: 3/5 ‘No’, and 2/5 ‘Yes’.
+
+§
+§
+§
+
+Gain(Outlook = Sunny, Temp.) = 0.570
+Gain(Outlook = Sunny, Humidity) = 0.971
+Gain (Outlook = Sunny, Wind) = 0.020
+
+(3) Outlook = Rain on Decision
+• For 5 rain instances: 2/5 “No”, and 3/5 “Yes”.
+
+§ Gain(Outlook = Rain, Temp.) = 0.020
+§ Gain(Outlook = Rain, Humidity) = 0.020
+§ Gain (Outlook = Rain, Wind) = 0.971
+
+26
+
+Overfitting and Tree Pruning
+
+o Overfitting: An induced tree may overfit the training data.
+
+n Too many branches: some may reflect noise or outliers, rather 
+than meaningful patterns à Poor accuracy for unseen samples
+
+o Avoid Overfitting 
+
+n Pre-pruning: stop tree construction early – do not split a node if it 
+would result in the goodness measure falling below a threshold
+o Challenge: choosing an appropriate threshold can be difficult.
+
+n Post-pruning: start with a fully grown tree, then remove branches 
+
+progressively to simplify the tree
+o Use a validation dataset different from training sets to decide the best-pruned tree
+
+27
+
+statistical, probabilistic, efficient
+BAYES CLASSIFICATION METHODS
+
+28
+
+Bayesian Classifier
+
+o Decision Tree: data-driven, rule-based reasoning; generating 
+
+highly interpretable and explainable decisions
+
+o Real-world problems involve uncertainty.
+
+n How likely is this email a spam based on the words it contains?
+n What is the likelihood of a patient having flu based on symptoms?
+
+o Probability-based Bayesian Classifiers: 
+
+n prior knowledge (what we already know from training data) + 
+
+observed evidence (new data) + Bayesian Theorem 
+
+  à Make informed decisions
+
+29
+
+Bayesian Theorem
+
+o 𝑃 𝐻 𝐸 : Posterior probability, the probability of 𝐻 holds given 𝐸
+
+n 𝐸: Evidences (e.g., a data tuple) with attribute description
+n 𝐻: Hypothesis to be verified (e.g., a class label that 𝐸 belongs to)
+
+𝑷 𝑯 𝑬 =
+
+𝑷 𝑬|𝑯 	𝑷 𝑯
+𝑷 𝑬
+
+o 𝑃 𝐻 : prior probability, i.e., the initial probability of hypothesis 𝐻 before 
+
+observing evidence 𝐸
+
+o 𝑃 𝐸 : marginal probability, i.e., the total probability of observing evidence 𝐸 
+
+under all possible hypotheses
+
+o 𝑃 𝐸|𝐻 : likelihood, i.e., the probability of observing evidence 𝐸 given that the 
+
+hypothesis 𝐻 = 𝑡𝑟𝑢𝑒
+
+30
+
+Bayesian Classification
+
+o A data tuple: 𝑋 = (𝐴" = 𝑥", 𝐴# = 𝑥#, 𝐴$ = 𝑥$, … , 𝐴% = 𝑥%)
+o To classify 𝑋, we need to estimate 𝑃 𝐶&	 𝑋)
+
+n 𝐶& represents the hypothesis that 𝑋 belongs to 𝐶&.
+n We say 𝑋 belongs to 𝐶& iff: 𝑃 𝐶&|𝑋 > 𝑃 𝐶"|𝑋 , 𝑓𝑜𝑟	𝑎𝑙𝑙	𝑗 ≠ 𝑖
+
+o How to estimate 𝑃 𝐶&	 𝑋) for classifying 𝑋?
+n Bayesian theorem: 𝑃 𝐶& 𝑋 = ’ (|*O ’ *O
+n The problem becomes à estimating 𝑃 𝑋|𝐶&  and 𝑃 𝐶&
+
+’ (
+
+31
+
+Bayesian Classification
+
+o Estimate the priori probability of the i-th class 𝐶& from the 
+
+training set 𝐷: 𝑃 𝐶& =
+
+’O
+(
+
+o Independence Assumption: For 𝑃 𝑋	|	𝐶& , we assume that the 
+
+effect of each attribute 𝐴) is independent to others:
+
+𝑃 𝑋 = (𝐴# = 𝑥#, 𝐴% = 𝑥%, … , 𝐴( = 𝑥() 	𝐶!)
+= 𝑃 𝐴# = 𝑥# 𝐶! 	×	𝑃 𝐴% = 𝑥% 𝐶! 	× ⋯×	𝑃 𝐴( = 𝑥( 𝐶!
+
+where 𝑃 𝐴! = 𝑥! 	𝐶P) can also be estimated from the training set 𝐷.
+
+32
+
+Example
+
+Bayesian: 𝑃 𝐶! 𝑋 = " #|%" " %"
+
+" #
+
+o Given a training set, predict if a person	𝑋	will buy a computer
+
+n 𝑿: {age = youth, income = medium, student = yes, credit_rating = fair}
+n Yes or No? 𝑃 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 𝑋
+
+Priori Probability in training Data:
+• 𝑃 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑦𝑒𝑠 = 9/14 = 0.643
+• 𝑃 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑛𝑜 = 5/14 = 0.357
+
+To calculate 𝑷 𝑿	 𝒃𝒖𝒚_𝒄𝒐𝒎𝒑𝒖𝒕𝒆𝒓 = 𝒚𝒆𝒔):
+• 𝑃 𝑎𝑔𝑒 = 𝑦𝑜𝑢𝑡ℎ	 𝑦𝑒𝑠) = 2/9 = 0.222	
+• 𝑃 𝑖𝑛𝑐𝑜𝑚𝑒 = 𝑚𝑒𝑑𝑖𝑢𝑚	 𝑦𝑒𝑠) = 4/9 = 0.444
+• 𝑃 𝑠𝑡𝑢𝑑𝑒𝑛𝑡 = 𝑦𝑒𝑠	 𝑦𝑒𝑠) = 6/9 = 0.667
+• 𝑃 𝑐𝑟𝑒𝑑𝑖𝑡_𝑟𝑎𝑡𝑖𝑛𝑔 = 𝑓𝑎𝑖𝑟	 𝑦𝑒𝑠) = 6/9 = 0.667
+à 𝑃 𝑋	 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑦𝑒𝑠) = 0.044
+à Similarly, 𝑃 𝑋	 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑛𝑜) = 0.019
+
+Through Bayesian:
+• 𝑃 𝑋	|	𝑦𝑒𝑠 	×	𝑃 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑦𝑒𝑠 = 0.028
+• 𝑃 𝑋	|	𝑛𝑜 	×	𝑃 𝑏𝑢𝑦_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑛𝑜 = 0.007
+Conclusion: X will buy a computer.
+
+33
+
+MODEL EVALUATION AND SELECTION
+
+34
+
+Evaluation Measures
+
+o To assess how “accurate” your classifier is at predicting the 
+
+class label of tuples compared to actual labels
+
+n True Positives TP: positive tuples that were correctly labeled
+
+o Positive tuples: tuples of the main class of interest
+
+n True Negatives TN: negative tuples that were correctly labeled 
+n False Positives FP: negative tuples that were incorrectly labeled 
+
+as positive (e.g., people who do not buy computers but are 
+labeled as 𝑏𝑢𝑦𝑠_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑦𝑒𝑠)
+
+n False Negatives FN: positive 
+tuples that were mislabeled as 
+negative (e.g., people who really 
+buy computers but are labeled 
+as 𝑏𝑢𝑦𝑠_𝑐𝑜𝑚𝑝𝑢𝑡𝑒𝑟 = 𝑛𝑜)
+
+35
+
+Evaluation Measures
+
+36
+
+K-Fold Cross-Validation
+
+o Key Concepts
+
+n Partitioning: splits data into 𝑘 equal-sized folds
+n Rotation: each fold is a test set once, others form the training set
+n Iteration: 𝑘 rounds of training/testing
+
+Process
+• 1st Iteration: Train on D2 to Dk, test on D1.
+• 2nd Iteration: Train on D1, D3 to Dk, test on D2.
+•
+• 𝑘th Iteration: Train on D1 to D(k-1), test on Dk.
+
+...
+
+o Advantages
+
+n Bias Reduction: Each data point is used for training and testing.
+n Robustness: Accuracy is averaged over 𝑘 iterations.
+
+37
+
+Summary
+
+o Classification: a form of data analysis that extracts models 
+
+describing data classes. A classifier predicts categorical labels. 
+
+o Decision tree induction: a top-down recursive tree induction model, 
+using an attribute selection measure to select the attribute tested for 
+each non-leaf node in the tree – ID3 as the example algorithm
+
+n Tree pruning: to improve accuracy by removing tree branches reflecting 
+
+noise in the data. 
+
+o Bayesian classifier: based on Bayes’ theorem of posterior probability 
+
+n the effect of an attribute value on a given class is independent of the 
+
+values of the other attributes
+
+o Evaluation: accuracy, precision, recall, F1, …
+
+38
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+39
+
+

@@ -1,0 +1,1020 @@
+
+
+Anomaly Detection using Autoencoders in High Performance
+Computing Systems
+
+Andrea Borghesi
+DEI, University of Bologna
+
+Andrea Bartolini
+DEI, University of Bologna
+
+Michele Lombardi
+DISI, University of Bologna
+
+Michela Milano
+DISI, University of Bologna
+
+Luca Benini
+Integrated Systems Laboratory, ETHZ
+
+Abstract
+
+1
+
+Introduction
+
+Anomaly detection in supercomputers is a very difﬁcult
+problem due to the big scale of the systems and the high
+number of components. The current state of the art for
+automated anomaly detection employs Machine Learn-
+ing methods or statistical regression models in a super-
+vised fashion, meaning that the detection tool is trained
+to distinguish among a ﬁxed set of behaviour classes
+(healthy and unhealthy states).
+
+We propose a novel approach for anomaly detection
+in High Performance Computing systems based on a
+Machine (Deep) Learning technique, namely a type of
+neural network called autoencoder. The key idea is to
+train a set of autoencoders to learn the normal (healthy)
+behaviour of the supercomputer nodes and, after train-
+ing, use them to identify abnormal conditions. This is
+different from previous approaches which where based
+on learning the abnormal condition, for which there are
+much smaller datasets (since it is very hard to identify
+them to begin with).
+
+We test our approach on a real supercomputer
+equipped with a ﬁne-grained, scalable monitoring in-
+frastructure that can provide large amount of data to
+characterize the system behaviour. The results are ex-
+tremely promising: after the training phase to learn the
+normal system behaviour, our method is capable of de-
+tecting anomalies that have never been seen before with
+a very good accuracy (values ranging between 88% and
+96%).
+
+High Performance Computing (HPC) systems are com-
+plex machines with many components that must oper-
+ate concurrently at the best of their theoretical perfor-
+mance. In reality, many factors can degrade the perfor-
+mance of a HPC system: hardware can break, the ap-
+plications may enter undesired and unexpected states,
+components can be wrongly conﬁgured. A critical as-
+pect of modern and future supercomputers is the capa-
+bility of detecting faulty conditions stemming from the
+improper behaviour of one or multiple parts. This issue
+is relevant not only for scientiﬁc computing systems but
+also in data centers and clouds providers, whose busi-
+ness strongly relies on the availability of their web ser-
+vices. For instance, Amazon in 2016 would have lost
+15M$ for just an hour of out of service [HP11]. An au-
+tomated process for anomaly detection would be a great
+improvement for current HPC systems, and it will prob-
+ably be a necessity for future Exascale supercomputers.
+Nowadays, monitoring infrastructures are available
+in many HPC systems and data centers, used to gather
+data about the state of the systems and their compo-
+nents thanks to a large variety of measurement sensors.
+Given the deluge of data originating from a monitor-
+ing framework, real-time identiﬁcation of problems and
+undesired situations is a daunting task for system ad-
+ministrators. The growing scale of HPC systems will
+only make this task even more difﬁcult. In this paper
+we present a novel approach to deal with this issue, re-
+lying on a ﬁne-grain monitoring framework and on an
+autonomous anomaly detection method that uses Ma-
+chine Learning (ML) techniques.
+
+1
+
+ 
+ 
+ 
+ 
+ 
+ 
+Automated anomaly detection is still a relatively un-
+explored area in the HPC ﬁeld. The current state-of-the-
+art relies on supervised [Mit99] ML methods that learn
+to distinguish between healthy and faulty states after a
+training phase during which the supercomputer must be
+subjected to different conditions, namely the behaviour
+classes to be identiﬁed, for example normal behaviour
+and a set of anomalies. With this scheme, the anomaly
+detector learns to classify different classes using labeled
+training data.
+
+This requirement complicates the training process: a
+supervised algorithm needs to be shown data contain-
+ing examples of both healthy and unhealthy status (nor-
+mal behaviour and anomalies). Moreover, the data set
+should ideally be unbiased and balanced, that is there
+should be roughly the same number of examples (data
+points in the set) for each class. In HPC systems, data
+is very abundant but labels are scarce.
+
+However, in supercomputers the normal behaviour
+is predominant – and can be deterministically restored
+by system administrators. The same cannot be said
+for faulty behaviour, which is undesired, sporadic and
+uncontrolled. Furthermore, even when abnormal con-
+ditions are observed and dealt with, they are not nec-
+essarily stored in logging systems (unless the logging
+systems are explicitly designed for this), but rather the
+burden of assigning labels to a data set – identify the
+corresponding class, healthy/unhealthy – falls onto the
+system administrators, a less than ideal situation. Thus
+it is not easy and often neither possible to obtain the
+correct labeled data sets required by typical supervised
+approaches.
+
+Conversely, there is another type of ML that does not
+require any label and it is referred to as unsupervised
+[Mit99] learning. In this case the data set contains only
+the features describing the system state and no labels;
+the learning algorithm learns useful properties about the
+structure of the dataset. To address the issue, we pro-
+pose an anomaly detection method less dependent on
+labeled data; to be precise, our approach belongs to the
+semi-supervised branch of ML, which combines the two
+methodologies described before. Our idea is to use au-
+toencoders [GBCB16] to learn the normal behaviour of
+supercomputer nodes and then to use them to detect ab-
+normal states. In our method we require labels during
+the pre-processing phase because we need to obtain a
+data set containing only normal conditions. After this
+“normal” data set has been obtained the training of the
+ML model proceeds in unsupervised fashion, without
+the need of labels. A critical advantage of our method
+
+is that it will be able to identify faulty conditions even
+though these have not been encountered earlier during
+the training phase. With our method we do not need to
+inject anomalies during the training phase (possibly not
+feasible in a production system) and we do not require
+system logs or changes to the standard supercomputer
+users’ work ﬂow.
+
+The main contributions of our approach are: 1) a
+very precise anomaly detection rate (up to 88%-96%
+accuracy); 2) identiﬁcation of new types of anomalies
+unseen during the initial training phase (thanks to its
+semi-supervised nature); 3) no need for large amount of
+labeled data. To demonstrate the feasibility of our ap-
+proach we consider a real supercomputer hosted by the
+Italian inter-universities consortium CINECA [CIN].
+We use historical data collected with an integrated mon-
+itoring system to train our autoencoders and then we test
+them by injecting anomalies in a subset of the comput-
+ing nodes; the experimental results show how this ap-
+proach can distinguish between normal and anomalous
+states with a very high level of accuracy.
+
+2 Related Works
+
+2.1 Anomaly Detection in HPC Systems
+
+Tuncer et al. [TAZea17] deal with the problem of di-
+agnosing performance variations in HPC systems. The
+approach is based on the collection of several measure-
+ments gathered by a monitoring infrastructure; from
+these measures, a set of statistical features describing
+the state of the supercomputer is extracted. The authors
+then train different ML algorithms to classify the be-
+haviour of the supercomputer using the statistical fea-
+tures previously mentioned. Unfortunately the authors
+propose a supervised approach which is not perfectly
+suited for the HPC context (as discussed previously).
+
+Baseman et al. [BBD+16] propose a similar method
+for anomaly detection in HPC systems. They apply
+a general statistical technique called classiﬁer-adjusted
+density estimation (CADE) to the HPC context. CADE
+relies on the observation that combining a uniform den-
+sity estimate and the probabilistic output of a classi-
+ﬁer results in an accurate density estimator. First they
+extract temporal relational features and their gradients
+from the sensor data. Then they use both real and arti-
+ﬁcially generated data (thanks to density estimation) to
+train a supervised classiﬁer, speciﬁcally a Random For-
+est classiﬁer, in order to rank each data point depending
+
+2
+
+on its “anomalousness”. Again, the main limit of this
+work is to be based on a supervised approach.
+
+Dani et al.
+
+[DDA17] present an unsupervised ap-
+proach for anomaly detection in HPC. Their work is
+remarkably different from our approach since they do
+not rely on a monitoring infrastructure but consider only
+the console logs generated by computing nodes. The
+goal of the method is to distinguish log messages re-
+garding faulty situations from logs generated by nodes
+in normal condition; in order to do so clustering meth-
+ods (k-means) are used. This work focuses on faults
+that can be recognized by a node itself and recorded
+in a log message, thus greatly limiting the class of de-
+tectable anomalies. Conversely, in our approach we in-
+fer anomalies using simply the data collected by a mon-
+itoring infrastructure, without requiring a mechanism to
+identify anomalies on the nodes.
+
+2.2 Anomaly Detection with Deep Learn-
+
+ing Approaches
+
+Although not yet applied to the HPC ﬁeld, Deep Learn-
+ing based approaches for anomaly detection have been
+studied in other areas [KKKea17, KTP18], especially in
+recent years.
+
+Lv et al. [LWBL16] propose a deep learning based
+algorithm for fault diagnosis in chemical production
+systems. The proposed method is capable of real time
+detection and classiﬁcation and, moreover, it can do the
+diagnosis online. Nevertheless, their approach is su-
+pervised and thus it deﬁnitely differs from ours. Lee
+et al.
+[LCK17] introduce a convolutional neural net-
+work (CNN) model for fault identiﬁcation and classiﬁ-
+cation in semiconductor manufacturing processes. This
+method makes it possible to locate the variable and time
+information that represents process faults.
+
+Costa et al. [CAG15] describe a fully unsupervised
+algorithm for real-time detection of faults in industrial
+plants. The algorithm relies on the identiﬁcation of a
+set of features that are then used to learn the normal be-
+haviour of the plant, expressing it as a probability den-
+sity estimation. The online classiﬁer then uses the dis-
+tance from the normal distribution to classify new data
+samples. The model is unsupervised and it can handle
+unseen types of anomalies. However, the approach is
+speciﬁcally targeted at plants for industrial process con-
+trol and thus not well suited for our HPC system case.
+Particularly, a relatively small set of features is consid-
+ered w.r.t. to the hundreds (thousands) of metrics found
+
+in a supercomputer.
+
+Ince et al. [IKEea16] discuss a CNN-based method
+for electrical motor fault detection; their method can
+work directly on the raw measurement data, with no
+preprocessing. The neural network combines feature
+extraction and classiﬁcation, but proceeds in a super-
+vised manner.
+
+3 Data Collection
+
+A very important aspect for our anomaly detection ap-
+proach is the availability of large quantity of data that
+monitors and thus describes the state of a supercom-
+puter. To test our approach we take advantage of a
+supercomputer with an integrated monitoring infras-
+tructure able to handle large amounts of data coming
+from several different sources. Our target system is
+D.A.V.I.D.E.[ABBea17], an energy efﬁcient supercom-
+puter developed by E4 Computer Engineering [e4] and
+hosted by CINECA in Bologna, Italy. It is composed by
+45 nodes with a total peak performance of 990 TFlops
+and an estimated power consumption of less than 2 kW
+per node. Each node hosts two IBM POWER8 Proces-
+sors with NVIDIA NVLink and four Tesla P100 GPUs.
+The system was ranked #440 in TOP500 [DMS94] and
+#18 in GREEN500 [FC07] in November 2017 list.
+
+The data collection infrastructure deployed in
+D.A.V.I.D.E. is called Examon and has been presented
+in previous works [BBCea17, BBLea18]. Examon is
+a ﬁne-grained, lightweight and scalable monitoring in-
+frastructure for Exascale supercomputers. The data
+coming from heterogeneous data sources is gathered in
+an integrated and uniform repository, making it very
+easy to create data sets providing a holistic view of
+the supercomputer and thus describing the system state.
+The main components of the Examon framework are
+a set of agents running outside the computing nodes,
+but tightly coupled with them. These agents moni-
+tor the power consumption of each computing node at
+the plug as well as performance and utilization met-
+rics. The monitored values are sent to a data manage-
+ment backbone, through a communication layer based
+on the open-source MQTT protocol, a TCP/IP protocol
+designed for low bandwidth and high latency networks,
+with minimal resource demands.
+
+Since there are limitations on the storage space avail-
+able for the monitoring infrastructure, it is impossi-
+ble to store the raw data. The solution adopted in
+D.A.V.I.D.E. was to discard the ﬁne-grained data older
+
+3
+
+than a week and to preserve indeﬁnitely job information
+and coarse-grained data (long term storage, around 6GB
+after 7 months of activity). For this paper, we work with
+the coarse-grained data aggregated in 5-minutes long
+intervals. Furthermore, we focused on a subset of the
+data collected by Examon; for each node we have 166
+metrics (our features), i.e. core loads, temperatures, fan
+speed, power consumptions, etc.
+
+was obtained after an empirical evaluation, after hav-
+ing experimented with different topologies and parame-
+ter conﬁgurations. To summarize, our methodology has
+the following steps: 1) create an autoencoder for each
+computing node in the supercomputer; 2) train the au-
+toencoders using data collected during normal operat-
+ing conditions; 3) identify anomalies in new data using
+the reconstruction error obtained by the autoencoders.
+
+4 The Autoencoder-based Ap-
+
+5 Experimental Evaluation
+
+proach
+
+We aim at detecting anomalies that happen at the node-
+level. Currently, we focus on single nodes. We cre-
+ate a set of separate autoencoder models, one for each
+node in the system. Each model is trained to learn the
+normal behaviour of the corresponding node and to be
+activated if anomalous conditions are measured. If an
+autoencoder can learn the correlations between the set
+of measurements (features) that describe the state of a
+supercomputer, then it can consequently notice changes
+in these correlations that indicate an abnormal state.
+Under normal operating conditions these features are
+linked by speciﬁc relations (i.e. the power consumption
+of a core is directly related to the workload and temper-
+ature to the power and frequency). We hypothesize that
+these correlations will be perturbed if the system enters
+in an anomalous state.
+
+The reconstruction error is the element we use to
+detect anomalies. An autoencoder can be trained to
+minimize this error. In doing so, it learns the relation-
+ships among the features of the input set. If we feed a
+trained autoencoder with data not seen during the train-
+ing phase, it should reproduce the new input with good
+ﬁdelity, at least if the new data resemble the data used
+for the training. If this is not the case, the autoencoder
+cannot correctly reconstruct the input and the error will
+be greater. We propose to detect anomalies by observ-
+ing the magnitude of the reconstruction error.
+
+All autoencoders have the same structure. We opted
+for a fairly simple structure composed by three lay-
+ers:
+I) an input layer with as many neurons as the
+number of features (166), II) a densely connected in-
+termediate sparse layer [BC+08] with 1660 neurons
+(ten times the number of features) with Rectiﬁed Lin-
+ear Units (ReLu) as activation functions and a L1 norm
+regularizer [GBCB16], III) a ﬁnal dense output layer
+with 166 neurons with linear activations. This network
+
+In every HPC system there are multiple possible sources
+of anomalies and fault conditions, ranging from hard-
+ware faults to software errors. In this paper we verify
+the proposed approach on a type of anomaly that easily
+arises in real systems and happens at the level of single
+nodes, namely misconﬁguration. More precisely, we
+consider the misconﬁguration of the frequency gover-
+nor of a computing node. Modern Linux systems allow
+to specify different policies regulating the clock speed
+of the CPUs, thanks to kernel-level drivers referred as
+frequency governors [BG13]. Different policies have
+different impacts on the clock speed, frequency and
+power consumption of the CPUs.
+
+We considered three different policies. The ﬁrst one,
+conservative, is the default policy on D.A.V.I.D.E. (the
+normal behaviour); it sets the CPU clock depending on
+the current CPU load. Two other types of policies have
+been used to generate anomalies, i) the powersave pol-
+icy and ii) the performance policy. These frequency
+governors statically set the CPU to the, respectively,
+lowest and highest frequency in the allowed range.
+
+5.1 Results
+
+In this work we used an off-line approach. We gathered
+the measurements collected during months of real us-
+age of D.A.V.I.D.E. and we created a data set; the data
+is normalized to have values in the range [0, 1]. The
+data set is split in 3 components: 1) the training set
+DT rain (containing data points within periods of nor-
+mal behaviour), 2) the test set without anomalies DN
+T est
+(again, only periods of normal behaviour) and 3) the test
+set with anomalies DA
+T est (the periods when we injected
+anomalies on some nodes).
+
+For these experiments we selected a subset of the data
+collected by Examon during D.A.V.I.D.E. lifetime. The
+period we considered is 83 days long, from March 2018
+to May 2018. During this period D.A.V.I.D.E. was in
+
+4
+
+the normal state for most of the time – 66 days, 80% of
+the time – while we forced anomalous states for smaller
+sub-periods of a few days, 13 days in total. Since
+we know when the anomalies were injected identify-
+ing DA
+T est were created by
+randomly splitting the data points belonging to the 66
+days of normal state, 80% of the data points going to
+DT rain and 20% to DN
+
+T est is trivial. DT rain and DN
+
+T est.
+
+Each autoencoder is trained with Adam [KB14] op-
+timizer with standard parameters, minimizing the mean
+absolute error; the number of epochs used in the train-
+ing phase is 100 and the batch size has a ﬁxed value
+(32). These values were chosen after a preliminary ex-
+ploration because they guarantee very good results with
+very low computational costs. The time required to
+train the network is around 5 minutes on a quad-core
+processor (Intel i7-5500U CPU 2.40GHz) with 16GB
+of RAM (without using GPUs).
+
+5.1.1 Reconstruction Error-Based Detection
+
+As explained previously, our anomaly detection method
+relies on the hypothesis that an autoencoder can be
+taught to learn the correlations among the features in
+a data set representing the healthy state of a supercom-
+puter node. In this case the autoencoder would be ca-
+pable to reconstruct an input data set never seen before,
+if this new input resembles the healthy one used dur-
+ing the training phase – if in the unseen data set the
+features correlations are preserved. Conversely, an au-
+toencoder would struggle to reconstruct data sets where
+the learned correlations do not hold. To demonstrate
+our hypothesis, we expect to observe higher reconstruc-
+tion errors for the anomalous periods with respect to the
+error obtained in normal periods. We are not strictly in-
+terested in the absolute value of the reconstruction error
+but rather on the relative difference between normal and
+anomalous periods.
+
+This reconstruction error is plotted in Figure 1; it
+displays the results computed for node davide45 (other
+nodes were omitted for space reason but their behaviour
+is very similar). The x-axis and y-axis show, respec-
+tively, the time and the normalized reconstruction er-
+ror (we sum the error for each feature and divide by
+the number of features N F ). The reconstruction error
+trend is plotted with a light blue line; the gaps in the line
+represent periods when the node was idle and that have
+been removed from the data set.
+
+We observe 6 anomalous periods (highlighted by col-
+ored lines along the x-axis): during the ﬁrst 5 (red lines)
+
+5
+
+Figure 1: Reconstruction error for node davide45
+
+the frequency governor was set to powersave while dur-
+ing the last one (blue) the governor was set to perfor-
+mance. The reconstruction error is never exactly zero,
+but this is not our concern: our analysis does not rely
+on the absolute value of the error, but rather on the rela-
+tive magnitude of the errors computed for different data
+sets. The reconstruction error is indeed greater when the
+nodes are in an anomalous state, as underlined by the
+higher values in the y-axis in the periods correspond-
+ing to anomalies. Hence, the autoencoder struggles to
+recreate the “faulty” input data set.
+
+Although the plot shown is promising, it does not
+actually show that the reconstruction error for unseen
+healthy input is actually lower than the error committed
+with anomalous periods. This happens because the nor-
+mal behaviour data set was randomly split in the subset
+DT rain and DN
+T est and it is impossible to distinguish
+between them by simply looking at the plot. However,
+our insight is backed by the quantitative analysis, as
+summarized in Table 1. To measure the quality of the
+anomaly detection we rely on the Mean Absolute Error
+(MAE) and on the Root Mean Squared Error (RSME).
+For each autoencoder we computed MAE and RSME
+for every set DT rain, DN
+
+T est and DA
+The results obtained for all autoencoders are very
+similar but in order to make a fair comparison between
+different nodes we do not use the absolute values of
+MAE and RSME but we rather employ a normalized
+version: the normalized MAE (RSME) is obtained by
+dividing the actual MAE (RSME) by the MAE (RSME)
+computed for DT rain. In this way we force the normal-
+ized error for the training set to be equal to 1 (since we
+are not strictly interested in its absolute value) and we
+
+T est.
+
+DN
+
+T est DA
+
+T est
+
+Normalized MAE
+Normalized RMSE
+
+1.08
+1.17
+
+14.54
+11.18
+
+Table 1: Quantitative Analysis: average over all nodes
+
+highlight the relative difference of error between sets.
+If the normalized error for a test set is close to one this
+means that the autoencoder was able to reconstruct the
+input quite well; larger errors imply that the autoen-
+coder was not capable to reproduce the input – these
+situations are those that we claim to be anomalies.
+
+In Table 1 we can see the results for the test sets.
+The error for the DA
+T est is the average value obtained
+considering both anomaly types. The normalized er-
+ror for DT rain has not been reported since it is always
+equal to 1. The values reported in the table are the av-
+erage computed over all the autoencoders (as many as
+in the chosen subset of nodes of D.A.V.I.D.E.). The re-
+sults clearly indicate that our hypothesis holds true (as
+hinted also by the previous plot with the reconstruction
+error). Both the average normalized MAE and RSME
+for the test set with no anomalies DN
+T est are very close
+to 1, suggesting that the autoencoders have correctly
+learned the correlations between the measured features
+of a healthy system. Therefore, when the autoencoders
+are fed with unseen input that preserve these correla-
+tions they can reconstruct it with good precision. On the
+contrary, the autoencoders cannot correctly reproduce
+new input that does not resemble a healthy system, that
+is a system in an anomalous state. This is shown by the
+markedly higher normalized MAE and RSME obtained
+for DA
+
+T est.
+
+T est and DA2
+
+We can also make an additional observation: there
+is clearly a difference between the reconstruction errors
+of the two anomalies (powersave and performance), as
+highlighted by the notably different values of MAE and
+RSME for DA1
+T est. In particular, larger nor-
+malized MAE and RMSE suggest that the autoencoders
+are less capable to reconstruct the input composed by
+In a
+data points with powersave frequency governor.
+certain sense, this means that this frequency governor
+policy is a more anomalous condition than the perfor-
+mance case, i.e. it disrupts the features correlations in
+a more marked way. Why does this happens? A possi-
+ble explanation is that the performance frequency gov-
+ernor has a behaviour closer to the default conservative
+one: when a computing node in a supercomputer is ac-
+
+6
+
+tive, its frequency tends to reach the maximum allowed
+value quite rapidly because HPC applications are opti-
+mized to optimally use the computing resources at their
+disposal. Thus, the performance mode has a more sim-
+ilar footprint to the conservative one compared to the
+powersave case, where instead the frequency is ﬁxed to
+the lowest possible value, not a common situation for
+an active HPC node.
+
+5.1.2 Detection Accuracy
+
+So far we have observed the reconstruction error trends
+obtained by our approach based on autoencoders, but
+we still have to discuss how the reconstruction error
+can be used to actually detect an anomaly. Our goal
+is to identify an error threshold θ to discriminate be-
+tween normal and anomalous behaviour. In order to do
+so we shall start by looking at the distributions of the
+reconstruction errors. Again, we are considering each
+autoencoder (and thus corresponding node) separately.
+We distinguish the errors distribution for healthy data
+sets (DT rain ∪ DN
+T est) and for the unhealthy data set
+(DA
+
+T est).
+Figure 2 shows the error distributions for the autoen-
+coder corresponding to node davide45 – again other
+nodes have the same behaviour. The graph contains the
+histograms of the error distributions; in the x-axis we
+have the reconstruction error and in the y-axis there is
+the number of data points with the corresponding error.
+The left-most sub-ﬁgure (Fig. 2a) shows the error dis-
+tribution for the normal data set (DT rain ∪ DN
+T est) and
+the other one (Fig. 2b) shows the distribution for the
+anomalous data set. It is quite easy to see that the errors
+distribution of the normal data set is extremely different
+from the anomalous one.
+
+Since we can clearly distinguish the error distribu-
+tions we opted for a simple method to classify each
+data point: if the reconstruction error Ei for data point
+i is greater than a threshold θ, then the point is “ab-
+normal”; otherwise the data point is considered normal.
+The next step is to identify the threshold used to clas-
+sify each data point. We choose as a threshold the n-th
+percentile of the errors distribution of the normal data
+set, where n is a value that depends on the speciﬁc au-
+toencoder/node. For example in the case of davide45
+(Fig. 2), if n = 95 the threshold is equal to 0.082;
+this means that 95% of the errors in the normal data
+set (Fig. 2a) are smaller than this value. Hence, if a data
+point fed to our trained autoencoder generates an error
+greater than 0.082 we classify it as anomalous. In order
+
+(a) Normal data set
+
+(b) Anomaly data set
+
+Figure 2: Error distribution for node davide45
+
+to ﬁnd the best n value for each autoencoder we em-
+ployed a simple generate-and-test search strategy, that
+is we performed experiments with a ﬁnite number of
+values and then chose those guaranteeing the best re-
+sults in term of classiﬁcation accuracy.
+
+Broadly speaking, the best results are obtained with
+higher thresholds, i.e. n ≥ 93. To asses the accuracy
+of the classiﬁcation (thus the goodness of the threshold)
+we compute the F-score [VR79] for each class; in our
+case we have two classes, normal (N) and anomaly (A).
+The F-score is a widespread metric to measure the accu-
+racy of a classiﬁcation test and can assume values in the
+[0, 1] range, with values closer to 1 indicating a higher
+accuracy. In Table 2 we see some results. In the ﬁrst
+column from the left there is the node whose autoen-
+coder F-score values are reported (we report the values
+for only a subgroup of nodes). The remaining columns
+report the F-score values for 3 different n-th percentiles
+(and therefore different thresholds); there are two F-
+score values for each n-th percentile, one computed for
+the normal class (N) and one for the anomaly class (A).
+The table can be divided in three subparts (separated
+by horizontal lines): 1) the ﬁrst one contains nodes sim-
+ilar to davide45, i.e. nodes where most of the anomalies
+were of type powersave; 2) the second group is com-
+prised of nodes where most of the anomalies had the
+frequency governor set to performance; 3) the last group
+(the last row) is the average of the other nodes. In gen-
+eral we can see that the F-score values are very good,
+highlighting the high accuracy of our approach. A no-
+table difference can be observed between the two sub-
+groups of nodes. In nodes with a prevalence of pow-
+
+Node
+
+davide17
+davide19
+davide45
+
+davide27
+davide28
+davide29
+
+95-th perc.
+A
+N
+
+97-th perc.
+A
+N
+
+99-th perc.
+A
+N
+
+0.97
+0.97
+0.97
+
+0.95
+0.94
+0.97
+
+0.89
+0.90
+0.92
+
+0.90
+0.88
+0.75
+
+0.98
+0.98
+0.98
+
+0.91
+0.96
+0.98
+
+0.93
+0.94
+0.95
+
+0.77
+0.89
+0.82
+
+0.99
+0.99
+0.99
+
+0.86
+0.90
+0.99
+
+0.97
+0.97
+0.98
+
+0.52
+0.69
+0.85
+
+Average
+
+0.96
+
+0.87
+
+0.96
+
+0.88
+
+0.95
+
+0.82
+
+Table 2: Classiﬁcation Results
+
+ersave anomalies higher thresholds (higher n-th values)
+guarantee better results: this happens because, as seen
+for instance in Figure 2, the error distributions are more
+separable. In the case of nodes characterized by more
+anomalies of performance type, increasing the thresh-
+old does not necessarily improve the accuracy – al-
+though this can still occur for some nodes.
+In these
+nodes it is harder to distinguish normal data points from
+anomalies of type performance (since they behave sim-
+ilarly). Hence, simply increasing the threshold is not
+beneﬁcial, for example for both davide27 and davide28
+the best n-th value found through our empirical explo-
+ration is n = 94. The underlying reason is that increas-
+ing the threshold (for these nodes) leads to a marked
+increase in the number of false negatives.
+
+7
+
+6 Conclusion
+
+In this paper we proposed an approach to detect anoma-
+lies in a HPC system that relies on large data sets col-
+lected via a lightweight and scalable monitoring frame-
+work and employs autoencoders to distinguish between
+normal and anomalous system states.
+
+In the future we plan to further validate our method
+by testing it on a broader set of anomalies. Our goal
+is to expand the anomaly detection technique in order
+to be able to also classify different types of anomalies;
+in addition to recognize that the system is in an anoma-
+lous state, the autoencoder (possibly a reﬁned and more
+complex version) will be also able to distinguish among
+different anomaly classes and sources. We also plan
+to implement our approach in a on-line prototype to
+perform real-time anomalous detection on a supercom-
+puter, again using D.A.V.I.D.E. as a test bed.
+
+Acknowledgements
+
+This work was partially supported by the FP7 ERC Ad-
+vanced project MULTITHERMAN (g.a. 291125). We
+also want to thank CINECA and E4 for granting us the
+access to their systems.
+
+References
+
+[ABBea17] W. Abu Ahmad, A. Bartolini, F. Ben-
+eventi, and et al.
+Design of an en-
+ergy aware petaﬂops class high perfor-
+mance cluster based on power architec-
+In 2017 IEEE International Paral-
+ture.
+lel and Distributed Processing Symposium
+Workshops (IPDPSW), May 2017.
+
+[BBCea17] Francesco Beneventi, Andrea Bartolini,
+Carlo Cavazzoni, and et al. Continuous
+learning of hpc infrastructure models us-
+ing big data analytics and in-memory pro-
+cessing tools. In Proceedings of the Con-
+ference on Design, Automation & Test in
+Europe. European Design and Automation
+Association, 2017.
+
+[BBD+16] Elisabeth Baseman, Sean Blanchard,
+Nathan DeBardeleben, Amanda Bonnie,
+and Adam Morrow. Interpretable anomaly
+detection for monitoring of high perfor-
+In Outlier
+mance computing systems.
+
+Deﬁnition, Detection, and Description on
+Demand Workshop at ACM SIGKDD. San
+Francisco (Aug 2016), 2016.
+
+[BBLea18] Andrea Bartolini, Andrea Borghesi, Anto-
+nio Libri, and et al. The D.A.V.I.D.E. big-
+data-powered ﬁne-grain power and perfor-
+mance monitoring support. In Proceedings
+of the 15th ACM International Conference
+on Computing Frontiers, CF 2018, pages
+303–308, 2018.
+
+[BC+08]
+
+[BG13]
+
+[CAG15]
+
+Y-lan Boureau, Yann L Cun, et al. Sparse
+feature learning for deep belief networks.
+In Advances in neural information pro-
+cessing systems, pages 1185–1192, 2008.
+
+Dominik Brodowski and Nico Golde. Cpu
+frequency and voltage scaling code in the
+linux (tm) kernel. Linux kernel documen-
+tation, 2013.
+
+B. S. J. Costa, P. P. Angelov, and L. A.
+Guedes.
+Fully unsupervised fault de-
+tection and identiﬁcation based on recur-
+sive density estimation and self-evolving
+cloud-based classiﬁer. Neurocomputing,
+150:289–303, 2015.
+
+[CIN]
+
+Cineca inter-university consortium web
+site. http://www.cineca.it//en. Accessed:
+2018-06-29.
+
+[DDA17] Mohamed Cherif Dani, Henri Doreau, and
+Samantha Alt. K-means application for
+anomaly detection and log classiﬁcation in
+In International Conference on In-
+hpc.
+dustrial, Engineering and Other Applica-
+tions of Applied Intelligent Systems, pages
+201–210. Springer, 2017.
+
+[DMS94]
+
+[e4]
+
+[FC07]
+
+J. Dongarra, H. W. Meuer,
+
+and
+J.
+E. Strohmaier.
+29th top500 Supercom-
+puter Sites. Technical report, Top500.org,
+November 1994.
+
+E4
+computer
+https://www.e4company.com/en/.
+
+engineering.
+
+Wu-chun Feng and Kirk Cameron. The
+green500 list: Encouraging sustainable su-
+IEEE Computer, 40(12),
+percomputing.
+December 2007.
+
+8
+
+[VR79]
+
+CJ Van Rijsbergen. Information retrieval.
+dept. of computer science, university of
+glasgow. 14, 1979.
+
+[GBCB16]
+
+Ian Goodfellow, Yoshua Bengio, Aaron
+Courville, and Yoshua Bengio. Deep
+learning, volume 1. MIT press Cam-
+bridge, 2016.
+
+[HP11]
+
+John L Hennessy and David A Patterson.
+Computer architecture: a quantitative ap-
+proach. Elsevier, 2011.
+
+[IKEea16] Turker Ince, Serkan Kiranyaz, Levent
+Eren, and et al. Real-time motor fault
+detection by 1-d convolutional neural net-
+IEEE Transactions on Industrial
+works.
+Electronics, 2016.
+
+[KB14]
+
+Diederik P Kingma and Jimmy Ba. Adam:
+A method for stochastic optimization.
+arXiv preprint arXiv:1412.6980, 2014.
+
+[KKKea17] Donghwoon Kwon, Hyunjoo Kim, Jinoh
+Kim, and et al. A survey of deep learning-
+based network anomaly detection. Cluster
+Computing, 2017.
+
+[KTP18]
+
+[LCK17]
+
+B Ravi Kiran, Dilip Mathew Thomas, and
+Ranjith Parakkal. An overview of deep
+learning based methods for unsupervised
+and semi-supervised anomaly detection in
+videos. Journal of Imaging, 2018.
+
+Sejune Cheon,
+
+and
+Ki Bum Lee,
+A convolutional
+Chang Ouk Kim.
+neural network for fault classiﬁcation and
+diagnosis in semiconductor manufacturing
+IEEE Transactions on Semi-
+processes.
+conductor Manufacturing, 30(2):135–142,
+2017.
+
+[LWBL16] Feiya Lv, Chenglin Wen, Zejing Bao, and
+Meiqin Liu. Fault diagnosis based on deep
+In American Control Confer-
+learning.
+ence, 2016. IEEE, 2016.
+
+[Mit99]
+
+Tom M Mitchell. Machine learning and
+data mining. Communications of the ACM,
+42(11):30–36, 1999.
+
+[TAZea17] Ozan Tuncer, Emre Ates, Yijia Zhang,
+and et al. Diagnosing performance vari-
+ations in hpc applications using machine
+In International Supercomput-
+learning.
+ing Conference, pages 355–373. Springer,
+2017.
+
+9
+
+

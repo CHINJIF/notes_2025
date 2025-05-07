@@ -1,0 +1,977 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 3: Data Preprocessing
+
+Dr. Fengmei Jin
+
+§ Email: fengmei.jin@polyu.edu.hk
+
+§ Office: PQ747 (+852 3400 3327)
+
+§ Consultation Hours: 2:30-4:30pm every Thursday
+
+Outline
+
+o Data Cleaning
+
+o Data Integration
+
+o Data Reduction
+
+o Data Transformation
+
+o Summary
+
+2
+
+Why Preprocess the Data? Data Quality!
+
+o Data quality depends on the intended use of data.
+
+o Multidimensional views of data quality:
+
+n Accuracy: data must correctly reflect the real-world 
+
+scenario without errors or noise.
+
+n Completeness: all required data fields should be 
+
+present and valid.
+
+n Consistency： data should follow the same rules 
+
+and format across all records. 
+
+n Timeliness: data should be up-to-date.
+n Believability: data should be credible and from 
+
+trusted sources.
+
+n Interpretability: data should be clear and 
+
+understandable.
+
+3
+
+Common Sources of Low Data Quality
+
+o Data Collection Issues
+
+n Human errors or misreporting during manual data entry
+n Lack of validation during input
+
+o Data Duplications
+
+n Multiple entries of same information
+n Redundant record keeping
+n Merged datasets without deduplication
+
+o Format Inconsistencies
+
+n Different input formats (MM/DD/YY vs. DD/MM/YY)
+n Varying units of measurement
+n Inconsistent naming conventions
+
+4
+
+Major Tasks of Data Preprocessing
+
+o Data Cleaning
+
+messy
+
+clean
+
+n To fill in missing data, smooth noisy data, identify or remove 
+
+outliers, and resolve inconsistencies
+
+o Data Integration (e.g., Bill Gates, William Gates, B. Gates, …)
+
+n To merge multiple databases into a coherent data store
+
+o Data Reduction (efficiency of mining process)
+
+n To obtain a reduced representation of the data with similar results
+
+o Data Transformation
+
+n To normalize data for similarity-based 
+
+mining (e.g., age vs salary)
+
+5
+
+incomplete, missing, noisy, inconsistent, intentional, … 
+DATA CLEANING
+
+6
+
+Data Cleaning
+
+Data in the real world is Dirty!
+
+o Lots of potentially incorrect data due to faulty collection, human 
+
+or computer errors, transmission errors, etc.
+
+n Inaccurate: containing noise, errors, or outliers
+
+o e.g., Salary = “−10” – error
+
+n Incomplete: lacking attribute values or attributes of interest
+
+o e.g., Occupation = “ ” – missing values
+
+n Inconsistent: containing discrepancies in attribute values
+
+o Age = “20”, but Birthday = “01/01/1970”
+o Used to rate via “1, 2, 3”, now rating via “A, B, C”
+o Discrepancy between duplicate records: “Bill Gates” vs “B. GATES”
+
+n Intentional: e.g., setting 01/01/1970 as everyone’s birthday
+
+7
+
+(1) How to Handle Inaccurate (Noisy) Data?
+
+o Noise: random error or variance in a measured variable
+
+o Data Smoothing – discretization 
+
+n Binning
+
+o First sort data and partition into bins
+o Then one can smooth by bin means / 
+
+median / boundaries, etc.
+
+n Regression: smooth by fitting data 
+
+into regression functions
+
+n Clustering: to detect and remove outliers
+
+8
+
+(2) How to Handle Incomplete (Missing) Data?
+
+o Ignore the tuple: could have been useful to the task
+
+o Fill in the missing value manually: costly and infeasible
+
+o Fill in it automatically with:
+
+n Global constant: “unknown”, infinity, or a new class label
+n The attribute’s mean/median/mode: suitable for symmetric data
+n That for all samples belonging to the same class: smarter
+
+o a tuple with missing income à customers with the same credit risk
+
+n The most probable value through inference-based such as 
+
+Bayesian formula or decision tree induction
+
+9
+
+Data Cleaning as a Process
+
+o Detection Steps:
+
+n Metadata Analysis: any knowledge you may already have 
+
+regarding properties of the data – “data about data”
+o e.g., type, domain, range, central tendency, dependency, distribution
+
+n DB Structure Validation
+
+o A single field in a DB schema may store multiple pieces of information, 
+
+e.g., address = ”78 Staff House Rd, Brisbane, QLD 4072" 
+n Data Migration: mixed formats like "Male", "M", "1", "MALE"
+n Rule Checking: unique / consecutive / null rules in DB
+n Domain Knowledge: e.g., postal code, spell-checking, 
+
+rule/relationship discovery to detect violators
+
+10
+
+entity identification, redundancy, correlation, duplication, …
+DATA INTEGRATION
+
+11
+
+Data Integration
+
+o To merge data from multiple sources into 
+
+a single unified view
+
+n Schema Integration – redundancy
+
+o Integrate metadata (e.g., “user-ID” in DB1 and “user-#” in DB2)
+
+n Entity Matching – duplication
+
+o Identify different representations of the same real-world entities (e.g., 
+
+“Bill Gates” and “William Gates”)
+
+n Conflict Resolution
+
+o Inconsistent values from multiple sources for the same entity, potentially 
+caused by different representations or scales (e.g., “mile” for British 
+units vs. “meter” for metric)
+
+12
+
+Handling Redundancy in Data Integration
+
+o Redundancy occurs often when data integration.
+
+n Simple: Same information with different names across DBs
+n Complicated: One attribute may be derived from another attribute 
+
+or set of attributes, e.g., “birthday” à “age”
+
+Correlation Analysis: to measure how 
+strongly one attribute implies the other, 
+based on available data
+• Nominal data: 𝜒! (chi-square) test
+• Numeric data: correlation coefficient and 
+covariance à how one attribute’s values 
+vary from those of another.
+
+13
+
+Correlation Analysis for Nominal Data
+
+o 𝜒! (chi-square) Test for two nominal attributes 𝐴 and 𝐵
+
+n Input: all data tuples about 𝐴 and 𝐵, 𝐴 with 𝑐 distinct values 
+
+𝑎!, 𝑎", … , 𝑎# , 𝐵 with 𝑟 distinct values:  𝑏!, 𝑏", … , 𝑏$ . 
+
+n Let  𝐴%, 𝐵&  represents a joint event: 𝐴 = 𝑎%, 𝐵 = 𝑏&.
+
+o 𝑜!" is the observed frequency of  𝐴!, 𝐵" ; 𝑒!" is the expected frequency.
+o 𝑛 is # data tuples in total; 𝑐𝑜𝑢𝑛𝑡 𝐴 = 𝑎!  is # tuples with value 𝑎! for 𝐴.
+
+n Range: 𝜒" ≥ 0
+
+o Higher 𝜒# à more likely 𝐴	and 𝐵 are correlated
+o Lower 𝜒#  à higher independence between 𝐴	and 𝐵
+
+Note: correlation does not imply causality.
+
+• Coffee Consumption and Programmer Productivity in a company are correlated.
+• Both are causally linked to the third variable: work hours
+
+14
+
+Example: Calculation of 𝜒- Chi-Square
+
+o The expected frequency of play_chess and like_science_fiction   
+
+= 𝟒𝟓𝟎×𝟑𝟎𝟎
+𝟏𝟓𝟎𝟎
+
+= 𝟗𝟎
+
+o 𝜒! =
+
+(!#$%&$)$
+&$
+
++
+
+(#$%!($)$
+!($
+
++
+
+(!$$%)*$)$
+)*$
+
++
+
+(($$$%+,$)$
++,$
+
+= 507.93
+
+Play chess 
+(Ob. vs Ep.)
+
+Not play chess
+
+(Ob. vs Ep.)
+
+250 (90)
+
+200 (360)
+
+50 (210)
+
+1000 (840)
+
+Like science 
+fiction
+
+Not like 
+science fiction
+
+Sum (col.)
+
+300
+
+1200
+
+Sum 
+(row)
+
+450
+
+1050
+
+1500
+
+à like_science_fiction 
+and play_chess are 
+correlated in this 
+group.
+
+15
+
+Correlation Analysis for Numeric Data
+
+o Correlation Coefficient between two variables 𝐴 and 𝐵 based 
+
+on a set of 𝑛 tuples  𝑎(, 𝑏( , 𝑎!, 𝑏! , … , 𝑎-, 𝑏-
+
+̅𝐴 and  3𝐵 are their respective mean values 
+
+•
+• 𝜎! and 𝜎" are the respective standard 
+
+deviations of 𝐴 and 𝐵
+
+• ∑ 𝑎#𝑏#  is the sum of 𝐴𝐵 cross-product
+
+o Range: −1 ≤ 𝑟.,0 ≤ 1
+
+n If 𝑟-,/ > 0, positively correlated (i.e., 𝐴 increase as 𝐵). 
+
+o Higher 𝑟%,’ means stronger correlation. à 𝐴 or 𝐵 might be removed.
+
+n If 𝑟-,/ = 0, no linear correlation.
+n If 𝑟-,/ < 0, negatively correlated.
+
+16
+
+Visualizing Changes of Correlation Coefficient
+
+o Correlation coefficient value range: [–1, 1]
+
+17
+
+Covariance Analysis for Numeric Data 
+
+o Covariance: how much two attributes change together
+
+o If they tend to change together, i.e., if 𝐴 is larger than 
+
+̅𝐴, then 𝐵 
+
+is likely to be larger than  6𝐵 à 𝐶𝑜𝑣 𝐴, 𝐵 > 0
+
+o Differently, if an attribute tends to be above its mean yet the 
+
+other attribute is below its mean à 𝐶𝑜𝑣 𝐴, 𝐵 < 0
+
+o If they are independent à 𝐶𝑜𝑣 𝐴, 𝐵 = 0
+
+n 𝐶𝑜𝑣 𝐴, 𝐵 = 0 suggests no linear relationship.
+
+ß But the converse 
+
+is not true!
+
+Example: Calculation of Covariance
+
+o Suppose two stocks 𝐴 and 𝐵 have the following values in one 
+
+week:   2, 5 , 3, 8 , 5, 10 , 4, 11 , 6, 16
+
+o Q: If the stocks are affected by some trends, will their prices 
+
+rise or fall together?
+
+o Covariance:
+
+n ̅𝐴 = 2 + 3 + 5 + 4 + 6 /5 = 20/5 = 4
+n :𝐵 	 = 5 + 8 + 10 + 11 + 16 /5 = 50/5 = 10
+n 𝐶𝑜𝑣 𝐴, 𝐵 = 10 + 2 + 0 + 0 + 12 /5 = 4.8 > 0
+
+o Thus, 𝐴 and 𝐵 change together due to the positive covariance.
+
+19
+
+dimensionality reduction, numerosity reduction, data compression
+DATA REDUCTION
+
+20
+
+Data Reduction
+
+o To obtain a reduced representation of the data set
+
+n much smaller in volume, but almost the same analytical results
+
+o Why?
+
+n Handle large-scale datasets, reduce complexity, minimize 
+
+storage costs, speed up analysis, focus on most relevant info, …
+
+o Strategies for Data Reduction 
+
+n Dimensionality reduction: reduce # variables under consideration
+n Numerosity reduction: replace the original data volume by 
+
+alternative, smaller forms of data representations 
+
+n Data compression: lossless or lossy
+
+21
+
+(1) Dimensionality Reduction
+
+o Curse of dimensionality
+
+n As dimensionality increases, data becomes increasingly sparse.
+n Density and distance à less meaningful
+n The possible combinations of subspaces will grow exponentially.
+o To reduce # random variables under consideration by obtaining 
+
+a set of principal variables
+
+n Avoid the curse of dimensionality
+n Help eliminate irrelevant features and reduce noise
+n Reduce time and space required in data mining
+n Allow easier visualization
+
+22
+
+Dimensionality Reduction Techniques
+
+o Feature extraction: To transform original data to a new lower-
+
+dimensional space
+
+o Feature selection: To find a subset of the original variables
+
+o Feature aggregation: To combine related variables
+
+o Some typical methods
+
+n Principal Component Analysis: 100 stock prices à 3 market factors
+n Attribute subset selection
+n Attribute creation / construction: height and weight à area
+
+23
+
+Principal Component Analysis (PCA)
+
+o A statistical procedure via orthogonal transformation
+
+n Original: a set of observations of possibly correlated variables
+n Projected: a set of values of linearly uncorrelated variables, 
+
+called principal components (PC)
+
+24
+
+Principal Component Analysis (Method)
+
+o Input: 𝑁 data vectors from 𝑑-dimensions
+
+o Output: Find 𝑘 ≤ 𝑑 orthogonal vectors that best represent data
+
+n Normalization: each attribute should fall within comparable range
+n Transformation: compute orthonormal (unit) vectors, so that each input 
+
+vector is a linear combination of these vectors
+
+n Sorting: vectors are sorted by decreasing “importance” or strength
+n Reduction: keep top-𝑘 strongest components and discard those weak 
+
+components with lower variance
+o Use the strongest PCs to reconstruct a good approximation of the original 
+
+data and distinguish data points from one another
+
+o Works for numeric data only!
+
+25
+
+Attribute Subset Selection
+
+o To keep a ‘good’ subset of original features  
+
+n Redundant attributes 
+
+o duplicate information from other attributes
+o e.g., product price vs. the amount of tax paid
+
+n Irrelevant attributes
+
+o no impact on the target task
+o e.g., student ID vs. predicting GPA, telephone 
+
+number vs. credit risk
+
+26
+
+Attribute Subset Selection by Heuristic Search
+
+o An exhaustive search is expensive and impossible.
+
+n There are 20 possible attribute combinations of 𝑑 attributes.
+
+o Typical heuristic (greedy) attribute selection methods:
+
+n Forward selection: 1) an empty set of attribute initially, 2) select the 
+
+best of the remaining attributes at each iteration
+
+n Backward elimination: 2) full set of attributes; 2) at each step, remove 
+
+the worst one remaining in the set 
+
+n Decision tree induction
+
+o each non-leaf node à a test on an attribute
+o each branch à an outcome of the test
+o each leaf node à a class prediction 
+
+27
+
+Attribute Subset Selection by Heuristic Search
+
+28
+
+(2) Numerosity Reduction
+
+o Reduce data volume by choosing alternative, smaller forms of 
+
+data representation
+
+o Parametric methods
+
+n Assume the data fits mathematical model, 
+estimate model parameters, store only 
+the parameters, and discard the data 
+(except possible outliers)
+
+o Non-parametric methods 
+
+n Do not assume data shape or models
+n e.g., histograms, clustering, sampling, … 
+
+tip vs. bill
+
+Histogram
+
+Clustering
+
+29
+
+Numerosity Reduction – Parametric
+
+o Regression analysis
+
+n A collective name for techniques for the 
+modeling and analysis of numeric data
+n Parameters are estimated by minimizing 
+differences between prediction and 
+actual values so as to give a ‘best fit’ of 
+the data.
+
+Other practical applications:
+
+• Prediction: What will happen next?
+Inference: Understanding relationships
+•
+• Hypothesis testing: Testing assumptions
+• Causal modeling: Understanding cause/effect
+
+y
+
+Y1
+
+Y1’
+
+y = x + 1
+
+X1
+
+x
+
+30
+
+Linear and Multiple Regression
+
+o Linear regression: 𝑌 = 𝑤𝑋 + 𝑏
+
+n Model the data to best fit a straight line
+n Often uses the least-square method to fit it
+n The regression coefficients, 𝑤 and 𝑏, specify 
+the line – estimated by using the data at hand
+
+n Using the least squares criterion to the data
+
+o Multiple regression: 
+𝑌 = 𝑏$ + 𝑏(𝑋( + 𝑏!𝑋!
+n Allow 𝑌 to be modeled 
+as a linear function of 
+multi-dim feature vector
+
+31
+
+Histogram Analysis
+
+o To approximate data distributions
+
+n divide data into disjoint buckets (or bins) 
+and store the average (or sum) for each
+
+Sales data: 
+1, 1, 5, 5, 5, 5, 5, 8, 8, 10, 10, 10, 10, 12, 14, 14, 
+14, 15, 15, 15, 15, 15, 15, 18, 18, 18, 18, 18, 18, 
+18, 18, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 
+25, 25, 25, 25, 25, 28, 28, 30, 30, 30. 
+
+o Partitioning rules
+
+n Equal-width: equal bucket range
+n Equal-frequency: equal # items per bin
+
+32
+
+Clustering
+
+o Partition data set into clusters based on similarity 
+
+o Store cluster representations (e.g., centroid) only
+
+n Objects within a cluster are similar and dissimilar 
+
+to objects in other clusters. 
+
+33
+
+Numerosity Reduction by Sampling
+
+o To obtain a small sample 𝑠 to represent the whole data set 𝑁
+
+o Key: sample a representative subset of the data
+
+Simple random sampling:
+• Equal probability of selecting each object
+• Sampling with / without replacement: a selected object 
+
+is / is not removed
+
+• Poor performance in skewed data
+
+Adaptive sampling (stratified sampling)
+• Partition the data and draw samples from each cluster 
+• Sampling probability is proportional to each strata size
+
+Stratified sampling
+
+34
+
+(3) Data Compression
+
+o To obtain a reduced or “compressed” 
+representation of the original data. 
+
+n Lossless: if the original data can be 
+reconstructed from the compressed 
+data without any information loss
+o e.g., string compression
+
+n Lossy: only an approximation of the 
+original data can be reconstructed
+o e.g., audio/video compression
+
+Original Data
+
+Compressed 
+Data
+
+lossless
+
+lossy
+
+Original Data
+Approximated 
+
+35
+
+normalization, discretization, …
+DATA TRANSFORMATION
+
+36
+
+Data Transformation
+
+o To map the entire set of data à a new set of replacement 
+values s.t. each old value can be identified with new values
+
+o Strategies:
+
+n Normalization: scaled to fall within a smaller range, e.g., [0,1]
+n Discretization: concept hierarchy climbing (also for reduction)
+n Smoothing: remove noise from data (also for cleaning)
+n Aggregation: summarization in data cube (also for reduction)
+n Attribute construction: existing attributes à new attributes, 
+e.g., amount and unit price à total cost (also for reduction)
+
+37
+
+Min-Max Normalization
+
+o Range:  minA, maxA → new_minA, new_maxA
+
+𝑣$ =
+
+v − min𝐴
+max𝐴 − min𝐴
+
+×(new_max𝐴 − new_min𝐴) + new_min𝐴
+
+o For example, normalize range: [$12,000, $98,000] à [0.0, 1.0]
+
+n Then, $73,600 is mapped to: 12,3445!",444
+67,4445!",444
+
+×(1.0 − 0) + 0 = 0.716
+
+38
+
+Z-score Normalization
+
+o Rely on 𝜇 (mean) and 𝜎 (standard deviation)
+
+𝑣′ =
+
+𝑣 − 𝜇!
+𝜎!
+
+Z-score: The distance 
+between the raw score and the 
+population mean in the unit of 
+the standard deviation.
+
+o For example, let 𝜇 = 54,000, 𝜎 = 16,000. 
+n Then, $73,600 is mapped to: 12,344589,444
+
+!3,444
+
+= 1.225.
+
+39
+
+Normalization by Decimal Scaling
+
+o Find the scaling factor 𝑗 as the smallest integer s.t. max 𝜈I < 1 
+
+for all normalized 𝜈I:
+
+𝑣′ =
+
+𝑣
+10%
+
+o Bounded range within [−1, 1]
+
+o For example, given a data set with the range of [−986, 917]: 
+
+n 𝑗 = 3 because the max absolute value is 986
+n New Range: [−0.986, 0.917]
+
+40
+
+Discretization
+
+o Three types of attributes
+
+n Nominal: values from an unordered set, e.g., color, marital status
+n Ordinal: values from an ordered set, e.g., drink size, profession
+n Numeric: real numbers, e.g., age, height, weight
+
+o To divide the range of a continuous attribute into distinct intervals 
+
+à Interval labels can then be used to replace actual data values
+à Reduce data size
+
+41
+
+Simple Discretization: Binning
+
+o Equal-width (distance) partitioning
+
+n Divides the range into 𝑁 intervals of equal size: uniform partition
+n The width of intervals: 𝑊 = 𝐵– 𝐴 /𝑁, where 𝐴 and 𝐵 are the 
+
+lowest and highest values of the attribute.
+o The most straightforward, but outliers may dominate presentation.
+o Skewed data is not handled well.
+
+o Equal-depth (frequency) partitioning
+
+n Divides the range into 𝑁 intervals, each containing approximately 
+
+same number of samples
+o Good data scaling
+
+43
+
+Example: Binning Methods
+
+o Sorted data for price (in dollars)
+
+n {4, 8, 9, 15, 21, 21, 24, 25, 26, 28, 29, 34}
+
+Equal-width partition (width=10):
+• Bin 1: 4, 8, 9 Range: [4,14)
+• Bin 2: 15, 21, 21 Range: [14,24) 
+• Bin 3: 24, 25, 26, 28, 29, 34 
+Range: [24, 34] 
+
+*Skewed data leads to unbalanced bins.
+
+better 
+solution
+
+Equal-frequency partition:
+• Bin 1: 4, 8, 9, 15
+• Bin 2: 21, 21, 24, 25
+• Bin 3: 26, 28, 29, 34
+
+Smoothing by bin boundaries:
+• Bin 1: 4, 4, 4, 15
+• Bin 2: 21, 21, 25, 25
+• Bin 3: 26, 26, 26, 34
+*Each value is replaced by its nearest 
+bin boundary.
+
+Smoothing by bin means:
+• Bin 1: 9, 9, 9, 9
+• Bin 2: 23, 23, 23, 23
+• Bin 3: 29, 29, 29, 29
+
+44
+
+ 
+Discretization Without Supervision: Binning vs. Clustering
+
+Data
+
+Equal width (distance) binning
+
+Equal depth (frequency) (binning)
+
+K-means clustering leads to better results
+
+45
+
+Discretization by Classification & Correlation Analysis
+
+o Classification (e.g., decision tree analysis)
+
+n Supervised: use class information (e.g., disease vs. symptoms)
+n Top-down, recursive split: using entropy to determine split point 
+
+(data values for partitioning a range)
+
+o Correlation analysis (e.g., ChiMerge, a 𝜒!-based method)
+
+n Supervised
+n Bottom-up merge: find the best neighboring intervals (with similar 
+distributions w.r.t. the target variable, i.e., lowest difference in 𝜒"
+values of two adjacent intervals) to merge
+
+46
+
+Concept Hierarchy
+
+o To organizes concepts (i.e., attribute values) hierarchically 
+
+n Formation: Recursively reduce the data by collecting and 
+
+replacing low level concepts (e.g., numeric values for age) by 
+higher level concepts (e.g., youth, adult, or senior)
+
+Low-income
+
+Middle-income
+
+High-income
+
+47
+
+Automatic Concept Hierarchy Generation
+
+o Some hierarchies can be automatically 
+generated based on # distinct values 
+per attribute in the data set.
+
+n The attribute with the most distinct 
+
+values is placed at the lowest level of 
+the hierarchy.
+
+o Exceptions: e.g., weekday, month, 
+
+quarter, year
+
+48
+
+Summary
+
+o Data quality based on the intended use of the data: accuracy, 
+
+completeness, consistency, timeliness, believability, interpretability
+
+o Data cleaning: to fill in missing values, smooth out noise, identify 
+
+outliers, and correct inconsistencies
+
+o Data integration: to combine multi-source data as a coherent data 
+
+store (duplication, redundancy, conflicts)
+
+o Data reduction: to obtain a reduced representation of the data while 
+
+minimizing the loss of information content
+
+o Data transformation: to convert the data into appropriate forms
+
+o Data discretization: to transform continuous data to interval or labels
+
+49
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+50
+
+

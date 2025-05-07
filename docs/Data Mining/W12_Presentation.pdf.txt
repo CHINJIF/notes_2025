@@ -1,0 +1,245 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 12: Project Presentations
+
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2:30-4:30pm every Thursday
+
+Essential Elements
+
+ Defining the Project Goals
+ Understanding the Dataset
+ Mining Techniques and Implementation
+ Key Results, Observations, and Insights
+ Encountered Challenges
+ Clarity of Presentation
+
+2
+
+Section A (18:30 – 19:20)
+
+No
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+ID
+
+G01
+
+G02
+
+G03
+
+G04
+
+G05
+
+G06
+
+S05
+
+S06
+
+S07
+
+Names
+
+CHEN Yuelin, JIN Saier, XIE Yutong
+
+CHEUNG Chun Wong, POON Chun Hang
+
+DONG Haoran, HU Beixi, YAO Qinyi
+
+DU Zhuoyu, LI Kaihao, YI Shuyao
+
+HAN Ruiqi, WANG Zhao, YUN Xiao, ZHENG Ruohui
+
+HUANG Haoyue, LIANG Shuang, WU Shuyuan, ZHANG Wenpei
+
+JING Guanyu
+
+LI Jianfei
+
+LI Kangrui
+
+3
+
+Section B (19:30 – 20:20)
+
+No
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+ID
+S12
+
+S13
+
+S14
+
+S21
+
+S24
+
+S31
+
+G11
+
+G12
+
+G13
+
+G14
+
+Names
+
+MA Chaoqun
+
+MO Chun Yuen
+
+QI Shihao
+
+WANG Qianyuan
+
+YANG Zongheng
+
+HUANG Shuyang
+
+LIU Yang, WANG Yiming, XIE Yubo
+
+PAN Minzhou, XU Ruicheng, ZHANG Zhehao
+
+SHI Ruilin, YANG Shali, ZUO Jiayi
+
+QIAN Jincheng, ZHANG Ruitong, ZHU Haoyu
+
+4
+
+Section C (20:30 – 21:20)
+
+No
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+ID
+G07
+
+G08
+
+G09
+
+G10
+
+S02
+
+S10
+
+S17
+
+S22
+
+S30
+
+Names
+
+HUANG Zhiqi, PAN Jixun
+
+LI Jiale, LIU Tao, XU Jiaying
+
+LI Ke, WANG Jiajun
+
+LI Lin, LI Shuxuan
+
+DING Yifan
+
+LING Yuhao
+
+SHEN Xinyu
+
+XIA Runchao
+
+CUI Tongxin
+
+5
+
+Week 13 Plan (April 17)
+
+ Comprehensive Course Review
+ Assessment Review
+
+ All questions in Assignment 1, 2, Quiz 1, and Mid-term Exam
+
+ Grade Verification
+
+ Collect your answer sheets to check grades by yourself
+
+ Final Exam Preparation
+
+ Provide tips, strategies, and suggestions to help you prepare
+
+effectively for the final exam
+
+6
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+7
+
+

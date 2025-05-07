@@ -1,0 +1,1973 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 2: Getting Know to Your Data
+
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2:30 – 4:30 pm every Thursday
+
+Outline
+
+ Types of Data
+ Data Objects and Attribute Types
+
+ nominal, binary, ordinal, numeric (levels/scales of measurement)
+ discrete, continuous (values’ continuity)
+
+ Basic Statistical Descriptions of Data
+
+ central tendency, data dispersion, graphic displays (visualization)
+
+ Measuring Data Similarity and Dissimilarity
+ Summary
+
+2
+
+Types of Data: (1) Record Data
+
+ Relational records
+ Fixed schema
+ Highly-structured tables
+ Relations give more information!
+
+ Transaction data
+
+ One record per transaction 
+
+(change, event, interaction, etc.)
+
+TID 
+
+Items 
+
+1 
+
+2 
+3 
+4 
+5 
+
+Bread, Coke, Milk 
+
+Beer, Bread 
+Beer, Coke, Diaper, Milk 
+Beer, Bread, Diaper, Milk 
+Coke, Diaper, Milk 
+
+3
+
+ 
+Types of Data: (1) Record Data
+
+ Data matrix
+
+ Crosstabs: numerical matrix
+ Aggregate based on topic or 
+
+subject 
+
+detailed records
+
+≠
+
+ Document data (text)
+
+ Term-frequency vector (matrix) 
+ frequent “entropy”  scientific
+ or relationships between docs
+
+4
+
+Types of Data: (2) Graphs and Networks
+
+ Transportation network
+ World Wide Web
+ Molecular structures
+ Social or information networks
+ …
+
+5
+
+Types of Data: (3) Ordered/Sequence Data
+
+ Video data: sequence of images
+ Temporal data: time series
+ Sequential data: transaction sequences
+ Genetic sequence data
+
+6
+
+nominal, binary, ordinal, numeric, …
+
+DATA OBJECTS AND ATTRIBUTE TYPES
+
+7
+
+Data Objects
+
+ Databases/Datasets are made up of data objects.
+ A data object represents an entity.
+
+Sales DB: customers, store items, sales
+Medical DB: patients, treatments
+University DB: students, professors, courses
+
+ Database rows  data objects, described by attributes
+
+ Also called as samples, examples, instances, data points, tuples
+
+ Database columns  attributes
+
+ Also called as data field, characteristic, dimension, feature, variable
+
+8
+
+What is an Attribute?
+
+ A data field, characteristic, dimension, feature, or variable
+
+ To describe an object, e.g., student_ID, name, address, age, …
+ The type of an attribute is determined by the set of all possible 
+
+values it can have.
+
+SID
+
+Age
+
+Email
+
+Class
+
+Student
+
+DOB
+
+Address
+
+Name
+
+9
+
+Attribute Type – Nominal
+
+ To represent categories, labels, codes, or “name of things”
+
+ Values DO NOT have meaningful order, but are enumerations.
+
+hair color = {red, black, grey, brown}
+marital status = {single, married, divorced}
+occupation = {dentist, doctor, programmer}
+pets = {dog, cat, bird}
+
+ Values can be numbers, e.g., customer IDs, zip codes, etc.
+
+ NO calculation operations, as NOT quantitative
+ NO middle/mean values, as NO ordering
+
+Mode: the attribute’s most commonly occurring value
+
+10
+
+Attribute Type – Binary
+
+ Nominal attributes with only 2 states
+
+ Often use {1, 0} to represent present/absent, positive/negative, 
+
+true/false, etc.
+
+ Symmetric binary: both outcomes equally valuable, e.g., gender
+
+ No preference on which outcome should be coded as 1 or 0.
+
+ Asymmetric binary: outcomes not equally important, e.g., medical 
+
+test (positive vs. negative)
+ Convention: code the most important outcome (e.g., HIV positive) by 1, 
+
+and the other by 0.
+
+11
+
+Attribute Type – Ordinal
+
+ An ordinal attribute with possible values that:
+
+ have a meaningful order or ranking among them
+ but the magnitude between successive values is unknown.
+
+drink size = {small, medium, large}
+education level = {high school, bachelor, master, doctoral}
+professional rank = {assistant, associate, full}
+
+ Applications: useful for subjective assessments of qualities that 
+
+cannot be measured objectively
+ In surveys for ratings, 0: very dissatisfied, 1: somewhat dissatisfied, 
+
+2: neutral, 3: satisfied, 4: very satisfied
+
+12
+
+Attribute Type – Numeric
+
+ To provide quantitative measurements of an object 
+
+ Type 1: Interval-Scaled
+
+ Ordered values: e.g., 20ºC, 50ºC, 80ºC, …
+ Meaningful difference: difference between 2025 and 2015 = 10 years
+ Equal-size intervals: difference between 20ºC and 25ºC = that between 
+
+30ºC and 35ºC
+ NO True Zero
+
+ 0ºC does not mean “no temperature”. The year 0 is not the beginning of time.
+ Ratios are meaningless: 20ºC ≠ 2 * 10ºC. 
+
+ Type 2: Ratio-Scaled
+
+13
+
+Attribute Type – Numeric
+
+ To provide quantitative measurements of an object 
+
+ Type 2: Ratio-Scaled
+
+ True Zero: a zero-point represents the absence of the quantity.
+
+ 0 word = blank page; 0 kg = no weight; $0 = no money.
+
+ Meaningful ratios: ratios between values can be compared.
+
+ $20 is twice more than $10.
+
+ Categorization
+
+ Count attributes (discrete): # employees, # words in a paper, population
+ Measurement attributes (continuous): weight, height, coordinates, money
+
+14
+
+Classify Attribute Types
+
+ To describe a qualitative feature of an object that does not 
+provide actual size or quantity – nominal, binary, ordinal
+ Values are typically words representing categories.
+ Integers are used to embed categories as codes.
+ 0 for small drink size, 1 for medium, and 2 for large.
+
+ To provide quantitative measurements of an object – numeric
+
+ Interval-scaled: No true zero.
+ Radio-scaled: True zero, enabling meaningful ratios.
+
+15
+
+Attribute Types: Discrete vs. Continuous
+
+ Discrete
+
+ Attributes with a finite or countably infinite set of values.
+
+ Finite values
+
+ Nominal: marital status (single, married, divorced), 
+ Binary: medical test (positive / negative)
+ Ordinal:  profession levels
+ Numeric: shoe size, scores, # items sold, # students in a class
+
+ Countably infinite values: infinite values, but can be mapped to natural 
+numbers (1, 2, 3, …), e.g., customer ID, serials numbers of iPhones.
+
+ Representation as integer variables: e.g., [0, 100] for age
+
+ Binary attributes are a special case with only two possible values.
+
+16
+
+Attribute Types: Discrete vs. Continuous
+
+ Continuous
+
+ Attributes that can take on real-number values within a range, 
+
+including decimals or fractions
+ e.g., temperature, height, weight, length, time, money, stock prices, …
+
+ Uncountably infinite: there are infinitely many possible values 
+
+between any two values
+ e.g., between 50kg and 51kg, we have 50.1, 50.2, and so on.
+
+ Typically stored as floating-point variables for precision
+
+ float, double in programming
+
+17
+
+central tendency, data dispersion, graphic displays, …
+
+BASIC STATISTICAL DESCRIPTIONS OF DATA
+
+18
+
+Basic Statistical Descriptions of Data (I)
+
+ Motivation: To better understand the data, identify properties of 
+the data, and highlight what values shall be treated as noise
+ Central tendency: to measure the middle or center of the data
+ Mean: The average of the data (sensitive to extremes/outliers)
+ Median: The middle value when data is ordered (a more robust measure 
+
+when data is skewed)
+
+ Mode: The most frequently occurring value
+
+example: a strong 
+middle class and fewer 
+low-income households, 
+e.g., Sweden, Finland, 
+Denmark.
+
+example: a small group 
+of extremely high-income 
+earners and a large 
+population of low- to 
+middle-income workers, 
+e.g., New York, HK
+
+19
+
+Basic Statistical Descriptions of Data (II)
+
+ Motivation: To better understand the data, identify properties of 
+the data, and highlight what values shall be treated as noise
+ Data dispersion: how are the data spread out?
+ Range: difference between max and min values
+ Interquartile Range (IQR): Measures spread around the median
+ Variance / Standard Deviation: Indicate deviation from the mean
+
+20
+
+Basic Statistical Descriptions of Data (III)
+
+ Motivation: To better understand the data, identify properties of 
+the data, and highlight what values shall be treated as noise
+ Graphic displays: to visually inspect our data
+
+ Bar Charts: Good for categorical data
+ Pie Charts: Show proportions
+ Histograms: Display frequency distributions
+ Line Graphs: Useful for trends over time
+
+21
+
+Measuring the Central Tendency: (1) Mean
+
+ Mean: the “center” (average) of a data set (algebraic measure)
+
+ A salary data set is {30, 36, 47, 50, 52, 52, 56, 60, 63, 70, 70, 110}. 
+ Then, the mean salary is 58 (K dollars).
+
+Weighted mean/average
+• Each value in a set may be associated with a 
+
+weight, reflecting the significance, importance, 
+or occurrence frequency.
+
+• e.g., income is the most important for loan.
+
+22
+
+Measuring the Central Tendency: (2) Median
+
+ Median: the middle value when data is ordered 
+ The middle value if there is odd number of values
+ The average of the middle two values otherwise (by convention)
+
+ A salary data set is {30, 36, 47, 50, 52, 52, 56, 60, 63, 70, 70, 
+
+110}. Then, the median salary is 54 (K dollars).
+ 50% is below 54, and 50% is above 54.
+
+Given the mean is 58 > 54, there are more 
+poor people (> 50%) in the set, i.e., more 
+people are below average salary.
+
+23
+
+Measuring the Central Tendency: (3) Mode, Midrange
+
+ Mode: the value that occurs most frequently in the data
+ Midrange: the average of the largest and smallest values 
+
+ A salary data set is {30, 36, 47, 50, 52, 52, 56, 60, 63, 70, 70, 
+
+110}. 
+ Mode: 52 and 70
+ Midrange: (30 + 110) / 2 = 70, i.e., the average between the 
+
+richest and poorest income.
+
+24
+
+Symmetric vs. Skewed Data
+
+ Compare the central tendency (i.e., median, mean and mode) 
+of symmetric, positively-skewed and negatively-skewed data
+
+*the long tail is on 
+the positive side 
+(higher values)
+
+25
+
+Measures of Data Dispersion
+
+
+
+-Quantiles: 
+
+Q1
+data points where the data distribution is split 
+equal-size consecutive sets, e.g., 2-quantile (i.e., median), 
+
+into 
+𝒒𝒒
+4-quantiles (called quartile), 100-quantiles (called percentiles)
+
+𝑞𝑞 − 1
+
+Q3
+
+𝑞𝑞
+
+Interquartile Range (IQR)
+•
+
+to identify the spread of the central 
+portion of a dataset
+
+• calculated as the difference between: 
+
+• Upper quartile, Q3
+• Lower quartile, Q1
+• IQR = Q3 – Q1 = 63 – 47 = 16
+
+26
+
+Graphic Displays: Boxplot
+
+ Quartiles (i.e., 4-quantiles)
+
+ Five-number summary: min, Q1, 
+
+median (Q2), Q3, max
+
+ Boxplot: data is represented by a box
+ IQR:  the two ends of the box are at Q1 
+and Q3, i.e., the height of the box is IQR
+ Median: marked by a line within the box 
+ Whiskers: two lines outside the box 
+
+extended to min and max
+
+IQR
+50%
+
+27
+
+Graphic Displays: Boxplot’s Application
+
+ Outliers
+
+ data points beyond a 
+specified threshold
+ Usually, outside values are 
+higher than Q3 or 
+
+lower than Q1
+1.5 × 𝐼𝐼𝐼𝐼𝐼𝐼
+ Plotted individually
+
+ The whiskers shall stop at 
+the most extreme low/high 
+observations within 
+of the quartile.
+
+ Then, outliers show up.
+
+1.5 ×
+
+𝐼𝐼𝐼𝐼𝐼𝐼
+
+28
+
+Graphic Displays: Quantile Plot
+
+ Plot univariate data to assess the overall behavior and unusual
+
+occurrences
+
+ f-value: the cumulative relative frequency or percentile rank
+
+of the data. 
+
+• Values are sorted in increasing order, 
+
+so 
+
+is min, 
+
+is max.
+
+𝑥𝑥1
+• For a data 
+
+𝑥𝑥𝑁𝑁
+, its f-value 
+approximately 
+below or equal to 
+• 25% of items’ price < $60
+
+𝑥𝑥𝑖𝑖
+
+.
+𝑓𝑓𝑖𝑖 × 100%
+𝑥𝑥𝑖𝑖
+
+indicates
+
+of the data are 
+𝑓𝑓𝑖𝑖
+
+29
+
+Graphic Displays: Quantile–Quantile Plot
+
+ To display the quantiles of one univariate distribution against
+
+the corresponding quantiles of another
+ View: Is there is a shift in going from one distribution to another?
+
+Comparison:
+- Q1: 60 vs. 64
+- Q2: 78 vs. 85
+- Q3: 96 vs. 100
+
+Unit prices of items sold at 
+Branch 1 tend to be lower 
+than those at Branch 2.
+
+30
+
+Variance and Standard Deviation
+
+ To measure how spread out a data distribution is:
+
+ data observations tend to be very close to the mean
+the data are spread out over a large range of values
+
+ Low 
+ High 
+𝜎𝜎
+𝜎𝜎
+
+ The variance 
+
+of 
+
+observations, 
+, for a numeric attribute 
+
+2
+
+is: 
+
+𝜎𝜎
+
+𝑁𝑁
+
+𝑥𝑥1, 𝑥𝑥2, … , 𝑥𝑥𝑁𝑁
+
+𝑋𝑋
+
+ The standard deviation 
+
+is the square root 
+
+of the variance – the spread about mean
+
+
+𝜎𝜎
+only when there is no spread, i.e., all 
+
+observations are the same. 
+𝜎𝜎 = 0
+
+31
+
+Graphic Displays of Basic Statistical Descriptions
+
+ Histogram: tabulated frequencies, shown as bars
+
+•
+•
+•
+
+green: men’s incomes
+light purple: women’s incomes
+darker purple: incomes for men 
+and women overlap
+
+Observations:
+• Mode: most common income 
+range is from $20,000 to 
+$40,000.
+
+• Significant overlap in middle-
+income ranges ($40,000 -
+$80,000).
+
+• Women’s incomes are 
+
+concentrated in lower ranges 
+(<$40,000), while men have 
+greater representation in 
+higher-income ranges.
+...
+
+•
+
+32
+
+Graphic Displays of Basic Statistical Descriptions
+
+ Differences between histograms and bar charts
+
+Histogram
+
+Bar Chart
+
+Purpose
+
+show the distribution of numerical data
+
+Data Type plot binned quantitative data points
+
+consecutive, non-overlapping bins, by 
+dividing the range of data (usually of 
+equal width); cannot be reordered
+
+compare different categories or 
+discrete groups
+
+plot categorical data, where each 
+bar describes a category
+
+the categories being compare; can 
+be reordered
+
+the frequency or count of data in each 
+bin (a range of values)
+touch each other  the data covers a 
+continuous sequence.
+
+a specific value for each category, 
+e.g., counts, percentages, means
+separated by small gaps  the 
+categories are distinct
+
+to understand the shape and spread of 
+the data distribution, e.g., revealing 
+normal distributions
+
+to identify the highest/lowest 
+categories or trends over time 
+(e.g., years, ages)
+
+33
+
+X-axis
+
+Y-axis
+
+Bars
+
+Scatter Plots and Data Correlation
+
+ Scatter Plot: the most effective graphical methods to visualize 
+
+bivariate data (data involving two numeric attributes)
+ Reveal if there appears to be a relationship, pattern, or trend
+ Two attributes are correlated if one attribute implies the other.
+ Correlations: positive, negative, null (uncorrelated)
+
+the income vs. the credit limit
+
+the age of the car vs. 
+its resale price
+
+34
+
+Pixel-Oriented Visualization Techniques
+
+ To compare attributes
+
+ Each pixel represents a sample.
+ The colors of the pixels reflect the corresponding values.
+
+All customers are sorted in an
+income-ascending order.
+ Credit limit increases with 
+
+income.
+
+ Middle-income group shops 
+
+more frequently.
+
+ No clear correlation between 
+
+income and age.
+
+35
+
+Geometric projection 
+visualization
+
+Flow visualization
+
+Landscapes
+
+Info Cube
+
+36
+
+clustering, classification, outlier, … 
+DATA SIMILARITY AND DISSIMILARITY
+
+37
+
+Similarity – support of knowledge discovery
+
+ To assess how alike or unalike objects are compared to one 
+
+another based on certain attributes
+ Depend on the underlying context of applications 
+ Useful in classification, clustering, and outlier analysis
+
+ e.g., groups of customers with similar income, age, purchases,…
+
+ It is knowledge to deal with other 
+
+(or new) similar situations.
+ Similar problems may have 
+
+similar solutions.
+
+38
+
+Proximity: Similarity and Dissimilarity
+
+ Proximity usually refers to either similarity or dissimilarity.
+ Similarity measure
+
+ A real-valued function that quantifies how alike two objects are 
+
+based on their attribute values
+
+ Range: 
+ Text matching: “The sky is blue.” vs “The sky is clear and blue.”
+
+, from completely dissimilar to completely similar
+
+ Dissimilarity (or distance) measure: how different they are
+
+[0,1]
+
+ ≈ the inverse of similarity  the lower, the more alike
+ Range: 
+
+, depending on the definition
+
+or 
+
+ Minimum dissimilarity is often 0 (i.e., completely similar).
+
+0,1
+
+[0, ∞)
+
+39
+
+Data Matrix vs. Dissimilarity Matrix
+
+ Data matrix (object-by-attribute)
+
+ A data matrix of 
+data points (rows) with 
+ Used as input for ML models (e.g., regression or classification)
+
+dimensions (columns)
+
+𝑛𝑛
+
+𝑝𝑝
+
+ Dissimilarity matrix (object-by-object)
+
+
+
+data points, but registers only the distance
+
+ Distance functions are usually different for different variables.
+𝑛𝑛
+ Weights can be associated with different variables based on 
+
+𝑑𝑑 𝑖𝑖, 𝑗𝑗
+
+applications and data semantics.
+
+ Usually symmetric, thus a triangular matrix
+
+Shape: 
+
+-by-
+
+𝑛𝑛
+
+𝑛𝑛
+
+40
+
+Example: Data Matrix and Dissimilarity Matrix
+
+Data Matrix
+
+attribute1 attribute2
+
+1
+3
+2
+4
+
+2
+5
+0
+5
+
+point
+x1
+x2
+x3
+x4
+
+Dissimilarity Matrix (by Euclidean Distance)
+
+d i
+
+j
+( , )
+
+=
+
+|
+
+x
+i
+1
+
+−
+
+x
+
+j
+
+1
+
+2
+|
+
++
+
+|
+
+x
+i
+
+2
+
+−
+
+x
+
+j
+
+2
+
+2
+|
+
++
+
+
+
++
+
+|
+
+x
+il
+
+−
+
+x
+
+jl
+
+2
+|
+
+x1
+x2
+x3
+x4
+
+x1
+0
+3.61
+2.24
+4.24
+
+x2
+
+0
+5.1
+1
+
+x3
+
+x4
+
+0
+5.39
+
+0
+
+41
+
+Proximity Measures for Nominal Attributes
+
+ A nominal attribute takes two or more states, categories, etc.
+
+ Marital status: single, married, divorced, …
+
+ The dissimilarity between two objects 
+based on the ratio of mismatches:
+
+and 
+
+can be computed 
+
+•
+
+•
+
+•
+•
+
+𝑗𝑗
+
+𝑖𝑖
+: # matched attributes for which 
+
+objects are in the same state
+𝑚𝑚
+
+: # attributes describing the objects
+
+ objects match
+ objects differ
+
+𝑝𝑝
+
+𝑑𝑑 𝑖𝑖, 𝑗𝑗 = 0
+𝑑𝑑 𝑖𝑖, 𝑗𝑗 = 1
+
+42
+
+Proximity Measures for Binary Attributes
+
+ A binary attribute has only one of two states {0,1}.
+
+ 0 means the attribute is absent and 1 means it is present (smoker).
+ Treating binary attributes as numeric can be misleading!
+
+ Symmetric (equal state)
+table
+
+
+
+ Asymmetric (e.g., medical test)
+ A positive match is more important 
+
+2 × 2
+
+Symmetric binary 
+dissimilarity:
+
+than a negative one.
+
+• Asymmetric binary 
+
+dissimilarity:
+
+• Asymmetric binary 
+
+similarity:
+
+(Jaccard coefficient)
+
+43
+
+Example: Dissimilarity between Asymmetric Binary Variables
+
+Name  Gender  Fever  Cough  Test-1  Test-2  Test-3  Test-4 
+Jack  M 
+Mary  F 
+Jim  M 
+
+Y 
+Y 
+Y 
+
+N 
+N 
+N 
+
+N 
+P 
+N 
+
+P 
+P 
+N 
+
+N 
+N 
+P 
+
+N 
+N 
+N 
+
+d
+
+(
+
+jack
+
+,
+
+mary
+
+)
+
+d
+
+(
+
+jack
+
+,
+
+jim
+
+)
+
+=
+
+Name  Gender  Fever  Cough  Test-1  Test-2  Test-3  Test-4 
+1 
+Jack  M 
+1 
+Mary  F 
+0 
+Jim  M 
+
+0 
+0 
+0 
+
+0 
+0 
+1 
+
+0 
+1 
+0 
+
+1 
+1 
+1 
+
+0 
+0 
+0 
+
+ Gender is a symmetric attribute, while the 
+remaining ones are asymmetric binary.
+ Let 
+
+be 1, and 
+
+be 0. 
+
+and 
+ Asymmetric Distance:
+
+𝑌𝑌
+
+𝑃𝑃
+
+𝑁𝑁
+
+=
+
+33.0
+
+67.0
+
+=
+
++
+10
+++
+102
++
+11
+++
+111
++
+21
+++
+211
+
+=
+
+jimd
+
+(
+
+,
+
+mary
+
+)
+
+=
+
+=
+
+75.0
+
+Mary
+
+Jack
+
+1
+
+0
+
+1
+
+2
+
+1
+
+sum 3
+
+0 sum
+
+0
+
+3
+
+3
+
+2
+
+4
+
+6
+
+44
+
+ 
+ 
+ 
+ 
+Dissimilarity of Numeric Data: Minkowski Distance
+
+ Minkowski: a distance measure in multi-dimensional space
++
+
+
+
+−
+
+=
+
++
+
+−
+
++
+
+−
+
+p
+
+p
+
+p
+
+p
+
+d i
+
+j
+( , )
+
+|
+
+x
+1
+i
+
+x
+
+j
+
+1
+
+|
+
+x
+
+j
+
+2
+
+|
+
+x
+
+jl
+
+|
+
+|
+
+x
+i
+
+2
+
+|
+
+x
+il
+
+
+
+
+
+𝑙𝑙
+
+-dimensional data objects: 
+is the order  also called 
+
+, 
+
+. 
+
+𝑗𝑗 = 𝑥𝑥𝑗𝑗1, 𝑥𝑥𝑗𝑗2, … , 𝑥𝑥𝑗𝑗𝑖𝑖
+
+norm
+
+𝑖𝑖 = (𝑥𝑥𝑖𝑖1, 𝑥𝑥𝑖𝑖2, … , 𝑥𝑥𝑖𝑖𝑖𝑖)
+𝐿𝐿𝑝𝑝
+
+ A distance measure that satisfies these 
+
+𝑝𝑝
+
+properties is a metric.
+ Positivity: 
+ Symmetry: 
+𝑑𝑑 𝑖𝑖, 𝑗𝑗 > 0
+ Triangle Inequality: 
+𝑑𝑑 𝑖𝑖, 𝑗𝑗 = 𝑑𝑑 𝑗𝑗, 𝑖𝑖
+
+if 
+
+𝑖𝑖 ≠ 𝑗𝑗
+
+, and 
+
+𝑑𝑑 𝑖𝑖, 𝑖𝑖 = 0
+
+𝑑𝑑 𝑖𝑖, 𝑗𝑗 ≤ 𝑑𝑑 𝑖𝑖, 𝑘𝑘 + 𝑑𝑑 𝑘𝑘, 𝑗𝑗
+
+45
+
+Special Cases of Minkowski Distance (
+
+norm)
+
+
+
+d i
+
+=
+x
+j
+|
+( , )
+i
+1
+𝑝𝑝 = 1
+
+
+
+norm): Manhattan (or city block) distance
+𝐿𝐿𝑝𝑝
+x
+|
+
+
+
++
+
++
+
++
+
+−
+
+−
+
+x
+
+|
+
+|
+
+|
+
+|
+
+x
+i
+
+2
+
+x
+il
+
+j
+
+2
+
+jl
+
+(
+−
+x
+𝐿𝐿1
+
+j
+
+1
+
+(
+
+norm):  Euclidean distance
+
+d i
+
+j
+( , )
+
+=
+x
+|
+𝑝𝑝 = 2
+i
+1
+
+−
+
+
+
+1
+
+j
+
+x
+𝐿𝐿2
+(
+
+2
+|
+
++
+
+|
+
+x
+i
+
+2
+
+−
+
+x
+
+j
+
+2
+
+2
+|
+
++
+
+
+
++
+
+|
+
+x
+il
+
+−
+
+x
+
+jl
+
+2
+|
+
+or 
+
+norm): 
+
+“supremum” distance 
+𝐿𝐿∞
+𝐿𝐿𝑚𝑚𝑚𝑚𝑚𝑚
+𝑝𝑝 → ∞
+ Focus on max difference between 
+
+any attribute of the vectors
+
+d i
+
+j
+( , )
+
+=
+
+p
+lim |
+→∞
+p
+
+x
+1
+i
+
+−
+
+x
+
+j
+
+1
+
+p
+
+|
+
++
+
+|
+
+x
+i
+
+2
+
+−
+
+x
+
+j
+
+2
+
+p
+
+|
+
++
+
+
+
++
+
+|
+
+x
+il
+
+−
+
+x
+
+jl
+
+p
+
+|
+
+=
+
+l
+max
+=
+f
+1
+
+|
+
+x
+if
+
+−
+
+x
+if
+
+|
+
+−
+
+x
+
+jl
+
+p
+
+|
+
+il
+
+=
+
+l
+max
+=
+f
+1
+
+|
+
+x
+if
+
+−
+
+x
+if
+
+|
+
+46
+
+Example: Calculating Minkowski Distance
+
+point
+x1
+x2
+x3
+x4
+
+attribute 1 attribute 2
+
+1
+3
+2
+4
+
+2
+5
+0
+5
+
+x
+
+2
+
+x
+
+4
+
+x
+
+1
+
+x
+
+3
+
+2
+
+4
+
+4
+
+2
+
+0
+
+Manhattan (L1)
+x1
+x2
+0
+5
+3
+6
+
+L
+x1
+x2
+x3
+x4
+
+0
+6
+1
+
+Euclidean (L2)
+x2
+
+x1
+
+x3
+
+0
+7
+
+x3
+
+x4
+
+0
+
+x4
+
+0
+3.61
+2.24
+4.24
+
+0
+5.1
+1
+
+0
+5.39
+
+Supremum (L∞) 
+x1
+x2
+
+0
+3
+2
+3
+
+x3
+
+x4
+
+0
+5
+1
+
+0
+5
+
+L2
+x1
+x2
+x3
+x4
+
+L∞
+x1
+x2
+x3
+x4
+
+0
+
+0
+
+47
+
+Proximity Measures for Ordinal Attributes
+
+ Must have a meaningful order
+
+ Discrete: year of student = {freshman, sophomore, junior, senior}
+ Or discretizing numeric attributes
+
+ HK temperature  cold: [0, 10], walm: [10, 20], hot: [20, 30]
+with 
+
+ For an ordinal attribute 
+
+states:
+
+ Replace the value of 
+
+by its rank 
+𝑓𝑓
+
+𝑀𝑀𝑓𝑓
+
+ Normalize the rank by mapping onto 
+
+𝑟𝑟𝑓𝑓 ∈ 1, … , 𝑀𝑀𝑓𝑓
+
+: 
+
+𝑓𝑓
+
+𝑟𝑟𝑓𝑓−1
+
+ Compute the proximity via methods for numeric variables
+
+𝑀𝑀𝑓𝑓−1
+
+[0, 1]
+
+𝑧𝑧𝑓𝑓 =
+
+i. Rank: {1, 2, 3, 4}
+ii. After mapping: [0, 1/3, 2/3, 1]  freshman: 0; sophomore: 1/3; junior: 2/3; senior 1
+iii. L1 Distance:  d(freshman, senior) = 1, d(junior, senior) = 1/3
+48
+
+Dissimilarity for Attributes of Mixed Types
+
+ A dataset may contain different types of attributes.
+
+ nominal, symmetric/asymmetric binary, numeric, and ordinal
+
+ Use a weighted formula to combine their effects:
+
+: Weight of an attribute 
+
+w.r.t.
+
+and 
+
+d i
+
+j
+( , )
+
+=
+
+: Dissimilarity between 
+
+and 
+𝑓𝑓
+is numeric: the normalized distance among all objects
+𝑖𝑖
+
+for attribute 
+𝑖𝑖
+𝑗𝑗
+
+𝑓𝑓
+
+𝑗𝑗
+if matched; otherwise 
+
+is binary or nominal:  
+
+𝑓𝑓
+is ordinal: rank, mapping, then treat it as numeric 
+𝑑𝑑𝑖𝑖𝑗𝑗
+
+= 0
+
+𝑓𝑓
+𝑑𝑑𝑖𝑖𝑗𝑗
+
+= 1
+
+
+
+
+
+𝑓𝑓
+𝑤𝑤𝑖𝑖𝑗𝑗
+(𝑓𝑓)
+
+𝑑𝑑𝑖𝑖𝑗𝑗
+
+
+𝑓𝑓
+
+
+
+𝑓𝑓
+
+𝑓𝑓
+
+p
+
+∑
+
+f
+
+=
+
+1
+
+)
+
+f
+(
+w d
+ij
+
+(
+ij
+
+f
+
+)
+
+p
+
+∑
+
+f
+
+=
+
+1
+
+f
+
+)
+
+(
+w
+ij
+
+49
+
+From Words to Vectors in Documents
+
+ Document Vector or Term-Frequency (TF) Vector
+
+ Structure: A bag of terms or a long vector – each value records 
+
+the frequency of a term (e.g., keyword, phrase) in a doc
+
+ Applications: information retrieval, text document clustering, 
+
+biological taxonomy, gene feature mapping, search engines, …
+
+50
+
+Cosine Similarity for Documents
+
+ Long and Sparsity Issues: two TF vectors have many 0 values 
+
+ share limited words in common  similar? No!
+
+ Need a measure that focuses on the non-zero matches:
+
+ Shared content: instead of counting zeros, it measures how often 
+
+non-zero words occur together.
+ Cosine similarity for two TF vectors:
+
+ Euclidean norm of vector 
+
+: 
+
+ sim = 0  no match
+ sim = 1  completely match with each other
+
+𝑥𝑥 = (𝑥𝑥1, … , 𝑥𝑥𝑝𝑝)
+
+2
+𝑥𝑥 = 𝑥𝑥1
+
+2
++ 𝑥𝑥2
+
+2
+, … , 𝑥𝑥𝑝𝑝
+
+51
+
+Summary
+
+ Data objects consist of datasets, represent entities, and are 
+
+described by multiple attributes. 
+
+ Attributes can be nominal (name of things), binary (symmetric or 
+
+asymmetric), ordinal, or numeric (interval- or ratio-scaled).
+
+ Basic statistical descriptions for initial analytics: mean, median, 
+
+mode, range, quantiles, quartiles, interquartile range (IQR), 
+variance, and standard deviation, etc. 
+
+ Graphical representations (e.g., boxplots, quantile plots, scatter 
+plots, histograms) and data visualization (pixel-oriented, …)
+
+ Proximity: similarity and dissimilarity (distance)
+
+52
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+53
+
+

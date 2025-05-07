@@ -1,0 +1,1055 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 9: Advanced Classification
+
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2.30-4.30 pm every Thursday
+
+Outline
+
+ Bayesian Belief Networks (BBN)
+ Support Vector Machine (SVM)
+ Neural Networks (NN)
+
+2
+
+BAYESIAN BELIEF NETWORKS (BBN)
+
+3
+
+Review of Naïve Bayesian Classifier
+
+ A data tuple: 
+ Bayesian Theorem
+
+𝑋𝑋 = 𝑥𝑥1, 𝑥𝑥2, … , 𝑥𝑥𝑛𝑛
+
+Priori probability that 
+the class Ci appears
+
+Posterior probability 
+that X belongs to Ci 
+after observing X
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 | 𝑋𝑋 =
+
+𝑃𝑃 𝑋𝑋 | 𝐶𝐶𝑖𝑖
+
+⋅ 𝑃𝑃 𝐶𝐶𝑖𝑖
+
+𝑃𝑃(𝑋𝑋)
+
+ The probability of 
+
+occurring in the class 
+
+:
+
+ Assume all attributes are independent from each other.
+
+
+𝐶𝐶𝑖𝑖
+
+𝑋𝑋
+
+𝑃𝑃 𝑋𝑋 | 𝐶𝐶𝑖𝑖 = 𝑃𝑃 𝑥𝑥1 | 𝐶𝐶𝑖𝑖 × 𝑃𝑃 𝑥𝑥2 | 𝐶𝐶𝑖𝑖 × ⋯ × 𝑃𝑃 𝑥𝑥𝑛𝑛 | 𝐶𝐶𝑖𝑖
+
+4
+
+Independence Assumption Can Be a Drawback!
+
+ Complexity of real-world problems
+
+ “age” and “student” may collectively affect “income”.
+
+ Overestimation of some evidence
+ “cloth_color” and “buys_computer”
+ Underfitting importance evidence
+ “income” and “buys_computer”
+
+5
+
+Bayesian Belief Networks (BBN)
+
+ An extension of Bayesian reasoning that:
+ Relaxes the independence assumption
+ Captures dependencies explicitly using a graphical structure
+
+ Example: 
+
+ Weather, Traffic, and Being late
+
+ “Weather” affects “traffic” (dependency)
+ “Traffic” affects “being late” (dependency)
+
+6
+
+Bayesian Belief Networks (BBN)
+
+ Directed Acyclic Graph (DAG): model dependencies
+
+ Nodes: random variables
+ Edges: conditional dependency
+
+
+
+means 
+
+depends on 
+
+ Conditional Probability Tables (CPTs)
+𝐴𝐴
+
+𝐷𝐷 → 𝐴𝐴
+
+𝐷𝐷
+
+
+ The probability of a random variable conditioned on its ‘parents’
+
+𝐴𝐴 = 0, 1 , 𝐵𝐵 = 0, 1, 2 , 𝐶𝐶 = 0, 1 , 𝐷𝐷 = {0, 1}
+
+A=0, B=0 A=0, B=1 A=0, B=2 A=1, B=0 A=1, B=1 A=1, B=2
+
+C=0
+
+C=1
+
+0.7
+
+0.3
+
+0.6
+
+0.4
+
+0.2
+
+0.8
+
+0.9
+
+0.1
+
+0.75
+
+0.25
+
+0.3
+
+0.7
+
+7
+
+Bayesian Belief Networks (BBN)
+
+
+
+means 
+
+depends on 
+
+Weather
+
+is called the parent of 
+𝐴𝐴
+is called the descendant (child) of 
+
+𝐷𝐷
+
+𝐴𝐴.
+
+
+𝐷𝐷 → 𝐴𝐴
+
+𝐷𝐷
+𝐴𝐴
+
+.
+
+Traffic
+
+Time of day
+
+𝐷𝐷
+
+ Property: Given its parents, a random variable is 
+conditionally independent of its non-descendants
+
+
+
+
+𝑃𝑃 𝐵𝐵 | 𝐴𝐴, 𝐷𝐷 = 𝑃𝑃 𝐵𝐵
+𝑃𝑃 𝐶𝐶 | 𝐴𝐴, 𝐵𝐵, 𝐷𝐷 = 𝑃𝑃 𝐶𝐶 | 𝐴𝐴, 𝐵𝐵
+𝑃𝑃 𝐴𝐴 | 𝐶𝐶, 𝐷𝐷 ≠ 𝑃𝑃 𝐴𝐴 | 𝐷𝐷
+
+Travel time
+
+8
+
+Classification Using BBN
+
+ Given an observation 
+
+, We calculate 
+
+for each class, and find 
+
+with the maximum 
+
+ For each class, apply Bayesian Theorem:
+
+𝑋𝑋 = (𝑥𝑥1, 𝑥𝑥2, … , 𝑥𝑥𝑛𝑛)
+
+𝐶𝐶𝑖𝑖
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋
+
+ In Naïve Bayesian model, we assume 
+
+∝ 𝑃𝑃 𝑋𝑋 𝐶𝐶𝑖𝑖 𝑃𝑃(𝐶𝐶𝑖𝑖)
+
+are independent 
+
+𝑃𝑃 𝐶𝐶𝑖𝑖 𝑋𝑋) =
+
+
+given 
+
+𝑃𝑃 𝑋𝑋|𝐶𝐶𝑖𝑖
+
+⋅ 𝑃𝑃 𝐶𝐶𝑖𝑖
+
+𝑃𝑃(𝑋𝑋)
+
+ In BBN, the relationship among 
+
+𝑃𝑃 𝑋𝑋 | 𝐶𝐶𝑖𝑖 = 𝑃𝑃 𝑥𝑥1 | 𝐶𝐶𝑖𝑖 × 𝑃𝑃 𝑥𝑥2 | 𝐶𝐶𝑖𝑖 × ⋯ × 𝑃𝑃 𝑥𝑥𝑛𝑛 | 𝐶𝐶𝑖𝑖
+
+and the calculation of 
+refer to the DAG and CPTs for (conditional) probabilities.
+𝑥𝑥1, 𝑥𝑥2, … , 𝑥𝑥𝑛𝑛
+
+𝐶𝐶𝑖𝑖
+
+𝑃𝑃 𝑋𝑋 | 𝐶𝐶𝑖𝑖
+
+9
+
+𝑥𝑥1, 𝑥𝑥2, … , 𝑥𝑥𝑛𝑛
+
+Classification Using BBN
+
+given 
+
+ Classify 
+ Classify 
+given 
+ How to classify 
+
+𝐶𝐶
+
+𝐴𝐴
+
+Consider only 
+
+and 
+
+Consider only 
+
+and
+
+𝐵𝐵
+
+𝐴𝐴
+
+student
+
+credit_rating
+
+?
+
+C  
+
+D 
+
+income
+
+𝐴𝐴, 𝐵𝐵, 𝐷𝐷 ⇒
+given 
+𝐵𝐵, 𝐶𝐶, 𝐷𝐷 ⇒
+
+D
+
+𝐴𝐴, 𝐵𝐵, 𝐶𝐶
+
+ In Naïve Bayes Classifier,
+
+𝑃𝑃 𝐷𝐷 | 𝐴𝐴, 𝐵𝐵, 𝐶𝐶 =
+
+𝑃𝑃 𝐴𝐴, 𝐵𝐵, 𝐶𝐶 | 𝐷𝐷 ⋅ 𝑃𝑃 𝐷𝐷
+𝑃𝑃 𝐴𝐴, 𝐵𝐵, 𝐶𝐶
+
+buys_computer
+
+ In Bayesian Belief Network, 
+
+𝑃𝑃 𝐴𝐴, 𝐵𝐵, 𝐶𝐶|𝐷𝐷 = 𝑃𝑃 𝐴𝐴 𝐷𝐷 × 𝑃𝑃 𝐵𝐵 𝐷𝐷 × 𝑃𝑃(𝐶𝐶|𝐷𝐷)
+
+Chain rule for joint probability:
+
+
+
+
+
+𝑃𝑃 𝐴𝐴, 𝐵𝐵, 𝐶𝐶|𝐷𝐷
+= 𝑃𝑃 𝐴𝐴 𝐷𝐷 × 𝑃𝑃 𝐵𝐵 𝐴𝐴, 𝐷𝐷 × 𝑃𝑃 𝐶𝐶 𝐴𝐴, 𝐵𝐵, 𝐷𝐷
+= 𝑃𝑃 𝐴𝐴 𝐷𝐷 × 𝑃𝑃 𝐵𝐵 × 𝑃𝑃(𝐶𝐶|𝐴𝐴, 𝐵𝐵)
+
+𝑃𝑃 𝐴𝐴1, 𝐴𝐴2, 𝐴𝐴3, … , 𝐴𝐴𝑛𝑛
+= 𝑃𝑃 𝐴𝐴1 × 𝑃𝑃 𝐴𝐴2 𝐴𝐴1 × 𝑃𝑃 𝐴𝐴3 𝐴𝐴1, 𝐴𝐴2 × ⋯
+× 𝑃𝑃(𝐴𝐴𝑛𝑛|𝐴𝐴1, 𝐴𝐴2, 𝐴𝐴3, … , 𝐴𝐴𝑛𝑛−1)
+
+10
+
+An Example
+
+ Given a person (X) who buys a computer, and whose income is 
+
+medium and credit_rating is fair, decide if X is a student.
+
+
+(income = medium, credit_rating = fair, buys_computer = yes)
+
+𝑋𝑋
+
+11
+
+An Example: Naïve Bayesian Classifier
+
+𝑷𝑷 𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔 = 𝒚𝒚𝒔𝒔𝒔𝒔 𝒊𝒊𝒔𝒔𝒊𝒊𝒊𝒊𝒊𝒊𝒔𝒔 = 𝒊𝒊𝒔𝒔𝒔𝒔𝒊𝒊𝒔𝒔𝒊𝒊, 𝒊𝒊𝒄𝒄𝒔𝒔𝒔𝒔𝒊𝒊𝒔𝒔_𝒄𝒄𝒓𝒓𝒔𝒔𝒊𝒊𝒔𝒔𝒓𝒓 = 𝒇𝒇𝒓𝒓𝒊𝒊𝒄𝒄, 𝒃𝒃𝒔𝒔𝒚𝒚𝒔𝒔_𝒊𝒊𝒊𝒊𝒊𝒊𝒄𝒄𝒔𝒔𝒔𝒔𝒔𝒔𝒄𝒄 = 𝒚𝒚𝒔𝒔𝒔𝒔)
+
+∝ 𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖, 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐, 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏
+
+× 𝑃𝑃(𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏)
+
+= 𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 × 𝑃𝑃 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏
+
+× 𝑃𝑃 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 × 𝑃𝑃 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏
+
+=
+
+2
+7
+
+×
+
+4
+7
+
+×
+
+6
+7
+
+×
+
+1
+2
+
+=
+
+24
+343
+
+≈ 0.07
+
+Similarly, 
+
+𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖, 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐, 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑖𝑖𝑖𝑖 ×
+12
+
+𝑃𝑃 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑖𝑖𝑖𝑖 =
+
+4
+7 ×
+
+4
+7 ×
+
+3
+7 ×
+
+1
+2 =
+
+24
+343 ≈ 0.07
+
+An Example: Using BBN
+
+ Directed Acyclic Graph (DAG)
+
+student
+
+income
+
+credit_rating
+
+buys_computer
+
+13
+
+An Example: Using BBN
+
+ Conditional Probability Tables (CPTs)
+
+student
+
+income
+
+credit_rating
+
+income (i)
+
+student = yes
+
+buys_computer
+student = no
+
+low
+
+medium
+
+high
+
+4/7
+
+2/7
+
+1/7
+
+0.0
+
+4/7
+
+3/7
+
+buys_computer
+
+i=h, 
+c=excellent
+
+i=h, c=fair
+
+i=m, c=e
+
+i=m, c=f
+
+i=l, c=e
+
+i=l, c=f
+
+yes
+
+no
+
+0.0
+
+1.0
+
+2/3
+
+1/3
+
+2/3
+
+1/3
+
+2/3
+
+1/3
+
+1/2
+
+1/2
+
+1.0
+
+0.0
+
+14
+
+An Example: Using BBN
+
+𝑷𝑷(𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔𝒔 = 𝒚𝒚𝒔𝒔𝒔𝒔|𝒊𝒊𝒔𝒔𝒊𝒊𝒊𝒊𝒊𝒊𝒔𝒔 = 𝒊𝒊𝒔𝒔𝒔𝒔𝒊𝒊𝒔𝒔𝒊𝒊, 𝒊𝒊𝒄𝒄𝒔𝒔𝒔𝒔𝒊𝒊𝒔𝒔_𝒄𝒄𝒓𝒓𝒔𝒔𝒊𝒊𝒔𝒔𝒓𝒓 = 𝒇𝒇𝒓𝒓𝒊𝒊𝒄𝒄, 𝒃𝒃𝒔𝒔𝒚𝒚𝒔𝒔_𝒊𝒊𝒊𝒊𝒊𝒊𝒄𝒄𝒔𝒔𝒔𝒔𝒔𝒔𝒄𝒄 = 𝒚𝒚𝒔𝒔𝒔𝒔)
+
+∝ 𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖, 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐, 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏
+
+× 𝑃𝑃(𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏)
+
+= 𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 × 𝑃𝑃 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏, 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖
+
+× 𝑃𝑃 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏, 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖, 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐 × 𝑃𝑃(𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏)
+
+= 𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 × 𝑃𝑃 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐
+
+× 𝑃𝑃 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖, 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐 × 𝑃𝑃(𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏)
+
+2
+7
+
+8
+×
+×
+=
+14
+Similarly, 
+
+2
+3
+
+×
+
+1
+2
+
+=
+
+8
+147
+
+≈ 0.054
+
+𝑃𝑃 𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 = 𝑖𝑖𝑖𝑖𝑚𝑚𝑖𝑖𝑚𝑚𝑖𝑖, 𝑖𝑖𝑐𝑐𝑖𝑖𝑚𝑚𝑖𝑖𝑐𝑐_𝑐𝑐𝑟𝑟𝑐𝑐𝑖𝑖𝑖𝑖𝑟𝑟 = 𝑓𝑓𝑟𝑟𝑖𝑖𝑐𝑐, 𝑏𝑏𝑚𝑚𝑏𝑏𝑏𝑏_𝑖𝑖𝑖𝑖𝑖𝑖𝑐𝑐𝑚𝑚𝑐𝑐𝑖𝑖𝑐𝑐 = 𝑏𝑏𝑖𝑖𝑏𝑏 𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 = 𝑖𝑖𝑖𝑖 × 𝑃𝑃(
+
+15
+𝑏𝑏𝑐𝑐𝑚𝑚𝑚𝑚𝑖𝑖𝑖𝑖𝑐𝑐 =
+
+4
+
+8
+
+1
+
+1
+
+8
+
+𝑖𝑖𝑖𝑖 =
+
+)
+
+7 ×
+
+14 ×
+
+3 ×
+
+2 =
+
+147 ≈ 0.054
+
+SUPPORT VECTOR MACHINES (SVM)
+
+16
+
+A Binary Classification Problem
+
+ The dataset contains a set of points: 
+
+ Each point 
+
+is represented as a 
+
+-dimensional vector, i.e., 
+𝐷𝐷 = {𝑋𝑋1, 𝑋𝑋2, … , 𝑋𝑋 𝐷𝐷 }
+
+ Each point 
+
+𝑋𝑋
+(𝑥𝑥1, 𝑥𝑥2, … , 𝑥𝑥𝑑𝑑)
+𝑋𝑋
+ A hyperplane 
+
+is associated with a label 
+
+𝑚𝑚
+
+, where 
+
+𝑋𝑋 =
+
+can separate these points into two parts:
+
+𝑏𝑏𝑖𝑖
+
+𝑏𝑏𝑖𝑖 ∈ {+1, −1}
+
+
+
+𝐻𝐻
+
+where 
+𝐻𝐻: 𝑊𝑊 ⋅ 𝑋𝑋 + 𝑏𝑏 = 0
+
+and 
+
+ We call 
+
+𝑊𝑊 = (𝑤𝑤1, 𝑤𝑤2, … , 𝑤𝑤𝑑𝑑)
+a decision boundary in classification problems.
+
+𝑊𝑊 ⋅ 𝑋𝑋 = 𝑤𝑤1𝑥𝑥1 + 𝑤𝑤2𝑥𝑥2 + ⋯ + 𝑤𝑤𝑑𝑑𝑥𝑥𝑑𝑑
+
+𝐻𝐻
+
+17
+
+What is a good classifier?
+
+
+
+
+
+
+
+: can’t separate data at all
+
+𝐻𝐻1
+
+: can separate data, but 
+
+can’t be generalized well
+𝐻𝐻2
+
+: can separate data, and 
+
+can be generalized well
+𝐻𝐻3
+
+18
+
+Support Vector Machines
+
+ A supervised machine learning (ML) algorithm, aiming to find
+the best decision boundary (hyperplane) that separate data 
+points into distinct classes
+
+• Hyperplane: a line for 2D data; a plane for 
+
+3D data; a hyperplane for higher dimensional 
+space
+
+• Margin: the sum of distances between the 
+
+hyperplane and the nearest data points from 
+each class (called support vectors). 
+
+• SVM maximizes this margin to ensure better 
+
+generalization.
+
+19
+
+Why using SVM for classification?
+
+ Better generalized on unseen data
+
+ Maximizes the margin between classes 
+
+to ensure robust predictions
+ Handle both linear (hyperplane) and 
+non-linear (kernel) classification
+
+ Robust to dimensionality and 
+
+overfitting
+ Effective in high-dimensional spaces
+ Focus on critical data points (support 
+
+vectors) to avoid overfitting
+
+20
+
+Support Vectors
+
+ Distance between a point 
+
+and a hyperplane 
+
+:
+
+
+
+
+
+𝐻𝐻
+
+|𝑊𝑊⋅𝑋𝑋+𝑏𝑏|
+𝑊𝑊
+
+𝑚𝑚 𝑋𝑋, 𝐻𝐻 =
+
+𝑋𝑋
+
+2
+𝑊𝑊 = 𝑤𝑤1
+
+2
++ 𝑤𝑤2
+
+2
++ ⋯ + 𝑤𝑤𝑑𝑑
+
+ The points closest to the 
+
+decision boundary in either 
+class are support vectors
+
+21
+
+Support Vectors
+
+ The sum of distances between 
+the decision boundary and the 
+closest data points from either 
+class is called the margin
+ The goal of SVM is to find the 
+best decision boundary with 
+maximum margin
+ always let the distances from 
+the decision boundary to the 
+support vectors to be equal
+
+22
+
+Finding the Optimal Decision Boundary
+
+ Let the optimal optimal decision boundary 
+ Let two support vectors be 
+
+and 
+
+.
+
+𝐻𝐻: 𝑊𝑊 ⋅ 𝑋𝑋 + 𝑏𝑏 = 0
+
+Define two hyperplanes parallel to 
+passing the two support vectors
+•
+
+𝐻𝐻
+
+𝑋𝑋1
+and 
+
+𝑋𝑋2
+
+•
+
+• For 
+, 
+• For points above 
+
+𝑯𝑯𝟏𝟏: 𝑾𝑾 ⋅ 𝑿𝑿 + 𝒃𝒃 = 𝟏𝟏
+𝑋𝑋1
+
+, 
+𝑊𝑊 ⋅ 𝑋𝑋1 + 𝑏𝑏 = 1
+
+, 
+
+• For 
+𝑯𝑯𝟐𝟐: 𝑾𝑾 ⋅ 𝑿𝑿 + 𝒃𝒃 = −𝟏𝟏
+• points below 
+𝑋𝑋2
+
+𝐻𝐻1
+with 
+𝑊𝑊 ⋅ 𝑋𝑋2 + 𝑏𝑏 = −1
+𝐻𝐻2
+
+The margin can be calculated by:
+
+𝑊𝑊 ⋅ 𝑋𝑋 + 𝑏𝑏 ≤ −1
+
+𝑊𝑊 ⋅ 𝑋𝑋 + 𝑏𝑏 ≥ 1
+
+𝑖𝑖 =
+
+𝑊𝑊 ⋅ 𝑋𝑋1 + 𝑏𝑏 + |𝑊𝑊 ⋅ 𝑋𝑋2 + 𝑏𝑏|
+𝑊𝑊
+
+=
+
+2
+𝑊𝑊
+
+• So, 
+
+and 
+
+can be found by maximizing 
+
+𝑊𝑊
+
+𝑏𝑏
+
+2
+𝑊𝑊
+
+.
+
+23
+
+Classification Using SVM
+
+ Given an unseen point 
+
+, decide its label 
+
+𝑋𝑋𝑞𝑞
+
+𝑏𝑏𝑞𝑞
+
+ Calculate 
+
+ If 
+ If 
+
+𝑊𝑊 ⋅ 𝑋𝑋𝑞𝑞 + 𝑏𝑏
+𝑊𝑊 ⋅ 𝑋𝑋𝑞𝑞 + 𝑏𝑏 > 0 ⇒ 𝑏𝑏𝑞𝑞 = +1
+𝑊𝑊 ⋅ 𝑋𝑋𝑞𝑞 + 𝑏𝑏 < 0 ⇒ 𝑏𝑏𝑞𝑞 = −1
+
+24
+
+NEURAL NETWORKS (NN)
+
+26
+
+Neural Networks (NN)
+
+ A machine learning model inspired by the human brain, 
+
+consisting of interconnected layers of nodes (neurons) that 
+process data and learn patterns.
+
+Structure of NN
+• Input Layer: take in raw data features
+• Hidden Layer(s): perform 
+
+computations and learn representations 
+through weights and bias
+
+• Output Layer: produce final results 
+
+27
+
+Classification Using NNs (I)
+
+ Input of NN
+ A tensor 
+
+of size 
+is the number of points
+(𝑖𝑖, 𝑚𝑚)
+is the dimensionality of data
+
+𝑿𝑿
+
+
+
+
+
+
+𝑖𝑖
+𝑚𝑚
+
+𝑿𝑿 =
+
+𝑥𝑥11 ⋯ 𝑥𝑥1𝑑𝑑
+⋮
+⋮
+⋱
+𝑥𝑥𝑛𝑛1 ⋯ 𝑥𝑥𝑛𝑛𝑑𝑑
+
+28
+
+Classification Using NNs (II)
+
+ Inside a neuron (unit)
+
+ Take the input from data or the 
+output of other neurons as input
+ The output of a neuron for one 
+
+point is computed as:
+
+ weighted by 
+ The bias 
+
+𝑤𝑤1𝑥𝑥1 + 𝑤𝑤2𝑥𝑥2 + ⋯ + 𝑤𝑤𝑑𝑑𝑥𝑥𝑑𝑑 + 𝑏𝑏
+
+is to adjust outputs
+(𝑤𝑤1, 𝑤𝑤2, … , 𝑤𝑤𝑑𝑑)
+ The weights and bias are 
+𝑏𝑏
+trainable parameters
+
+29
+
+Classification Using NNs (III)
+
+ Inside a hidden layer with 
+
+neurons
+
+ Weights: 
+
+of size 
+
+𝑖𝑖
+
+
+
+𝑾𝑾 =
+ Bias: 
+
+(𝑖𝑖, 𝑚𝑚)
+
+𝑾𝑾
+𝑤𝑤11 ⋯ 𝑤𝑤1𝑑𝑑
+⋱
+⋮
+of size 
+𝑤𝑤𝑚𝑚1 ⋯ 𝑤𝑤𝑚𝑚𝑑𝑑
+
+⋮
+
+𝒃𝒃
+
+(𝑖𝑖, 1)
+
+
+
+𝒃𝒃 =
+
+𝑏𝑏1
+⋮
+𝑏𝑏𝑚𝑚
+
+ The output of this hidden layer: a 
+
+matrix of size 
+
+, i.e., 
+
+(𝑖𝑖, 𝑖𝑖)
+
+𝑇𝑇
+𝑿𝑿 ⋅ 𝑾𝑾
+
+𝑇𝑇
+
++ 𝒃𝒃
+
+30
+
+Classification Using NNs (IV)
+
+ In the output layer with 
+
+neurons 
+
+
+
+: a tensor of size 
+
+
+𝑶𝑶
+
+is the number of classes
+ Generate the estimated labels 
+𝑖𝑖
+ Calculate 
+
+𝑖𝑖
+(𝑖𝑖, 𝑖𝑖)
+
+, where 
+�𝒀𝒀
+
+is the real labels
+𝐿𝐿𝑖𝑖𝑏𝑏𝑏𝑏 = 𝑓𝑓(�𝒀𝒀, 𝒀𝒀)
+𝒀𝒀
+ e.g., cross-entropy for classification
+
+ Backpropagate the loss and 
+
+adjust the trainable parameters 
+across all layers to minimize loss
+ using gradient descent or other 
+
+optimization algorithms
+
+31
+
+Some Further Discussions
+
+ Why using NN for classification?
+
+ High accuracy
+ Fast evaluation speed once trained
+ Robust to noises
+
+ Is NN enough for every task? No.
+
+ Long training time
+ Can’t be generalized well
+ Highly dependent on the quality of training data
+ Not explainable
+
+32
+
+Other Advanced NNs
+
+Transformer
+
+Recurrent NN (RNN)
+
+Graph NN (GNN)
+
+33
+
+Summary
+
+ Bayesian Belief Networks (BBN): A probabilistic model that 
+represents variables’ dependencies using DAG and CPTs
+ Reasoning under uncertainty but computationally expensive
+ Support Vector Machines (SVM): A supervised learning 
+model that finds the optimal hyperplane to separate data
+ Optimization may struggle with very large datasets
+
+ Neural Networks (NN): A machine learning model inspired by 
+
+the human brain, consisting of interconnected layers of 
+neurons that learn patterns in data
+ High accuracy, long training, “black box” model
+
+34
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+35
+
+

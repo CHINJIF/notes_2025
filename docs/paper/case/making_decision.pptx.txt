@@ -1,0 +1,285 @@
+Unit III
+
+Making Ethical Decisions in Engineering
+
+1
+Dr Daniel Lun     June 2024
+Seven-Step Guide to Ethical Decision-Making
+When performing professional duties, it is not uncommon that we need to make ethical decisions when faced with moral dilemmas
+Often no right or wrong decision, but only more appropriate or less appropriate, and also case dependent
+Systematic approaches were studied in formulating ethical decisions
+For example, Prof. Michael Davis of the Illinois Institute of Technology suggested a seven-step guide for ethical decision-making
+Step 1 – State the problem		Step 2 – Check the facts
+Step 3 – Identify relevant factors	Step 4 – Develop a list of options
+Step 5 – Test the options		Step 6 – Make a choice
+Step 7 – Review and reflect on the previous steps
+This method can assist in avoiding emotional and short-sighted actions and thinking about methods to address the situation calmly and reasonably
+
+
+
+2
+Dr Daniel Lun     June 2024
+Michael Davis, Ethics and the University (New York: Routledge), 1999
+Case study: Space Shuttle Challenger Disaster
+3
+Dr Daniel Lun     June 2024
+Space shuttle Challenger atop a crawler-transporter en route to the launch pad about one month before the disaster
+Challenger broke up after launching on 28 January 1986 
+https://en.wikipedia.org/wiki/Space_Shuttle_Challenger_disaster
+Case study: Space Shuttle Challenger Disaster
+The Space Shuttle was a partially reusable spacecraft operated by the US National Aeronautics and Space Administration (NASA)
+Flew for the first time in April 1981
+At launch, it consisted of the orbiter, which contained the crew and payload, the external tank (ET), and the two solid rocket boosters (SRBs)
+
+
+4
+Dr Daniel Lun     June 2024
+Case study: Space Shuttle Challenger Disaster
+The Space Shuttle mission on 28 January 1986, named STS-51-L, was the 25th Space Shuttle flight and the 10th flight of the Challenger
+The mission was originally scheduled for July 1985 but was delayed to November and then to January 1986. The mission was scheduled to launch on January 22 but was delayed until January 28
+All crew members, including Christa McAuliffe, who flew as part of the Teacher in Space Project, died in the accident
+The disaster fully demonstrates the importance of whistleblowing and the danger of groupthink in affecting decision-making in engineering
+
+
+
+
+5
+Dr Daniel Lun     June 2024
+STS-51-L crew: (back) Onizuka, McAuliffe, Jarvis, Resnik; (front) Smith, Scobee, McNair
+Case study: Space Shuttle Challenger Disaster
+Cause of the accident – Rubber O-rings of the SRB
+The Space shuttle carried 2 SRBs, each made up of 4 segments and bolted together to make one big long rocket motor
+The segments have an O-ring – a type of plastic gasket to keep hot exhaust gases from leaking out
+As a known design flaw, the sealing effect of the O-ring can be significantly degraded when working in a cold environment
+The launching site experienced a one-in-a-hundred-year low temperature (-8 °C) the night before launching 
+When launching, one of the gaskets shrunk due to the low temperature and allowed hot gas to leak out of the joint 
+The hot gas melted the metal struts connecting the SRB and ET. The SRB punched a hole in the ET that led to an explosion
+
+
+
+6
+Dr Daniel Lun     June 2024
+https://www.thespacetechie.com/space-shuttle-challenger-disaster-1986/
+Analysis of the case
+7
+Dr Daniel Lun     June 2024
+Parties involved
+NASA
+Morton Thiokol, Inc.(MT) – A private enterprise that received a contract to design and manufacture the solid rocket booster (SRB)
+Roger Boispoly, a Chief Engineer of MT at that time, is known to be the whistleblower of the accident
+After the accident, he left MT and was frequently invited to speak on engineering ethics
+The analysis will be made from his angle 
+
+
+
+Analysis of the case
+8
+Dr Daniel Lun     June 2024
+A chronological list of events from the commencement of the space shuttle program to Challenge accident
+1973: Approval of the Space Shuttle Program
+1974: Execution of an agreement between NASA and MT for SRB design and manufacture
+1976: NASA’s approval of MT’s design
+1977: Recognition of problems with field joints (O-rings)
+April 1981: First launch (Columbia)
+Nov. 1981: Problems, although minor, discovered through investigation following the second launch
+July 1982: Declaration of “operational phase” by President Regan – means the R&D phase was over
+Jan. 1985: The presence of soot and grease was confirmed in an investigation following the launch on January 24. It was believed to be due to the cold weather before the launch. Thiokol created a task force (members included Boisjoly) and undertook relevant reviews
+July 1985: A preliminary test in February found that the O-ring lost its effect at 10 °C. Boisjoly issued a written warning to MT’s executives regarding the danger of field joint issues. A review team was established; however, no support was provided by the company and specific activities could not be undertaken
+Jan. 27, 1986: With the agreement of MT, Boisjoly contacted NASA directly with the hope of canceling the launch. That night, a telephone conference among NASA, MT, and other concerned parties took place
+
+
+Analysis of the case
+9
+Dr Daniel Lun     June 2024
+Telephone conference on the eve of the Launch
+In the meeting, Boisjoly and his colleague A. Thompson led the explanation to NASA and indicated that the launch should be canceled or wait until the O-ring temperature rose above 12 °C
+Boisjoly thought that NASA would stop the launch once he showed convincing evidence of the joint failure as NASA was aware of the dangers of flying at low temperatures
+However, NASA did not agree to cancel or too much delay the launch
+“When do you want me to launch — next April? Let’s do not quibble the day before launch.”  “If the launch is canceled due to the cold weather, the future launch dates will also be messed up. There is also another launch at Vandenberg. It's colder there.”
+It was concluded that the data presented were uncertain and not conclusive
+In response to that, MT’s Vice President in charge of the business division offered a five-minute MT-only meeting. MT was obviously under great pressure from NASA, their important client
+
+Analysis of the case
+10
+Dr Daniel Lun     June 2024
+MT-only meeting on the eve of the Launch
+Participants: Executives – Mason, Lund, Wiggins, Kilminster; Engineers – Boisjoly, Thompson, and others
+Re-examination of the evidence took place in the meeting
+Boisjoly presented two photos taken at two launches. They showed the grease of different colors near one of the O-rings – gray (taken when launching on a warm day) and black (taken when launching on a cold day at 12 °C). It means that in that launch on a cold day, hot gas leaked from the O-ring burnt the grease
+Mason, Senior Vice President of MT, said to Lund, Vice President of Engineering, who opposed the launch, “Take off your engineering hat and put on your management hat”
+Lund changed his opinion and MT came to the conclusion that the launch should be approved
+NASA welcomed the conclusion and Challenger was finally cleared to launch at 11:38 am at 2 °C
+
+Analysis of the case
+11
+Dr Daniel Lun     June 2024
+Rogers Commission Report
+The Presidential Commission on the Space Shuttle Challenger Accident, also known as the Rogers Commission after its chairman, was formed on February 6, 1986
+The commission determined that the cause of the accident was hot gas blowing past the O-rings in the field joint on the right SRB, and found no other potential causes for the disaster
+The report was critical of NASA and Morton Thiokol and emphasized that both organizations had overlooked evidence that indicated the potential danger with the SRB field joints
+A series of recommendations to improve the safety of the Space Shuttle program
+Proposed a redesign of the joints in the SRB that would prevent gas from blowing past the O-rings
+The Space shuttle program's management be restructured to keep project managers from being pressured to adhere to unsafe organizational deadlines
+An office for safety be established reporting directly to the NASA administrator to oversee all safety, reliability, and quality assurance functions in NASA programs
+Learned from the case
+12
+Dr Daniel Lun     June 2024
+Two ethical issues that are frequently discussed concerning the Challenger accident are the need for whistleblowers and to avoid groupthink
+Whistleblowing – activity of a person, often an employee, revealing information about activity within a private or public organization that is deemed illegal, immoral, illicit, unsafe, or fraudulent
+Whistleblowers are the first - and best - line of defense against corruption, fraud, and wrongdoing and are crucial to enforcement efforts
+However, in practice, many whistleblowers often face retaliation for their disclosure, including termination of employment 
+Companies that set ethics as their core value are more likely to accept whistleblowers. It in turn benefits the company in discovering the wrongdoings of its employees 
+Uncommon in Eastern countries as employees are emphasized to be loyal to the employers
+Training programs are in place in some companies on how to be a whistleblower and how to handle whistleblowers (to avoid someone using whistleblowing as a tool for personal interest) 
+Learned from the case
+13
+Dr Daniel Lun     June 2024
+Groupthink – A phenomenon that occurs when the desire for group consensus overrides people's common sense desire to present alternatives, critique a position, or express an unpopular opinion
+The decision of Lund in the Challenge accident is a good example of the result of groupthink
+Teams are capable of being much more effective than individuals but, when Groupthink sets in, they fall back into individuals, or even worst
+As a leader of a group, it is important to allow all members of the group to have the freedom to express their opinion
+If groupthink sets in, group members should discuss the issue as soon as possible if it is really what the group wants  
+Groupthink can severely undermine the value of a group's work and, at its worst, it can cost people their lives
+Many studies are in place on how to avoid groupthink
+Using the 7-step guide in ethical decision making
+14
+Dr Daniel Lun     June 2024
+
+What would you do if you were Mr. Robert Lund, Vice President of Engineering of Morton Thiokol, when you were asked to make the decision to endorse the launch of Challenger in the meeting held in the eve before launching? 
+Let’s try to use the 7-step guide!
+Step 1 – State the problem
+Clearly state the problem or issue at hand
+Acknowledge any discomfort or unease one may feel about the decision or by identifying potential conflicts of interest
+Important to be specific and concise when stating the problem to have a clear understanding of what needs to be addressed
+Require introspection and reflection to identify the underlying ethical concerns or conflicts that may be present in the decision-making process
+
+15
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 1 – The ethical problem of the case
+Problem of Lund at that time
+Endorsing the launch is obviously a violation of the codes of ethics of engineers since it ignores the safety and health of the crew members
+Rejecting the launch would seem to be disloyal to Morton Thiokol and may lead to huge financial liability
+16
+Dr Daniel Lun     June 2024
+Step 2 – Check the facts
+Important to thoroughly check the facts related to the situation at hand
+Involve gathering all relevant information and verifying its accuracy to ensure a clear understanding of the situation
+May include 
+any applicable laws or regulations, professional codes of conduct, and other practical constraints that may impact the decision
+ensure that all relevant facts are considered before proceeding to the next steps in the decision-making process to make an informed and ethical decision
+17
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 2 – The facts available
+The facts that Lund should have acquired at that time
+The evidence provided by the engineering team about the anomaly of the SRB when launching in cold weather (including the two photos that Boisjoly presented)
+They show that there is a high probability that the launch will fail since the current air temperature is even lower than any of the previous launches
+The contract with NASA 
+It may show that the compensation will be huge if the launch is canceled or delayed
+The codes of ethics of engineers
+Engineers shall ensure their integrity and hold paramount the safety, health, and welfare/well-being of the public in performing their professional duties
+
+18
+Dr Daniel Lun     June 2024
+Step 3 – Identify relevant factors
+Involve identifying relevant factors that may impact the decision at hand
+Both internal and external factors that could influence the outcome should also be considered
+Internally, one must reflect on his/her own values, beliefs, and biases that may affect the judgment and how the decision will affect oneself
+Externally, consideration should be given to stakeholders who may be affected by the decision, such as employees, customers, shareholders, and the broader community
+This step highlights the importance of thoroughly examining all relevant factors that could influence the ethical implications of the decision
+19
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 3 – Factors identified
+Internal factors: 
+As the Vice President of Engineering, Lund must be held responsible for canceling or delaying the launch due to the malfunction of the SRB
+He may be fired, and his reputation in the industry will also be hurt
+If he agrees to launch, his liability is even higher if there is really an accident
+He may be sued, and he will feel guilty throughout his life
+External stakeholders:
+NASA – Will strongly oppose the cancellation or delay proposal 
+MT – Will have a huge financial burden if canceling or delaying the launch. All other executives in the meeting have already agreed to launch
+Crew – Will definitely lose their life if an accident happens
+Crew members’ families – Will be seriously affected if the crew members die
+The country – If an accident happens, the development of the space shuttle program will be adversely affected and may lose to the competitors
+
+20
+Dr Daniel Lun     June 2024
+Step 4 – Develop a list of options
+This step requires one to develop a list of options
+Should think creatively and avoid framing the decision as a simple “yes or no” or “Do or Not do” dilemma
+Prompt the individual to consider different possibilities and alternatives, such as whom to approach for help or advice or what to say in a given situation 
+It incites open-mindedness and flexibility in considering a range of options, rather than being constrained by rigid binary choices
+Also stirs individuals to think outside the box and explore a variety of potential solutions or courses of action that align with ethical principles and values
+21
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 4 – What options could Lund have?
+Change the original decision and agree with the other executives to approve the launch
+Change the original decision and agree with the other executives to approve the launch but inform NASA that MT has serious concerns about the safety of the launch
+Insist on the original decision to disapprove the launch and let the other executives make the decision
+Insist on the original decision to disapprove the launch and report the case to the President of MT with the hope of overruling the possible approval decision of the other executives
+Insist on the original decision to disapprove the launch and report the case to the Administrator of NASA with the hope of canceling or delaying the launch
+Insist on the original decision to disapprove the launch and report to the media with the hope of canceling or delaying the launch
+
+22
+Dr Daniel Lun     June 2024
+Step 5 – Test the options
+This step involves evaluating each option using ethical tests. The common ones include
+Harm test: Does this option cause harm to individuals, groups, or society at large?
+Publicity test: Can the option be justified or defended in the public eyes and does it align with societal values and expectations?
+Defensibility test: Could I defend my option before a congressional committee or committee of peers?
+Reversibility test: Would I still think this option was a good choice if I were adversely affected by it?
+Colleague test: Would the option impact colleagues or fellow employees and does the option align with the values and interests of other team members and promote a healthy work environment?
+Professional test: Would my profession's governing body for ethics agree with this option?
+Organization test: Would the option align with the values, mission, and long-term goals of the organization one works in?
+23
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 5 – Testing the options of the case
+Change the original decision and agree with the other executives to approve the launch
+Change the original decision and agree with the other executives to approve the launch but inform NASA that MT has serious concerns about the safety of the launch
+Insist on the original decision to disapprove the launch and let the other executives make the decision
+Insist on the original decision to disapprove the launch and report the case to the President of MT with the hope of overruling the possible approval decision of the other executives
+Insist on the original decision to disapprove the launch and report the case to the Administrator of NASA with the hope of canceling or delaying the launch
+Insist on the original decision to disapprove the launch and report to the media with the hope of canceling or delaying the launch
+
+24
+Dr Daniel Lun     June 2024
+Red means fail the test, green means pass
+Step 6 – Make a choice
+Making a choice based on the information gathered in the previous steps
+Most practical ethical problems are not simple, involving different stakeholders of different values. Making the choice is often difficult, even with the test results obtained in Step 5
+Should understand the implications of different tests so that a choice can be made by weighting them to align with one’s ethical principles and values
+Thus, different people can make different choices based on the same set of test results   
+25
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 6 – What should Lund choose?
+Based on the test results, Lund should insist on the original decision to disapprove the launch and report the case to the President of MT with the hope of overruling the possible approval decision of the other executives
+This choice is easy to make just because we know the result
+The actual choice of Lund is far more difficult to make since, during the meeting, the accident only has a high probability of happening, but not surely happen
+On the contrary, canceling or delaying the launch will surely trigger the wrath of NASA and let him bear all responsibility 
+However, a responsible engineer should always value the safety of the public on top of their own interest. This is why engineers are considered respectable professionals in many countries  
+26
+Dr Daniel Lun     June 2024
+Step 7 – Review and reflect on the previous steps
+The final step is to review the previous steps and consider how to reduce the likelihood of facing a similar ethical dilemma in the future
+Encourages reflection and learning from the experience
+Involve considering personal cautions, such as establishing a policy on certain questions or considering job changes that align with one’s ethical values
+It is helpful to seek more support, such as by consulting with colleagues or seeking guidance from an ethics officer or legal counsel.
+Additionally, considering ways to bring about changes in the organization, such as suggesting policy changes at departmental meetings, can contribute to a more ethical and supportive work environment 
+Emphasize continuous improvement and proactive measures to avoid or effectively handle ethical challenges in the future
+27
+Dr Daniel Lun     June 2024
+https://xmonks.com/ethical-decision-making/
+Step 7 – Reflect on the case before the accident
+If Lund performed a review before the accident, he would probably get the following results
+The dilemma actually came from the ignorance of the warning of the engineering team on the O-ring design
+If the warning had been dealt with earlier, there would have been more time for making the remedial action without the need to cancel or delay the launch
+Although NASA was the biggest customer of MT, it was unreasonable to have to entertain their request to launch under untested weather condition
+The SRB had never been tested at a temperature lower than 12 °C, which was known to NASA. The air temperature when launching was 2 °C
+Future contracts with NASA should include statements to allow MT to withdraw the service under unreasonable conditions
+28
+Dr Daniel Lun     June 2024

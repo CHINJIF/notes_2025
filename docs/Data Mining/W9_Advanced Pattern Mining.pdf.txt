@@ -1,0 +1,1092 @@
+COMP5121
+Data Mining and Data Warehousing Applications
+
+Week 9: Advanced Pattern Mining
+
+Dr. Fengmei Jin
+ Email: fengmei.jin@polyu.edu.hk
+ Office: PQ747 (+852 3400 3327)
+ Consultation Hours: 2.30-4.30pm every Thursday
+
+Outline
+
+ Sequential Association Rules
+ Multi-level Association Rules
+ Multi-dimensional Association Rules
+ Quantitative Association Rules
+ Rare Patterns and Negative Patterns
+ Spatial Association Rules
+ Compressed Patterns
+
+2
+
+MINING SEQUENTIAL ASSOCIATION RULES
+
+3
+
+Examples of Sequential Patterns
+
+ A customer first buy an iPad, then an Apple Pencil, and then a magic 
+
+keyboard, within a month.
+
+ If a customer buys a car, he is likely to buy insurance within one week.
+ If the stock price of Apple goes up, it is likely that Samsung, Google, or 
+
+Microsoft up within two days.
+
+ Other examples
+
+ Web access patterns
+ Weather prediction
+
+4
+
+Basic Concepts: Sequence
+
+ Each transaction is itemset (a set of items): 
+ Each customer’s multiple transactions:
+
+{Digital Camera, SD Memory card} on 1 Mar
+{Digital Video, Tripod} on 10 Mar
+{TV, PS5} on 20 Mar
+
+ Form a sequence 
+
+ordered by time
+𝑆𝑆 =< 𝑠𝑠1, 𝑠𝑠2, 𝑠𝑠3 >
+
+𝑠𝑠 = 𝑖𝑖1, 𝑖𝑖2, … , 𝑖𝑖𝑚𝑚
+
+
+
+
+
+𝑠𝑠1 =
+𝑠𝑠2 =
+𝑠𝑠3 =
+
+ A sequence consists of a list of transactions in temporal order, 
+
+denoted as 
+ Sequence length: 
+ Sequence database: a set of all sequences in the form 
+
+, i.e., the number of transactions.
+
+𝑆𝑆 =< 𝑠𝑠1, 𝑠𝑠2, … , 𝑠𝑠𝑛𝑛 >
+
+𝑛𝑛
+
+.
+
+< 𝑆𝑆𝑆𝑆𝑆𝑆, 𝑆𝑆 >
+
+5
+
+Basic Concepts: Sequence Support
+
+ The support of a sequence 
+
+in a sequence 
+
+is defined as
+
+database 
+ the fraction of total tuples (NOT individual 
+events) that support this sequence in 
+
+𝑆𝑆
+
+𝛼𝛼
+
+. 
+
+ Example:
+
+ The support of <a> is 4
+
+𝑆𝑆
+
+ S1 contains the item ‘a’ in three transactions, 
+but S1 contributes only one to the support.
+ The support of <(ab)(c)> is 2 (in S1 and S3)
+
+SID
+
+Sequence
+
+S1
+
+S2
+
+S3
+
+S4
+
+<(a)(abc)(ac)(d)(cf)>
+
+<(ad)(c)(bc)(ae)>
+
+<(ef)(ab)(df)(cb)>
+
+<(e)(g)(af)(c)(bc)>
+
+• <(a)(bc)(d)(f)> is the 
+subsequence of S1
+• <(a)(b)(c)(e)> is NOT 
+the subsequence of S2
+
+A sequence 
+
+is a subsequence of 
+
+, denoted as 
+
+, if it exists 
+
+𝛼𝛼 =< 𝑎𝑎1, 𝑎𝑎2, … , 𝑎𝑎𝑛𝑛 >
+
+integers 
+
+such that 
+
+𝛽𝛽 = < 𝑏𝑏1, 𝑏𝑏2, … , 𝑏𝑏𝑚𝑚 >
+
+.
+
+6
+
+𝛼𝛼 ⊆ 𝛽𝛽
+
+𝑛𝑛
+
+𝑗𝑗1, 𝑗𝑗2, … , 𝑗𝑗𝑛𝑛 ∈ 1, 𝑚𝑚
+
+𝑎𝑎1 ⊆ 𝑏𝑏𝑗𝑗1, 𝑎𝑎2 ⊆ 𝑏𝑏𝑗𝑗2, … , 𝑎𝑎𝑛𝑛 ⊆ 𝑏𝑏𝑗𝑗𝑛𝑛
+
+An Example of Sequence Support
+
+Transaction DB: D
+
+Sequential version of D
+
+Customer ID Transaction Time
+
+Item IDs
+
+Customer ID
+
+Customer Sequence
+
+1
+
+1
+
+2
+
+2
+
+2
+
+3
+
+4
+
+4
+
+4
+
+5
+
+Jun 25
+
+Jun 30
+
+Jun 10
+
+Jun 15
+
+Jun 20
+
+Jun 25
+
+Jun 25
+
+Jun 30
+
+July 25
+
+Jun 12
+
+30
+
+90
+
+10, 20
+
+30
+
+40, 60, 70
+
+30, 50, 70
+
+30
+
+40, 70
+
+90
+
+90
+
+Customer sequence: 
+all the transactions 
+of a customer is a 
+sequence ordered 
+by transaction time.
+
+1
+
+2
+
+3
+
+4
+
+5
+
+<(30), (90)>
+
+<(10 20), (30), (40 60 70)>
+
+<(30 50 70)>
+
+<(30), (40 70), (90)>
+
+<(90)>
+
+Given a minimum support = 25%, we can find a 
+frequent subsequence:
+• <(30), (90)> with support of 40%: two customers 
+
+(C1 and C4) bought the item 30 in an earlier 
+transaction and then item 90 in a later one. 
+
+Sequential Pattern Mining: The mining of frequently 
+occurring subsequences as sequential patterns.
+
+7
+
+Sequential Association Rule Mining Steps
+
+1. Sort Phase: Convert 
+
+into a 
+
+of customer sequences
+
+
+
+is sorted with customer-ID as the major key and time as the minor key.
+
+𝑆𝑆
+
+𝑆𝑆′
+
+2. Frequent Itemset Phase: Find all frequent itemsets 
+
+(using Apriori)
+
+𝑆𝑆
+
+3. Transformation Phase: Transform each customer sequence into the 
+
+𝐿𝐿
+
+frequent itemset representation, i.e., 
+where 
+
+4. Sequence Phase: Use Apriori-like algorithms to find all frequent 
+
+𝑙𝑙𝑖𝑖 ∈ 𝐿𝐿
+
+sequences based on the mined frequent itemsets
+
+< 𝑠𝑠1, 𝑠𝑠2, … , 𝑠𝑠𝑛𝑛 > → < 𝑙𝑙1, 𝑙𝑙2, … , 𝑙𝑙𝑛𝑛 >
+
+5. Maximal Phase: Find the maximal sequences (the longest sequences 
+
+that cannot be extended) among the set of frequent sequences
+
+8
+
+An Example of Step 1-3
+
+Step 1: Concert to D’
+
+Step 2: Frequent Itemsets
+
+minsup=25%
+
+Step 3: Transformation
+
+Again, “support” is defined against 
+customer (NOT transaction)!
+
+9
+
+Step 4: AprioriAll Algorithm
+
+{all frequent 1-itemsets}; 
+
+; 
+
+𝐿𝐿𝑘𝑘 =
+While (
+𝑘𝑘 = 2
+
+) {
+
+;
+
+𝐿𝐿𝑘𝑘−1 ≠ ∅
+New candidates of size 
+
+𝐹𝐹 = 𝐹𝐹 ∪ 𝐿𝐿𝑘𝑘
+For each sequence 
+𝐶𝐶𝑘𝑘 =
+
+:
+
+𝑘𝑘
+
+/* 
+
+represents the pass number. */ 
+
+𝑘𝑘
+
+generated from 
+
+; 
+
+calculate the count of all candidates in 
+𝑠𝑠 ∈ 𝑆𝑆′
+
+𝐿𝐿𝑘𝑘−1
+that are contained in 
+
+;
+
+All candidates in 
+
+with minimum support ;
+
+𝐶𝐶𝑘𝑘
+
+𝑠𝑠
+
+𝐶𝐶𝑘𝑘
+
+𝐿𝐿𝑘𝑘 =
+
+;
+
+}
+
+𝑘𝑘 += 1
+Return (
+
+);
+
+𝐹𝐹
+
+10
+
+An Example of Step 4 (Sequence Phase)
+
+Supp
+2
+0
+1
+0
+
+The maximal frequent sequences:
+• <1 2 3 4>
+• <1 3 5>
+• <4 5>
+
+A sequence is maximal if it is NOT 
+contained in any other sequence.
+
+11
+
+Candidate Sequence Generation
+
+ Similar to non-sequential association rule mining, i.e.,
+
+Step 1: self-joining 
+
+insert into 
+
+select 
+
+from 
+
+where 
+
+𝑪𝑪𝒌𝒌
+, 
+as 
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝟏𝟏
+𝑳𝑳𝒌𝒌−𝟏𝟏
+
+𝑳𝑳𝑘𝑘−1
+, 
+
+, …, 
+
+, 
+
+as 
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝟐𝟐
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒌𝒌−𝟏𝟏
+
+𝒒𝒒_𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒌𝒌−𝟏𝟏
+
+𝑳𝑳𝒌𝒌−𝟏𝟏
+𝒑𝒑
+, and 
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝟏𝟏 = 𝒒𝒒. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝟏𝟏
+
+𝒒𝒒
+
+, …, 
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒌𝒌−𝟐𝟐 = 𝒒𝒒. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒌𝒌−𝟐𝟐
+
+𝒑𝒑. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒌𝒌−𝟏𝟏 < 𝒒𝒒. 𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒊𝒌𝒌−𝟏𝟏
+
+Step 2: pruning
+
+for all sequence 
+
+in 
+
+do
+
+for all 
+
+-subsequence 
+𝑪𝑪𝒌𝒌
+
+𝒄𝒄
+
+of 
+
+do
+
+if (
+
+is not in 
+(𝑘𝑘 − 1)
+
+) then delete 
+𝒊𝒊
+
+𝒄𝒄
+
+from 
+
+𝒊𝒊
+
+𝑳𝑳𝒌𝒌−𝟏𝟏
+
+𝒄𝒄
+
+𝑪𝑪𝒌𝒌
+
+Example: 
+L3 = {abc, abd, acd, ace, bcd}
+
+Self-joining: L3*L3
+• abcd and abdc from abc and abd
+• acde and aced from acd and ace
+
+Prunining:
+• abdc is removed as adc/bdc is not in L3
+• acde is removed as ade/cde is not in L3
+• aced is removed as aed/ced is not in L3
+
+C4={abcd}
+
+12
+
+Maximal Sequence
+
+ Subsequence: A sequence 
+
+is contained in 
+
+another sequence 
+
+if there exists integers 
+
+< 𝑎𝑎1, 𝑎𝑎2, … , 𝑎𝑎𝑛𝑛 >
+
+such that 
+< 𝑏𝑏1, 𝑏𝑏2, … , 𝑏𝑏𝑚𝑚 >
+
+ <(3), (4 5), (8)> is contained in <(7), (3 8), (9), (4 5 6), (8)> ?
+𝑎𝑎1 ⊆ 𝑏𝑏𝑗𝑗1, 𝑎𝑎2 ⊆ 𝑏𝑏𝑗𝑗2, … , 𝑎𝑎𝑛𝑛 ⊆ 𝑏𝑏𝑗𝑗𝑛𝑛
+𝑗𝑗1 < 𝑗𝑗2 < ⋯ < 𝑗𝑗𝑛𝑛 ≤ 𝑚𝑚
+ <(3), (5)> is contained in <(3 5)> ?
+
+FALSE
+
+1 ≤
+
+TRUE
+
+ Customers bought “iPad” in Jan (3), then “Apple Pencil” in Feb (5)
+ Customers bought “iPad” and “Apple Pencil” together (3 5)
+
+A sequence 
+
+is maximal if 
+
+is not contained 
+
+in any other sequence.
+
+𝑠𝑠
+
+𝑠𝑠
+
+13
+
+Forming the Sequential Association Rules
+
+ Again, the user specified confidence is used for rule generation 
+
+to qualify the strength of sequential association rules.
+
+ The rule generation step is rather simple:
+
+ For each frequent sequence 
+
+, divide the sequence into two nonempty 
+
+sequential parts
+
+and 
+
+and generate the rule 
+
+𝑆𝑆
+
+ If 
+
+satisfies the threshold, 
+
+𝑆𝑆𝑓𝑓
+
+𝑆𝑆𝑙𝑙
+
+𝑅𝑅: 𝑆𝑆𝑓𝑓 → 𝑆𝑆𝑙𝑙
+
+, 
+
+then 
+𝑅𝑅
+
+is a strong rule and should be output.
+𝑐𝑐𝑐𝑐𝑛𝑛𝑐𝑐 𝑆𝑆𝑓𝑓 → 𝑆𝑆𝑙𝑙 =
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑆𝑆
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑆𝑆𝑓𝑓 ≥ 𝑚𝑚𝑖𝑖𝑛𝑛 _𝑐𝑐𝑐𝑐𝑛𝑛𝑐𝑐
+ Example: <1 2 3 4> will form 1  2 3 4, 1 2  3 4, 1 2 3  4
+ Rules like 1 3  2 4, 1 2 4  3 cannot be formed as the 
+
+𝑅𝑅
+
+temporal order has been distorted!
+
+14
+
+MINING MULTI-LEVEL ASSOCIATION RULES
+
+15
+
+Concept Hierarchy for Electronics
+
+Level 0
+
+Level 1
+
+Level 2
+
+Level 3
+
+TID
+
+T100
+
+T200
+
+T300
+
+T400
+
+T500
+
+Items (Level 2)
+
+Laptop, Printer
+
+Office, Mouse
+
+Mouse, Wrist Pad
+
+Laptop, Digital Camera
+
+Desktop, Antivirus
+
+16
+
+Multiple-Level Association Rules
+
+ Items often form hierarchy!
+
+ Strong rules discovered at high abstraction 
+levels – could be commonsense knowledge
+ Items at the lower level are expected to have 
+
+lower support, or trivial at higher levels
+ Rules regarding itemsets at appropriate 
+
+levels could be more useful.
+ milk  bread
+ milk  wheat bread 
+ 2% milk  wheat bread 
+ …
+
+17
+
+Mining Multilevel Association Rules – top-down
+
+ Regarding support, counts are accumulated for the calculation 
+
+of frequent itemsets at each concept level.
+ Start at Level 1 and work downward in the hierarchy toward more 
+
+specific concept levels, until no more frequent itemsets can be found. 
+ For each level, any algorithm for discovering frequent itemsets may be 
+
+used, e.g., Apriori or its variations.
+
+ Choosing the right support threshold:
+
+ Uniform support for all levels
+ Reduced support at lower levels: the deeper, the smaller
+ …
+
+18
+
+Redundancy Problem
+
+ A rule is redundant if its support is close to the “expected” 
+
+value based on the rule’s ancestors.
+ R1: milk  wheat bread [support = 8%, confidence = 70%]
+ R2: 2% milk  wheat bread [support = 2%, confidence = 72%]
+ R1 is an ancestor of R2  R2 is redundant!
+
+ An additional step to handle redundancy :
+
+ Add all the ancestors of each item in the original transactions 
+
+to 
+
+, and call it extended transaction 
+
+𝑇𝑇
+ Run any association rule mining algorithm (e.g. Apriori) on the 
+
+𝑇𝑇
+
+extended transactions
+
+𝑻𝑻′
+
+19
+
+An Example
+
+ Form the extended transactions
+
+ Find frequent itemsets
+
+ Find the rules
+
+minsup = 30%
+
+minconf = 60%
+
+20
+
+multi-dimensional rules, quantitative rules, rare/negative patterns, compressed patterns
+
+OTHER ASSOCIATION RULES
+
+21
+
+Multi-Dimensional Associations
+
+ Single-dimensional Rules: a single predicate “buys”
+
+ buys(X, “milk”)  buys(X, “bread”) 
+
+ Multi-dimensional Rules: 
+
+2 dimensions or predicates
+
+ Inter-dimension association rules (no repeated predicates)
+ age(X, “19-25”)  occupation(X, “student”)  buys(X, “Laptop”)
+ Hybrid-dimension association rules (repeated predicates)
+
+≥
+
+ age(X, “19-25”)  buys(X, “chips”)  buys(X, “Laptop”)
+
+22
+
+Mining Quantitative Associations
+
+ Techniques can be categorized by how quantitative attributes, 
+
+such as age or salary, are treated:
+
+1. Static discretization based on predefined concept hierarchies
+
+ Partition salary as “0..20K”, “21..30K”, …  each interval is a category
+
+2. Dynamic discretization based on data distribution
+
+ To satisfy some mining criteria, such as maximizing the confidence or 
+
+compactness of the rules mined.
+
+3. Clustering: Distance-based association
+
+ one dimensional clustering, then association
+ e.g., age(X, “30-40”) 
+
+salary(X, “30..40K”)  buys(X, “TV”)
+
+∧
+
+23
+
+Rare Patterns and Negative Patterns
+
+ It is interesting to discover and examine exceptional cases:
+ A rare pattern occurs when an item or combination of items 
+
+appears infrequently in the data (threshold-based, user-specific)
+ In jewelry sales, diamond watches might sell rarely
+
+ A negative pattern occurs when two items are individually 
+
+frequent but rarely purchased together, i.e., 
+
+ In supermarket data, if we find that customers frequently buy diet coke 
+sup 𝑋𝑋 × sup 𝑌𝑌
+or classic coke but not both, then buying them together is considered a 
+negative (correlated) pattern.
+
+sup 𝑋𝑋 ∪ 𝑌𝑌 <
+
+24
+
+Spatial Association Rules
+
+ Spatial association rule: 
+
+[s%, c%]
+
+
+
+and 
+
+are sets of spatial or nonspatial predicates
+
+𝐴𝐴 → 𝐵𝐵
+
+ Topological relations: disjoint, meets, inside, etc.
+𝐴𝐴
+ Spatial orientations: left_of, west_of, under, etc.
+ Distance information: close_to, within_distance, etc.
+
+𝐵𝐵
+
+ Examples
+
+, urban_district) 
+
+is_a(
+ adjacent_to(
+
+intersect(
+
+, MTR_line) 
+, Victoria_Harbour) [7%, 85%]
+
+𝑋𝑋
+
+∧
+
+𝑋𝑋
+
+𝑋𝑋
+, tourist_attraction) 
+
+within(
+
+, Sichuan_province)
+
+is_a(
+ close_to(
+𝑋𝑋
+
+, panda_reserve) [2%, 88%]
+∧
+
+𝑋𝑋
+
+𝑋𝑋
+
+25
+
+Contributions of Association Rule Mining
+
+ Basically, it is more like a statistical technique, i.e., not too much 
+
+intelligence is embedded!
+
+ But it is easy and flexible to apply, offering efficient DB solutions 
+
+to very large database applications.
+ Keep track of the supposedly huge number of candidate itemsets
+
+through limited RAM.
+
+ Can be applied to virtually all applications and all available data.
+
+ What is a transaction in your application?
+ What is an item in your application? – a basic unit
+ What is a customer in your application? (for sequential association rules)
+
+26
+
+Mining Stock Data – Intra-stock Mining
+
+• Customer: Stock, e.g., 
+IBM, MSFC, INTC, …
+
+• Item: Trends (each price 
+movement), e.g., Go-up, 
+Go-down, …
+
+• Rules: e.g., “go-up, go-
+up, and then go-down”
+
+27
+
+Mining Stock Data – Inter-stock Mining
+
+• Each time window is treated 
+
+as a “Transaction”
+
+• To analyze the behavior of 
+
+different stocks within a time 
+window
+
+• open-high-close-low
+• open-low-close-low
+• …
+
+28
+
+Mining the Data of Confirmed SARS Patients
+
+• Item: # patients
+
+• Transaction: 
+Daily record
+
+• Customer: each 
+
+region
+
+29
+
+Compressed Patterns
+
+ Using thresholds to control # rules has limited effect.
+ Too low  an explosive number of output patterns
+ Too high  the discovery of only commonsense patterns
+
+•
+
+•
+
+is a closed frequent itemset in a 
+
+if X is frequent and there 
+of 
+
+dataset 
+𝑋𝑋
+exists no proper super-itemset 
+𝑆𝑆
+such that 
+count as 
+
+has the same support 
+in 
+
+𝑌𝑌
+
+.
+
+𝑋𝑋
+
+𝑌𝑌
+𝑋𝑋
+
+is a maximal frequent itemset in 
+
+𝑆𝑆
+
+if 
+data set 
+𝑋𝑋
+exists no super-itemset 
+𝑋𝑋
+is frequent.
+
+is frequent and there 
+such that 
+
+𝑆𝑆
+and 
+
+𝑌𝑌
+
+𝑋𝑋 ⊂ 𝑌𝑌
+
+𝑌𝑌
+
+Item Support 
+
+Item Support 
+
+A
+
+B
+
+C
+
+AB
+
+AC
+
+BC
+
+ABC
+
+5
+
+7
+
+10
+
+5
+
+5
+
+7
+
+5
+
+A
+
+B
+
+C
+
+AB
+
+AC
+
+BC
+
+ABC
+
+5
+
+7
+
+10
+
+5
+
+5
+
+7
+
+4
+
+30
+
+Summary: Patterns and Rules
+
+itemsets satisfying minsup
+
+both minsup and minconf
+
+ compressed
+
+based on the abstraction 
+levels involved in a pattern
+
+1) occur rarely; 2) reveal 
+a negative correlation
+
+32
+
+Summary: Methods and Applications
+
+with domain-specific 
+semantics
+
+serves as an 
+intermediate step
+(preprocessing) 
+
+33
+
+Email: fengmei.jin@polyu.edu.hk
+
+Office: PQ747
+
+THANK YOU!
+
+34
+
+
